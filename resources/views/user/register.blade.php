@@ -4,7 +4,7 @@
 <head>
 	
 	<!--Title-->
-	<title>YashAdmin - Sales Management System Tailwind CSS Admin Dashboard Template | DexignZone</title>
+	<title>Signup Now | DexignZone</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
@@ -13,10 +13,6 @@
 
 	<meta name="format-detection" content="telephone=no">
 
-	<meta name="twitter:title" content="YashAdmin - Sales Management System Tailwind CSS Admin Dashboard Template | DexignZone">
-
-	<meta name="twitter:image" content="../social-image.png">
-	<meta name="twitter:card" content="summary_large_image">
 
 	<!-- MOBILE SPECIFIC -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,7 +35,7 @@
 	<link href="{{ asset('user_assets/assets/css/style.css') }}" rel="stylesheet">
 	
 </head>
-<body class="h-[100vh] selection:text-white selection:bg-primary" style="background-image:url('{{ asset('user_assets/assets/images/bg.png') }}'); background-position:center;">
+<body class="h-[100vh] selection:text-white selection:bg-primary" style="background-image:url('{{ asset('') }}'); background-position:center;background-repeat: no-repeat;">
 	<div class="authincation fix-wrapper bg-primary-light min-h-screen flex py-[30px] items-center">
 		<div class="container h-full">
 			<div class="row justify-center h-full items-center">
@@ -52,31 +48,73 @@
 										<a href="index.html"><img src="{{ asset('user_assets/assets/images/logo/logo-full.png') }}" alt="" class="w-[160px] inline-block"></a>
 									</div>
 									<h4 class="text-center mb-6">Sign up your account</h4>
-									<form action="https://yashadmin.dexignzone.com/tailwind/demo/index.html">
+									@if (session('error'))
+									<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-danger text-danger bg-danger-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
+										<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
+										</button>
+										{{ session('error') }}
+									</div>
+								    @endif
+
+									@if (session('success'))
+									<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-success text-success bg-success-light alert-alt">
+										<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
+										</button>
+										{{ session('success') }}
+									</div>
+									@endif
+									
+									<form action="/signup" method="post"   enctype="multipart/form-data">
+										@csrf
 										<div class="mb-4">
-											<label class="mb-1 form-label text-dark">Username</label>
-											<input type="text" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500  outline-none w-full" placeholder="username">
+											<label class="mb-1 form-label text-dark">Full Name</label>
+											<input type="text" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter your full name" name="name" required>
 										</div>
 										
 										<div class="mb-4">
 											<label class="mb-1 form-label text-dark">Email</label>
-											<input type="text" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500  outline-none w-full" placeholder="hello@example.com">
+											<input type="email" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="hello@example.com" name="email" required>
+										</div>
+									
+										<div class="mb-4">
+											<label class="mb-1 form-label text-dark">Phone</label>
+											<input type="tel" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter your phone number" name="phone" required>
+										</div>
+									
+										<div class="mb-4">
+											<label class="mb-1 form-label text-dark">Password</label>
+											<input type="password" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter your password" name="password" required>
+										</div>
+									
+										<div class="mb-4">
+											<label class="mb-1 form-label text-dark">Confirm Password</label>
+											<input type="password" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Confirm your password" name="password_confirmation" required>
+										</div>
+									
+										<div class="mb-4">
+											<label class="mb-1 form-label text-dark">Country</label>
+											<select class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" name="address" >
+												<option value="">Select your country</option>
+												<!-- Add options for countries here -->
+											</select>
 										</div>
 
-										<div class="mb-4 relative">
-											<label class="form-label text-dark" for="dz-password">Password</label>
-											<input type="password" id="dz-password" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500  outline-none w-full" value="123456">
-											<span class="show-pass eye absolute right-5 bottom-2.5 text-body-color text-sm">
-												<i class="fa fa-eye-slash"></i>
-												<i class="fa fa-eye"></i>
-											</span>
+										<div class="mb-4">
+											<label class="mb-1 form-label text-dark">Profile Image</label>
+											<input type="file" class="form-control "  name="user_pic" required>
 										</div>
+									
+										<div class="mb-4">
+											<label class="mb-1 form-label text-dark">Referral ID</label>
+											<input type="text" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter your referral ID" name="referral_id">
+										</div>
+									
 										<div class="text-center mt-6">
 											<button type="submit" class="block w-full rounded font-bold h-[3.125rem] text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Sign me up</button>
 										</div>
 									</form>
 									<div class="new-account mt-4">
-										<p class="mb-4">Already have an account? <a class="text-primary" href="page-register.html">Sign Up</a></p>
+										<p class="mb-4">Already have an account? <a class="text-primary" href="page-register.html">Login</a></p>
 									</div>
 								</div>
 							</div>
@@ -93,7 +131,7 @@
 	<script src="{{ asset('user_assets/assets/js/custom.min.js') }}"></script>
 	<script src="{{ asset('user_assets/assets/js/deznav-init.js') }}"></script>
 	<script src="{{ asset('user_assets/assets/js/demo.js') }}"></script>
-	<script src="{{ asset('user_assets/assets/js/styleSwitcher.js') }}"></script>
+
 
 
 

@@ -1,5 +1,5 @@
 @extends('user.layout.main')
-@section('title', 'Client Status')
+@section('title', 'Dashboard')
 @section('main-container')
 
 

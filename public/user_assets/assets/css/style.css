@@ -6066,7 +6066,7 @@ div, ul, ol, span, table {
 
 [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li.mm-active > a i {
   color: var(--white);
-  font-weight: 300;
+  /* font-weight: 300; */
 }
 
 [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li .has-arrow:after {

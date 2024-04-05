@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvestmentProgram;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -91,10 +92,12 @@ Route::group(['middleware' => 'admin_auth'], function () {
 // user web routes
 
 
-Route::get('/test', function () { return view('user.test'); });
-Route::get('/u_login', function () { return view('user.login'); });
-Route::get('/u_register', function () { return view('user.register'); });
-
+Route::get('/login', function () { return view('user.login'); });
+Route::get('/signup', function () { return view('user.register'); });
+Route::post('/signup', [UserController::class, 'signup']);
+Route::post('/login', [UserController::class, 'login']);
+Route::get('/dashboard', [UserController::class, 'dashboard']);
+Route::get('/deposite_funds', function () { return view('user.deposite_funds'); });
 
 
 

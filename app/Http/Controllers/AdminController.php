@@ -61,7 +61,7 @@ class AdminController extends Controller
     }
     public function users()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->get();
         return view('admin.all_users', compact('users'));
     }
 

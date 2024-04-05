@@ -63,9 +63,9 @@
                                   <td>
                                       <div class="media">
                                         @if (!empty($user->image))
-                                          <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset($user->image) }}" alt="avatar"><i></i></span></div>
+                                          <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img  src="{{ asset($user->image) }}" width="40px" height="40px" alt="avatar"><i></i></span></div>
                                         @else
-                                        <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('default/man.png') }}" alt="avatar"><i></i></span></div>
+                                        <div class="media-left pr-1"><span class="avatar avatar-sm avatar-online rounded-circle"><img src="{{ asset('default/man.png') }}"  width="40px" height="40px" alt="avatar"><i></i></span></div>
                                         @endif
                                         <div class="media-body media-middle">{{ $user->name }}</div>
                                       </div>
@@ -73,7 +73,9 @@
                                   <td class="text-center">
                                     {{ $user->email }}
                                   </td>
-                                  <td>{{ $user->status }}</td>
+                                  <td style="color: {{ $user->status === 'Disabled' ? 'red' : 'green' }}">
+                                    {{ $user->status }}
+                                  </td>
                                   <td>$ {{number_format($user->balance) }}</td>
                                   <td>
                                       <span class="dropdown">
