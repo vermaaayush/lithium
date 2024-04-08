@@ -69,7 +69,7 @@
                               <div class="form-group row">
                                 <label class="col-md-3 label-control" for="projectinput4">Enter the Amount</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="projectinput4" class="form-control"    name="minimum_amount" required>
+                                    <input type="text" id="projectinput4" class="form-control"    name="amount" required>
                                 </div>
                             </div>
 

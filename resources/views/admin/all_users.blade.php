@@ -45,7 +45,7 @@
               <div class="card-body">
                   <!-- Task List table -->
                   <div class="table-responsive">
-                      <table id="users-contacts" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle" style="padding-bottom: 100px">
+                      <table id="users-contacts" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle" >
                           <thead>
                               <tr>
                                   <th>User Id</th>
@@ -56,7 +56,7 @@
                                   <th>Actions</th>
                               </tr>
                           </thead>
-                          <tbody>
+                          <tbody style="padding-bottom:200px">
                             @foreach ($users as $user)
                               <tr>
                                   <td>{{ $user->user_id }}</td>

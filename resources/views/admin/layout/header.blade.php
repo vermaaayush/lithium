@@ -7,6 +7,8 @@
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title') - Company Name</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png') }}">
 <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}">
@@ -302,6 +304,17 @@
               <li><a class="menu-item" href="/add_plan" data-i18n="nav.users.users_contacts">Add New Plan</a>
               </li>
               <li><a class="menu-item" href="/plans" data-i18n="nav.users.user_profile">All Plans</a>
+              </li>
+              <li><a class="menu-item" href="/all_investment" data-i18n="nav.users.user_cards">All Investment</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class=" nav-item"><a href="#"><i class="icon-credit-card"></i><span class="menu-title" data-i18n="nav.users.main">Deposite</span></a>
+            <ul class="menu-content">
+             
+            
+              <li><a class="menu-item" href="/deposits" data-i18n="nav.users.user_profile">All Deposits</a>
               </li>
               <li><a class="menu-item" href="#" data-i18n="nav.users.user_cards">Invest Now</a>
               </li>

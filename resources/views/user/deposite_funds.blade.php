@@ -9,7 +9,8 @@
                 </div>
                 <div class="sm:p-5 p-4">
                     <div class="basic-form">
-                        <form class="form-valide-with-icon needs-validation" >  
+                        <form action="/deposite_funds" method="post" class="form-valide-with-icon needs-validation" > 
+                            @csrf 
                             <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Name <span class="required text-danger">*</span></label>
                                 <div class="flex items-stretch flex-wrap relative w-full">
@@ -30,7 +31,7 @@
 
                             <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Payment Mode <span class="required text-danger">*</span></label>
-                                <select class="nice-select style-1 py-1.5 px-3 bg-transparent text-[13px] font-normal outline-none relative focus:ring-0 border border-b-color text-[#a5a5a5] h-[2.813rem] leading-[1.813rem] form-control-lg">
+                                <select name="pay_mode" class="nice-select style-1 py-1.5 px-3 bg-transparent text-[13px] font-normal outline-none relative focus:ring-0 border border-b-color text-[#a5a5a5] h-[2.813rem] leading-[1.813rem] form-control-lg">
                                     <option value="Test" selected>Test</option>
                                     <option>Option 2</option>
                                     <option>Option 3</option>

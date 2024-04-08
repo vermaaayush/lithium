@@ -39,9 +39,9 @@
 		                        <div class="row">
 		                        	<div class="col-md-6">
 			                        	<div class="form-group row">
-				                        	<label class="col-md-3 label-control" for="userinput3">Username</label>
+				                        	<label class="col-md-3 label-control" for="userinput3">User Id</label>
 				                        	<div class="col-md-9">
-				                            	<input type="text" id="userinput3" class="form-control border-primary" value="{{ $data->username }}" name="username">
+				                            	<input type="text" id="userinput3" class="form-control border-primary" value="{{ $data->user_id }}" name="user_id">
 			                        		</div>
 			                       		</div>
 			                       	</div>
@@ -94,7 +94,7 @@
                                 <tr>
                                     
                                     <td><strong>Total Deposit:</strong></td>
-                                    <td>$0</td>
+                                    <td>${{ number_format($data->deposite) }}</td>
                                     <td><a href="#" class="btn btn-primary">History</a></td>
                                    
                                 </tr>

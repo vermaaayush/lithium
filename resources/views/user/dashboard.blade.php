@@ -2,23 +2,238 @@
 @section('title', 'Dashboard')
 @section('main-container')
 
-                      
-                            <div class="accordion accordion-danger-solid accordion-wrapper">
-                               
-                                <div class="accordion-item mb-5">
-                                    <div class="accordion-header dark:text-white bg-danger-light dark:bg-[#ff5e5e26] text-black py-[0.7rem] px-3 border border-transparent rounded-md relative cursor-pointer text-sm duration-500 accordion-btn" data-dz-item="collapseTwo1">
-                                        <span class="accordion-header-icon"></span>
-                                        <span class="accordion-header-text">Accordion Header Two</span>
-                                        <span class="accordion-header-indicator"></span>
-                                    </div>
-                                    <div id="collapseTwo1" class="accordion-content border-2 border-danger border-t-0 rounded-es-md rounded-ee-md hide">
-                                        <div class="accordion-body-text py-3.5 px-3 sm:text-sm text-xs text-body-color">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-                                        </div>
-                                    </div>
-                                </div>
-                              
-                            </div>
+@if($u_info->kyc == 0)
+
+<h1>Complete Your KYC</h1>
+<h5>You’re ready to start trading soon! Help us safeguard your account by verifying your personal information.</h5>
+<br>
+<br>
+
+@if( $u_info->email_auth == 0)
+<div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
+    <div class="card overflow-hidden">
+        <div class="sm:p-5 p-4">
+            <div class="c-con">
+                <h4><strong>Verify Email</strong></h4>
+				
+                <span class="text-sm text-body-color">Secure Authentication App</span>
+				<div class="mt-[18px]">
+                    <h1 style="color:#f8b940">Pending!</h1>
+                    <br>
+                    <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Start</button>
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+</div>
+@endif
+
+
+@if( $u_info->id_status != 2)
+<div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
+    <div class="card overflow-hidden">
+        <div class="sm:p-5 p-4">
+            <div class="c-con">
+                <h4><strong>Identity Verification</strong></h4>
+				@if( $u_info->id_status == 0)
+                <span class="text-sm text-body-color">Submit and verify your proof of identity to start trading.</span>
+				<div class="mt-[18px]">
+                    <h1 style="color:#f8b940">Pending!</h1>
+                    <br>
+                    <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="secondmodal">Start</button>
+                </div>
+				@elseif( $u_info->id_status == 1)
+
+                 <br>
+				 <br>
+				<h5 class="text-success">Thank you for submitting your proof of identity. Your request is now being reviewed by our team.</h5>
+				
+
+				@endif
+            </div>
+          
+        </div>
+    </div>
+</div>
+@endif
+
+
+@if( $u_info->add_status != 2)
+<div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
+    <div class="card overflow-hidden">
+        <div class="sm:p-5 p-4">
+            <div class="c-con">
+                <h4><strong>Address Verification</strong></h4>
+				@if( $u_info->add_status == 0)
+                <span class="text-sm text-body-color">POA needs to be verified before you can make a withdrawal.</span>
+				<div class="mt-[18px]">
+                    <h1 style="color:#f8b940">Pending!</h1>
+                    <br>
+                    <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Start</button>
+                </div>
+				@elseif( $u_info->add_status == 1)
+				<br>
+				 <br>
+				<h5 class="text-success">Thank you for submitting your proof of address. Your request is now being reviewed by our team.</h5>
+				
+
+				@endif
+            </div>
+            
+        </div>
+    </div>
+</div>	
+@endif
+{{-- modals code --}}
+ 
+<div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="firstmodal">
+	<div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
+		<div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
+			<div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
+				<h5 class="modal-title">Secure Authentication App</h5>
+				<button type="button" class="btn-close p-4 text-xs">
+				</button>
+			</div>
+			<div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
+			   <div class="basic-form">
+				<form id="uploadForm" enctype="multipart/form-data">
+					@csrf
+					<div>
+						<label for="ID">Upload Your ID:</label>
+						<input type="file" id="ID" name="ID" required>
+					</div>
+					<div>
+						
+					</div>
+					<button type="submit">Submit</button>
+				</form>
+				
+				
+				
+			   </div>
+			   
+			   
+			</div>
+		  
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="secondmodal">
+   <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
+	   <div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
+		   <div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
+			   <h5 class="modal-title">Identity Verification</h5>
+			   <button type="button" class="btn-close p-4 text-xs">
+			   </button>
+		   </div>
+		   <div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
+			  <div class="basic-form">
+				<form action="/id_verification" method="post" enctype="multipart/form-data" id="myForm">
+					@csrf
+					<div class="mb-4">
+						<label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Upload Your ID</label>
+						<div class="flex items-stretch flex-wrap relative w-full">
+							<input type="file" class="" name="id_image" id="ID" required>
+						</div>
+					</div>
+				    
+					<label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Take a Selfie</label>
+					<br>
+					<button type="button" id="start-camera" class="tn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2	">Start Camera</button>
+					<video id="video" width="320" height="240" autoplay></video>
+					<br>
+					<button type="button" id="click-photo" class="tn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2">Click Photo</button>
+					<canvas id="canvas" width="240" height="240" style="border-radius: 50%; border: 2px solid #333; display: none;"></canvas>
+				
+					<input type="hidden" id="image-data" name="image_data" required>
+				   
+					<button type="submit" class="tn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2">Submit</button>
+				</form>
+            </div>
+			  
+			  
+		   </div>
+		 
+	   </div>
+   </div>
+</div>
+
+<div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="thirdmodal">
+   <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
+	   <div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
+		   <div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
+			   <h5 class="modal-title">Address Verification</h5>
+			   <button type="button" class="btn-close p-4 text-xs">
+			   </button>
+		   </div>
+		   <div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
+			  <div class="basic-form">
+				  <form action="/add_verify" method="post" enctype="multipart/form-data" class="form-valide-with-icon needs-validation" >  
+					@csrf
+					  <div class="mb-4">
+						  <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Upload Your Address Proof</label>
+						  <div class="flex items-stretch flex-wrap relative w-full">
+							
+						   <input type="file" class="" name="address_proof" required>
+
+						  </div>
+					  </div>
+
+					  
+					 
+					  <button type="submit" class="btn mr-2 inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Submit</button>
+					 
+				  </form>
+			  </div>
+			  
+			  
+		   </div>
+		 
+	   </div>
+   </div>
+</div>
+{{-- modals code --}}
+
+{{-- selfie script --}}
+<script>
+	let camera_button = document.querySelector("#start-camera");
+	let video = document.querySelector("#video");
+	let click_button = document.querySelector("#click-photo");
+	let canvas = document.querySelector("#canvas");
+	let imageDataInput = document.querySelector("#image-data");
+
+	camera_button.addEventListener('click', async function() {
+		let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+		video.srcObject = stream;
+	});
+
+	click_button.addEventListener('click', function() {
+		video.style.display = 'none'; // Hide the video element
+		canvas.style.display = 'block'; // Show the canvas element
+		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+		let image_data_url = canvas.toDataURL('image/jpeg');
+
+		// Display clicked image on the circular canvas
+		let img = new Image();
+		img.onload = function() {
+			canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+		};
+		img.src = image_data_url;
+
+		// Save image data in the hidden input
+		imageDataInput.value = image_data_url;
+
+		// data url of the image
+		console.log(image_data_url);
+	});
+</script>
+{{-- selfie script --}}
+@endif
+                            
 							<div class="w-full">
 								<div class="row">  
 									<div class="xl:w-1/2">

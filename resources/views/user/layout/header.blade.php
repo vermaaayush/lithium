@@ -55,7 +55,7 @@
   <link href="{{ asset('user_assets/assets/css/style.css') }}" rel="stylesheet">	
   
   <style>
-	.fas{
+	.fas, .fa-brands{
 		font-size: 22px; margin-right: 5px;
 		color: white;
 	}
@@ -112,22 +112,9 @@
                             </div>
                         </div>
                         <div class="header-right flex items-center h-full">
-							<div class="input-group search-area flex flex-wrap items-stretch relative max-xl:hidden">
-								<input type="text" class="form-control py-1.5 px-3 h-[2.813rem] text-sm placeholder-ph-color text-ph-color outline-none w-[1%] flex-auto rounded-s-md rounded-e-none" placeholder="Search here...">
-								<span class="input-group-text min-w-[3.125rem] justify-center flex items-center text-sm pr-4 pl-[5px] leading-[1.5] text-center rounded-e-md"><a href="javascript:void(0)">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<g clip-path="url(#clip0_1_450)">
-										<path opacity="0.3" d="M14.2929 16.7071C13.9024 16.3166 13.9024 15.6834 14.2929 15.2929C14.6834 14.9024 15.3166 14.9024 15.7071 15.2929L19.7071 19.2929C20.0976 19.6834 20.0976 20.3166 19.7071 20.7071C19.3166 21.0976 18.6834 21.0976 18.2929 20.7071L14.2929 16.7071Z" fill="#452B90"/>
-										<path d="M11 16C13.7614 16 16 13.7614 16 11C16 8.23859 13.7614 6.00002 11 6.00002C8.23858 6.00002 6 8.23859 6 11C6 13.7614 8.23858 16 11 16ZM11 18C7.13401 18 4 14.866 4 11C4 7.13402 7.13401 4.00002 11 4.00002C14.866 4.00002 18 7.13402 18 11C18 14.866 14.866 18 11 18Z" fill="#452B90"/>
-										</g>
-										<defs>
-										<clipPath id="clip0_1_450">
-										<rect width="24" height="24" fill="white"/>
-										</clipPath>
-										</defs>
-									</svg>
-								</a></span>
-							</div>
+							{{-- <div class="input-group search-area flex flex-wrap items-stretch relative max-xl:hidden">
+								<a class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" href="">Fund Your Account</a>
+							</div> --}}
 							<ul class="flex flex-row">
 								<li class="nav-item dropdown notification_dropdown flex items-center relative">
 									<a class="nav-link relative sm:w-[45px] w-[40px] sm:h-[45px] h-[40px] mx-[5px] max-sm:mr-0 text-center p-2 text-[#464a53] rounded-md sm:text-lg block duration-500 bell dz-theme-mode" href="javascript:void(0);">
@@ -180,7 +167,17 @@
 										<a data-dz-dropdown="DzinfoDropdown" class="dz-dropdown nav-link relative p-2 max-sm:p-0 text-[#464a53] text-lg leading-[1] block duration-500 bg-transparent" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
 											<div class="header-info2 flex items-center text-right">
 												<div class="header-media">
-													<img src="{{ session('s_user')['image'] }}" alt="" class="w-[45px] h-[45px] max-sm:w-[40px] max-sm:h-[40px] rounded-md">
+												@php
+													$userImage = session('s_user')['image'];
+												@endphp
+												
+												@if($userImage && file_exists(public_path($userImage)))
+													<img src="{{ $userImage }}" alt="" class="w-[45px] h-[45px] max-sm:w-[40px] max-sm:h-[40px] rounded-md mx-auto">
+												@else
+													<!-- Default image -->
+													<img src="{{ asset('user_assets/man.png') }}" alt="" class="w-[45px] h-[45px] max-sm:w-[40px] max-sm:h-[40px] rounded-md mx-auto">
+												@endif
+												
 												</div>
 											</div>
 										</a>
@@ -188,7 +185,17 @@
 											<div class="card border-0 mb-0">
 												<div class="card-header relative flex items-center justify-between bg-transparent py-2 sm:px-[1.25rem] px-4 border-b border-[#E6E6E6] dark:border-[#ffffff1a]">
 													<div class="flex items-center">
-														<img src="{{ session('s_user')['image'] }}" class="avatar avatar-md mr-2.5 h-[2.813rem] w-[2.813rem] inline-block object-cover rounded-md" alt="">
+													@php
+														$userImage = session('s_user')['image'];
+													@endphp
+													
+													@if($userImage && file_exists(public_path($userImage)))
+														<img src="{{ $userImage }}" class="avatar avatar-md mr-2.5 h-[2.813rem] w-[2.813rem] inline-block object-cover rounded-md mx-auto" alt="">
+													@else
+														<!-- Default image -->
+														<img src="{{ asset('user_assets/man.png') }}" class="avatar avatar-md mr-2.5 h-[2.813rem] w-[2.813rem] inline-block object-cover rounded-md mx-auto" alt="">
+													@endif
+													
 														<div>
 															<h6 class="text-sm">{{ session('s_user')['name'] }}</h6>
 															<span class="text-xs text-body-color">{{ session('s_user')['email'] }}</span>	
@@ -236,7 +243,7 @@
 	
 														<span class="ml-2 text-[13px] text-body-color group-hover:text-primary">Settings </span>
 													</a>
-													<a href="page-login.html" class="dropdown-item py-[0.6rem] px-[1.25rem] text-base block w-full ai-icon">
+													<a href="/user_logout" class="dropdown-item py-[0.6rem] px-[1.25rem] text-base block w-full ai-icon">
 														<svg class="profle-logout inline-block" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7979" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 														<span class="ml-2 text-danger text-[13px]">Logout </span>
 													</a>
@@ -259,6 +266,11 @@
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
 					<li class="menu-title">YOUR COMPANY</li>
+					<li><a href="/user_kyc" class="" aria-expanded="false">
+						<i class="fa-brands fa-keycdn"></i>
+							<span class="nav-text">Authentication</span>
+						</a>
+					</li>
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
 							<i class="fas fa-house"></i>
@@ -280,7 +292,7 @@
 						</a>
 						<ul aria-expanded="false">
 							
-							<li><a href="index.html">Dashboard Light</a></li>
+							<li><a href="/explore_plans">Explore Plans</a></li>
 							<li><a href="index-2.html">Dashboard Dark</a></li>
 							
 						</ul>
@@ -294,7 +306,7 @@
 						<ul aria-expanded="false">
 							
 							<li><a href="/deposite_funds">Deposite Funds</a></li>
-							<li><a href="index-2.html">Dashboard Dark</a></li>
+							<li><a href="/all_deposite">All Deposites</a></li>
 							
 						</ul>
 					</li>

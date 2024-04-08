@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Deposite;
+use App\Models\Investment;
 
 class AdminController extends Controller
 {   
@@ -147,10 +149,7 @@ class AdminController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->username = $request->input('username');
-        $user->phone = $request->input('phone');
-        $user->address = $request->input('address');
-        $user->dob = $request->input('dob');
+
 
         
         if ($request->hasFile('user_pic')) {
@@ -174,8 +173,7 @@ class AdminController extends Controller
 
         $user->password = $request->input('password');
         $user->status = $request->input('status');
-        $user->secret_question = $request->input('s_question');
-        $user->secret_answer = $request->input('s_answer');
+ 
         $user->auto_withdraw = $request->input('auto_withraw') ? true : false;
         $user->pay_earning_auto = $request->input('pay_earning');
         $user->max_withdraw = $request->input('max_withdraw');
@@ -191,11 +189,54 @@ class AdminController extends Controller
     
     public function add_balance(Request $request, $id)
     {
+        // adding balance in user table 
+        
         $user = User::find($id);
         $amount = $request->input('amount');
         $user->balance += $amount;
+        $user->deposite += $amount;
         $user->save();
+
+ 
+        // adding balance in deposite table
+        
+        $u_info = User::find($id);
+        $transactionId = 'TX' . time() . mt_rand(1000, 9999);
+
+        $depo = new Deposite();
+
+        $depo->user_id = $u_info->user_id;
+        $depo->name = $u_info->name;
+        $depo->amount = $request->input('amount');
+
+        $depo->pay_mode = 'By Admin';
+        $depo->transaction_id =  $transactionId;
+        $depo->status = '1';
+        $depo->save();
+
         return back()->with('success', 'Balance added successfully.');
 
+    }
+
+    public function deposits()
+    {
+       
+        $data = Deposite::orderBy('created_at', 'desc')->get();
+        return view('admin.all_deposite', compact('data'));
+    }
+    
+    public function app_depo($id)
+    {
+       
+        $depo = Deposite::find($id);
+        $depo->status = 1;
+        $depo->save();
+        return redirect('deposits')->with('success', 'Deposit Approved successfully');
+    }
+
+    public function all_investment()
+    {
+        $data = Investment::orderBy('created_at', 'desc')->get();
+        return view('admin.all_investment', compact('data'));
     }
 }

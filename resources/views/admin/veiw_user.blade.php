@@ -20,6 +20,50 @@
         @endif
 <section id="basic-form-layouts">
   <div class="row match-height">
+
+    <div class="col-md-12">
+        <div class="card">
+           
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <h2>User KYC</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                           
+                            <tbody>
+                                <tr>
+                                   
+                                    <td><a target="_blank" href="{{ asset($u_info->image_data) }}"><img src="{{ asset($u_info->image_data) }}" alt="ss" width="160" height="160"></a></td>
+                                    <td><a target="_blank" href="{{ asset($u_info->id_proof) }}"><img src="{{ asset($u_info->id_proof) }}" alt="ss" width="160" height="160"></a></td>
+                                    <td><h2>Identity Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a></td>
+                                  
+                                </tr>
+                                <tr>
+                                   
+                                    <td><a target="_blank" href="{{ asset($u_info->address_proof) }}"><img src="{{ asset($u_info->address_proof) }}" alt="ss" width="160" height="160"></a></td>
+                                    <td></td>
+                                    <td><h2>Address Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a></td>
+                                  
+                                </tr>
+                                <tr>
+                                    <th><h1>Email: {{ $u_info->email }}</h1></th>
+                                    <td></td>
+                                    <td>
+                                        <h2>Authentication</h2>
+                                        <br>
+                                        <h5 class="text-danger">Pending!</h5>
+                                    </td>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  
+                   
+                </div>
+            </div>
+        </div>
+    </div>
   
       <div class="col-md-6">
           <div class="card">
@@ -40,25 +84,14 @@
                                 <input type="email" id="email" class="form-control" value="{{ $u_info->email }}"  name="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" id="username" class="form-control" value="{{ $u_info->username }}"  name="username" required>
+                                <label for="username">User ID</label>
+                                <input type="text" id="username" class="form-control" value="{{ $u_info->user_id }}"  name="user_id" readonly required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="text" id="password" class="form-control" value="{{ $u_info->password }}"  name="password" required>
                             </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" id="phone" class="form-control" value="{{ $u_info->phone }}" name="phone"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="text" id="address" class="form-control" value="{{ $u_info->address }}" name="address"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="dob">Date of Birth</label>
-                                <input type="date" id="dob" class="form-control" name="dob" value="{{ $u_info->dob }}"  required>
-                            </div>
+                         
                             
                             <div class="form-group">
                                 <label for="status">Status</label>
@@ -68,14 +101,7 @@
                                     <option value="Suspended" {{ $u_info->status == 'Suspended' ? 'selected' : '' }}>Suspended</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="s_question">Secret Question</label>
-                                <input type="text" id="s_question" class="form-control" value="{{ $u_info->secret_question }}" readonly name="s_question" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="s_answer">Secret Answer</label>
-                                <input type="text" id="s_answer" class="form-control" name="s_answer" value="{{ $u_info->sectret_answer }}" readonly required>
-                            </div>
+                           
                             <div class="form-group">
                                 <label for="auto_withdraw">Auto-Withdrawal Enabled</label>
                                 <select id="auto_withdraw" name="auto_withdraw" class="form-control">
@@ -94,7 +120,7 @@
                             
                             <div class="form-group">
                                 <label for="max_withdraw">Max Withdraw</label>
-                                <input type="text" id="max_withdraw" class="form-control" name="max_withdraw" value="{{ $u_info->max_withdraw }}" readonly required>
+                                <input type="text" id="max_withdraw" class="form-control" name="max_withdraw" value="{{ $u_info->max_withdraw }}"  >
                             </div>
                             <div class="form-group">
                                 <label for="admin_note">Admin Note</label>
@@ -102,12 +128,7 @@
                                     {{ $u_info->admin_note }}
                                 </textarea>
                             </div>
-                            <div class="form-group ">
-                                <label  for="projectinput5">User Image</label>
-                                <div >
-                                    <input type="file" id="projectinput5" class="form-control"  name="user_pic" >
-                                </div>
-                            </div>
+                           
                         </div>
                     
                         <div class="form-actions text-center">
@@ -129,7 +150,7 @@
               <div class="card-content collapse show">
                   <div class="card-body">
 
-                    <p class="text-center"> <img class="rounded-circle"  src="{{ asset($u_info->image) }}" alt="aasaasd" width="200px" height="200px"></p>
+                    
 
                      
                           <div class="form-body">

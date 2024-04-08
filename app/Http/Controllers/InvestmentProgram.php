@@ -123,17 +123,30 @@ class InvestmentProgram extends Controller
     {
         $randomNumber = rand(100000, 999999); 
 
-
+        $amount = $request->input('amount');
          
         $investment = new Investment();
         $investment->investment_id = $randomNumber;
         $investment->user_id = $id; // Assuming user_id is the ID of the user who is investing
         $investment->plan_id = $request->input('plan_id');
-        $investment->amount =  $request->input('minimum_amount');
+        $investment->amount =  $amount;
         $investment->name = $request->input('name');
        
         $investment->save();
-        return back()->with('success', 'Your amount has been invested successfully');
+
+        $plan = Plan::where('plan_id', $request->plan_id)->first();
+        $plan->total_invested += $amount; 
+        $plan->save();
+
+        $user = User::find($id);
+        $user->funded += $amount; 
+        $user->balance -= $amount; 
+        
+        
+        $user->save();
+
+
+
 
         //in investment, add amount + , and + user 
         // check minimum amount
@@ -141,6 +154,12 @@ class InvestmentProgram extends Controller
         //success page
         //email
         // time cron code
-        
+        return back()->with('success', 'Your amount has been invested successfully');
+    }
+
+
+    public function v_plan($id)
+    {
+            return $id;
     }
 }
