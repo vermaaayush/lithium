@@ -32,7 +32,7 @@
                               <div class="form-group row">
                                   <label class="col-md-3 label-control" for="projectinput1">Plan Name</label>
                                   <div class="col-md-9">
-                                      <input type="text" id="projectinput1" class="form-control" name="name" required>
+                                      <input type="text" id="projectinput1" class="form-control" name="name" placeholder="Name" required>
                                   </div>
                               </div>
                              
@@ -51,14 +51,14 @@
                               <div class="form-group row">
                                   <label class="col-md-3 label-control" for="projectinput2">Rate of Interest </label>
                                   <div class="col-md-9">
-                                      <input type="text" id="projectinput2" class="form-control"  name="roi" required>
+                                      <input type="number" id="projectinput2" class="form-control" placeholder="Enter the interest rate"   min="0" max="100" step="0.01"  name="roi" required>
                                   </div>
                               </div>
 
                               <div class="form-group row">
-                                <label class="col-md-3 label-control" for="projectinput4">Minimum Amount Limit:</label>
+                                <label class="col-md-3 label-control" for="projectinput4">Minimum Amount:</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="projectinput4" class="form-control"  name="minimum_amount" required>
+                                    <input type="number" id="projectinput4" class="form-control"  name="minimum_amount" placeholder="Minimum amount of investment" required>
                                 </div>
                             </div>
 
@@ -82,14 +82,14 @@
                             <div class="form-group row">
                                 <label class="col-md-3 label-control" for="projectinput4">Plan Duration</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="projectinput4" class="form-control" placeholder="Enter number of days"  name="duration" required>
+                                    <input type="number" id="projectinput4" class="form-control" placeholder="Enter number of days"  name="duration" required>
                                 </div>
                             </div>
 
                               <div class="form-group row">
                                   <label class="col-md-3 label-control" for="projectinput4">Risk Factor</label>
                                   <div class="col-md-9">
-                                      <input type="text" id="projectinput4" class="form-control" placeholder="Enter risk percentage"  name="risk" required>
+                                      <input type="number" min="0" max="100" step="0.01" id="projectinput4" class="form-control" placeholder="Enter risk percentage"  name="risk" required>
                                   </div>
                               </div>
 
@@ -107,6 +107,16 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 label-control" for="projectinput4">Compound percent %</label>
+                                <div class="col-md-9">
+                                    <input type="number" min="0" max="100" step="0.01" id="projectinput4" class="form-control" placeholder="By Default 100%"  name="compound_perc" >
+                                </div>
+                            </div>
+
+
+                          
 
                            
 
@@ -126,7 +136,7 @@
                               <div class="form-group row">
                                 <label class="col-md-3 label-control" for="projectinput5">Release Fee</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="projectinput5" class="form-control" placeholder="Enter release fee"  name="release_fee" required>
+                                    <input type="text" id="projectinput5" class="form-control" placeholder="Release Fee %"  name="release_fee" required>
                                 </div>
                             </div>
 

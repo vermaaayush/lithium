@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\Investment;
+use Carbon\Carbon; 
 class InvestmentProgram extends Controller
 {
     public function add_plan(Request $request)
@@ -27,7 +28,7 @@ class InvestmentProgram extends Controller
 
         $plan->risk = $request->input('risk');
         $plan->compounding = $request->input('compounding');
-        $plan->principal_release = $request->input('principal_release');
+        $plan->compound_perc = $request->input('compound_perc');
         $plan->release_fee = $request->input('release_fee');
         $plan->description = $request->input('description');
       
@@ -84,6 +85,7 @@ class InvestmentProgram extends Controller
 
         $plan->risk = $request->input('risk');
         $plan->compounding = $request->input('compounding');
+        $plan->compound_perc = $request->input('compound_perc');
         $plan->principal_release = $request->input('principal_release');
         $plan->release_fee = $request->input('release_fee');
         $plan->description = $request->input('description');
@@ -119,7 +121,7 @@ class InvestmentProgram extends Controller
         return view('admin.plan_investment', compact('user'), compact('plan')); 
     }
 
-    public function invest_in(Request $request,$id)
+    public function invest_in(Request $request,$user_id)
     {
         $randomNumber = rand(100000, 999999); 
 
@@ -127,7 +129,7 @@ class InvestmentProgram extends Controller
          
         $investment = new Investment();
         $investment->investment_id = $randomNumber;
-        $investment->user_id = $id; // Assuming user_id is the ID of the user who is investing
+        $investment->user_id = $user_id; // Assuming user_id is the ID of the user who is investing
         $investment->plan_id = $request->input('plan_id');
         $investment->amount =  $amount;
         $investment->name = $request->input('name');
@@ -138,7 +140,8 @@ class InvestmentProgram extends Controller
         $plan->total_invested += $amount; 
         $plan->save();
 
-        $user = User::find($id);
+
+        $user = User::where('user_id', $request->user_id)->first();
         $user->funded += $amount; 
         $user->balance -= $amount; 
         
@@ -158,8 +161,74 @@ class InvestmentProgram extends Controller
     }
 
 
-    public function v_plan($id)
+    public function trade_now($id)
     {
-            return $id;
+            $u_id=session('s_user')['id'];
+            $user = User::find($u_id);
+            $plan = Plan::find($id);
+            return view('user.invest_form', compact('user'), compact('plan'));
+    }
+
+    public function trade_in(Request $request)
+    {
+
+      
+        $start_date = Carbon::now()->toDateTimeString();
+    
+        // Extract duration (in days) from the request
+        $duration = (int)$request->input('duration');
+    
+        // Calculate the end date by adding the duration to today's date
+        $endDate = Carbon::now()->addDays($duration)->toDateTimeString();
+
+
+        $randomNumber = rand(100000, 999999); 
+
+        $amount = $request->input('amount');
+        
+        $investment = new Investment();
+        $investment->investment_id = $randomNumber;
+        $investment->user_id = $request->input('user_id');
+        $investment->plan_id = $request->input('plan_id');
+        $investment->amount =  $amount;
+        $investment->name = $request->input('user_name');
+        $investment->start_date =  $start_date;
+        $investment->end_date =  $endDate;
+        $investment->status =  0;
+
+        $investment->save();
+
+      
+        $plan = Plan::where('plan_id', $request->plan_id)->first();
+        $plan->total_invested += $amount; 
+        $plan->no_of_users += 1; 
+        $plan->save();
+
+        
+        $user = User::where('user_id', $request->user_id)->first();
+        $user->funded += $amount; 
+        $user->balance -= $amount; 
+        
+        
+        $user->save();
+
+
+
+
+        //in investment, add amount + , and + user 
+        // check minimum amount
+        //remove funds from wallet
+        //success page
+        //email
+        // time cron code
+
+        // $data = [
+        //     'message' => 'Investment successful!',
+        //     'amount' => 1000,
+        //     'investor' => 'John Doe'
+        // ];
+        
+        return view('user.invest_success');
+  
     }
 }

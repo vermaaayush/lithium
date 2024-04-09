@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvestmentProgram;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api_admin;
+use App\Http\Controllers\CronJobController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -30,7 +31,7 @@ Route::post('/add_balance/{id}', [AdminController::class, 'add_balance']);
 Route::get('/deposits', [AdminController::class, 'deposits']);
 Route::get('/app_depo/{id}', [AdminController::class, 'app_depo']);
 Route::get('/all_investment', [AdminController::class, 'all_investment']);
-
+Route::get('/system_config', [AdminController::class, 'system_config']);
 
 
 
@@ -40,7 +41,7 @@ Route::get('/plans', [InvestmentProgram::class, 'plans']);
 Route::get('/view_plan/{id}', [InvestmentProgram::class, 'view_plan']);
 Route::post('/edit_plan/{id}', [InvestmentProgram::class, 'edit_plan']);
 Route::get('/invest_now/{id}', [InvestmentProgram::class, 'invest_now']);
-Route::post('/invest_in/{id}', [InvestmentProgram::class, 'invest_in']);
+Route::post('/invest_in/{user_id}', [InvestmentProgram::class, 'invest_in']);
 
 
 
@@ -105,11 +106,15 @@ Route::get('/auth', [UserController::class, 'user_kyc']);
 Route::post('/id_verification', [UserController::class, 'id_verification']);
 Route::post('/add_verify', [UserController::class, 'add_verify']);
 Route::get('/deposite_funds', function () { return view('user.deposite_funds'); });
+Route::get('/deposite_req', function () { return view('user.deposite_req'); });
 Route::post('/deposite_funds', [UserController::class, 'deposite_funds']);
 Route::get('/all_deposite', [UserController::class, 'all_deposite']);
 Route::get('/user_logout', [UserController::class, 'user_logout']);
 Route::get('/explore_plans', [UserController::class, 'explore_plans']);
-Route::get('/v_plan/{id}', [InvestmentProgram::class, 'v_plan'])->name('invest-now/{id}');
+Route::get('/trade_now/{id}', [InvestmentProgram::class, 'trade_now']);
+Route::post('/trade_in', [InvestmentProgram::class, 'trade_in']);
+Route::get('/invest_success', [UserController::class, 'invest_success']);
+Route::get('/my_investments', [UserController::class, 'my_investments']);
 
 
 
@@ -122,7 +127,7 @@ Route::get('/v_plan/{id}', [InvestmentProgram::class, 'v_plan'])->name('invest-n
 
 
 
-
+Route::get('/run_invest_checker', [CronJobController::class, 'index']);
 
 
 

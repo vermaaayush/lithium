@@ -239,4 +239,9 @@ class AdminController extends Controller
         $data = Investment::orderBy('created_at', 'desc')->get();
         return view('admin.all_investment', compact('data'));
     }
+    
+    public function system_config()
+    {
+        return view('admin.system_config');
+    }
 }

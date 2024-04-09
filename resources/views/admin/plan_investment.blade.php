@@ -27,7 +27,7 @@
               <div class="card-content collapse show">
                   <div class="card-body">
                   
-                    <form class="form form-horizontal"  action="/invest_in/{{ $user->id }}" method="post" enctype="multipart/form-data">
+                    <form class="form form-horizontal"  action="/invest_in/{{ $user->user_id }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                           <div class="form-body">
                               

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Plan;
+use App\Models\Investment;
 use App\Models\Deposite;
 use App\Rules\Captcha;
 use Illuminate\Support\Facades\Storage; 
@@ -206,7 +207,7 @@ class UserController extends Controller
 
         $user->pay_mode = $request->input('pay_mode');
    
-        $user->description = $request->input('description');
+        // $user->description = $request->input('description');
         $user->transaction_id =  $transactionId;
         $user->status = '0';
         $user->save();
@@ -231,7 +232,14 @@ class UserController extends Controller
     public function explore_plans()
     {
         $data = Plan::orderBy('created_at', 'desc')->get();
-        return view('admin.explore_plans', compact('data'));
+        return view('user.explore_plans', compact('data'));
     }
     
+
+    public function my_investments()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Investment::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        return view('user.my_investments', compact('data'));
+    }
 }

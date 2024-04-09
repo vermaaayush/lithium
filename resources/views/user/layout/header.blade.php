@@ -293,7 +293,7 @@
 						<ul aria-expanded="false">
 							
 							<li><a href="/explore_plans">Explore Plans</a></li>
-							<li><a href="index-2.html">Dashboard Dark</a></li>
+							<li><a href="/my_investments">My Investments</a></li>
 							
 						</ul>
 					</li>

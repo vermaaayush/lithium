@@ -103,6 +103,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label class="col-md-3 label-control" for="projectinput4">Compound percent %</label>
+                                <div class="col-md-9">
+                                    <input type="number" min="0" max="100" step="0.01" id="projectinput4" class="form-control"  name="compound_perc" value="{{$p_info->compound_perc}}">
+                                </div>
+                            </div>
+
                            
 
                               <div class="form-group row">

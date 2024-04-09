@@ -1,62 +1,209 @@
+@php
+    use App\Models\User;
+    $p_data = User::where('id', session('s_user')['id'])->first(); 
+@endphp
 @extends('user.layout.main')
 @section('title', 'Deposite Funds')
 @section('main-container')
 		<!-- Content body start -->
-        <div class="w-full lg:w-1/2 " style="margin:auto">
-            <div class="card">
-                <div class="card-header flex flex-wrap justify-between items-center sm:p-5 sm:pt-6 p-4 pt-5 max-sm:pb-5 relative z-[2] border-b border-[#E6E6E6] dark:border-[#ffffff1a]">
-                    <h4 class="card-title text-base capitalize">Deposite Funds</h4>
-                </div>
-                <div class="sm:p-5 p-4">
-                    <div class="basic-form">
-                        <form action="/deposite_funds" method="post" class="form-valide-with-icon needs-validation" > 
-                            @csrf 
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Name <span class="required text-danger">*</span></label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                  
-                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ session('s_user')['name'] }}" name="name" readonly>
-                                   
+       <!-- Nav tabs -->
+       @if ($p_data->id_status==2)
+           
+       
+       <div class="w-full">
+        <div class="card dz-card dz-tab-area" id="nav-pills">
+            <div class="card-header flex flex-wrap justify-between items-center sm:p-5 sm:pt-6 p-4 pt-5 max-sm:pb-5 relative z-[2]">
+                <h2>Deposite Funds</h2>
+               
+            </div>
+            <div class="tab-content-area" id="myTabContent3">
+                <div class="tab-content show active" id="tab-One2">
+                    <div class="sm:p-5 p-4 dz-tab-area children">
+                        <ul class="nav nav-pills mb-6 flex flex-wrap light">
+                            <li class=" nav-item">
+                                <a href="javascript:void(0);" data-tab="navpills-1" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn ">CRYPTOCURRENCY</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" data-tab="navpills-2" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn">CREDIT CARD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" data-tab="navpills-3" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn" data-bs-toggle="tab" aria-expanded="true">E-WALLET</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" data-tab="navpills-4" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn" data-bs-toggle="tab" aria-expanded="true">LOCAL BANK TRANSFER</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" data-tab="navpills-5" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn active" data-bs-toggle="tab" aria-expanded="true">BY ADMIN</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content-area">
+                            <div id="navpills-1" class="tab-content  ">
+                                <div class="row">
+                                    <div class="xl:w-2/3 col-xxl-8 w-full">
+                                        <div class="row">
+                                            <div class="md:w-1/2">
+                                               <a href="#">
+                                                <div class="card">
+                                                    <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+                                                        <div class="clearfix">
+                                                            <h1 class="card-title text-base">CRYPTOCURRENCY</h1>
+                                                            <span class="text-body-color dark:text-white text-sm">By BTCpay Server</span>
+                                                        </div>
+                                                        <div class="clearfix text-center">
+                                                            <img src="{{ asset('user_assets/cryptocurrency.png')}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:p-5 p-4 text-center">
+                                                        <div class="ico-sparkline">
+                                                            <div id="spark-bar"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               </a>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Amount <span class="required text-danger">*</span></label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                  
-                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Enter the amount" name="amount" required>
-                                   
+                            <div id="navpills-2" class="tab-content">
+                                <div class="row">
+                                    <div class="xl:w-2/3 col-xxl-8 w-full">
+                                        <div class="row">
+                                            <div class="md:w-1/2">
+                                               <a href="#">
+                                                <div class="card">
+                                                    {{-- <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+                                                        <div class="clearfix">
+                                                            <h1 class="card-title text-base">CRYPTOCURRENCY</h1>
+                                                            <span class="text-body-color dark:text-white text-sm">By BTCpay Server</span>
+                                                        </div>
+                                                        <div class="clearfix text-center">
+                                                            <img src="{{ asset('user_assets/cryptocurrency.png')}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:p-5 p-4 text-center">
+                                                        <div class="ico-sparkline">
+                                                            <div id="spark-bar"></div>
+                                                        </div>
+                                                    </div> --}}
+                                                    WILL BE AVAILABLE SOON
+                                                </div>
+                                               </a>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
-
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Payment Mode <span class="required text-danger">*</span></label>
-                                <select name="pay_mode" class="nice-select style-1 py-1.5 px-3 bg-transparent text-[13px] font-normal outline-none relative focus:ring-0 border border-b-color text-[#a5a5a5] h-[2.813rem] leading-[1.813rem] form-control-lg">
-                                    <option value="Test" selected>Test</option>
-                                    <option>Option 2</option>
-                                    <option>Option 3</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Description <span class="required text-danger">*</span></label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                  
-                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Description" name="description">
-                                   
+                            <div id="navpills-3" class="tab-content">
+                                <div class="row">
+                                    <div class="xl:w-2/3 col-xxl-8 w-full">
+                                        <div class="row">
+                                            <div class="md:w-1/2">
+                                               <a href="#">
+                                                <div class="card">
+                                                    {{-- <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+                                                        <div class="clearfix">
+                                                            <h1 class="card-title text-base">CRYPTOCURRENCY</h1>
+                                                            <span class="text-body-color dark:text-white text-sm">By BTCpay Server</span>
+                                                        </div>
+                                                        <div class="clearfix text-center">
+                                                            <img src="{{ asset('user_assets/cryptocurrency.png')}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:p-5 p-4 text-center">
+                                                        <div class="ico-sparkline">
+                                                            <div id="spark-bar"></div>
+                                                        </div>
+                                                    </div> --}}
+                                                    WILL BE AVAILABLE SOON
+                                                </div>
+                                               </a>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
-                            
-                            <button type="submit" class="btn mr-2 inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Submit</button>
-                            <button type="submit" class="inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-danger-light text-danger bg-danger-light hover:text-white hover:bg-danger duration-300">Cancel</button>
-                        </form>
+                            <div id="navpills-4" class="tab-content">
+                                <div class="row">
+                                    <div class="xl:w-2/3 col-xxl-8 w-full">
+                                        <div class="row">
+                                            <div class="md:w-1/2">
+                                               <a href="#">
+                                                <div class="card">
+                                                    {{-- <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+                                                        <div class="clearfix">
+                                                            <h1 class="card-title text-base">CRYPTOCURRENCY</h1>
+                                                            <span class="text-body-color dark:text-white text-sm">By BTCpay Server</span>
+                                                        </div>
+                                                        <div class="clearfix text-center">
+                                                            <img src="{{ asset('user_assets/cryptocurrency.png')}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:p-5 p-4 text-center">
+                                                        <div class="ico-sparkline">
+                                                            <div id="spark-bar"></div>
+                                                        </div>
+                                                    </div> --}}
+                                                    WILL BE AVAILABLE SOON
+                                                </div>
+                                               </a>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div id="navpills-5" class="tab-content show active">
+                                <div class="row">
+                                    <div class="xl:w-2/3 col-xxl-8 w-full">
+                                        <div class="row">
+                                            <div class="md:w-1/2">
+                                               <a href="/deposite_req">
+                                                <div class="card">
+                                                    <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+                                                        <div class="clearfix">
+                                                            <h1 class="card-title text-base">BY ADMIN</h1>
+                                                            
+                                                        </div>
+                                                        <div class="clearfix text-center">
+                                                            <img src="{{ asset('user_assets/deposit.png')}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:p-5 p-4 text-center">
+                                                        <div class="ico-sparkline">
+                                                            <div id="spark-bar"></div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                </div>
+                                               </a>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
                       
-                          
-								
+        @else
+        <div class="xl:w-1/2 w-full" style="margin: auto">
+            <div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent text-danger bg-danger-light dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26] notification">
+                <p class="text-danger mb-2"><strong>Pending! </strong>Identity Verification</p>
+                <p class="mb-4 text-danger leading-[1.5]">Submit and verify your proof of identity to fund your account.</p>
+               
+            </div>
+        </div>              
+        @endif						
 						
          <!-- Content body end -->
 @endsection
