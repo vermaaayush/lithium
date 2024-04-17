@@ -276,10 +276,11 @@
               </li>
               <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><img src="app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i></span><span class="user-name">John Doe</span></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
+                  <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
                   <a class="dropdown-item" href="/system_config"><i class="ft-mail"></i>System Config</a>
-                  <a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="chat-application.html"><i class="ft-message-square"></i> Chats</a>
-                  <div class="dropdown-divider"></div><a class="dropdown-item" href="login-with-bg-image.html"><i class="ft-power"></i> Logout</a>
+                  <a class="dropdown-item" href="/bank_info"><i class="ft-check-square"></i>Bank Info</a>
+                  <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
+                  <div class="dropdown-divider"></div><a class="#" href="login-with-bg-image.html"><i class="ft-power"></i> Logout</a>
                 </div>
               </li>
             </ul>
@@ -294,12 +295,8 @@
     <div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-          <li class=" nav-item"><a href="index.html"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span><span class="badge badge badge-info badge-pill float-right mr-2">5</span></a>
-            <ul class="menu-content">
-              <li><a class="menu-item" href="dashboard-ecommerce.html" data-i18n="nav.dash.ecommerce">eCommerce</a>
-              </li>
-       
-            </ul>
+          <li class=" nav-item"><a href="/admin_dashboard"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
+          
           </li>
           <li class=" nav-item"><a href="#"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.users.main">Users</span></a>
             <ul class="menu-content">
@@ -307,9 +304,9 @@
               </li>
               <li><a class="menu-item" href="/users" data-i18n="nav.users.users_contacts">Users List</a>
               </li>
-              <li><a class="menu-item" href="user-profile.html" data-i18n="nav.users.user_profile">Users Notification</a>
+              <li><a class="menu-item" href="#" data-i18n="nav.users.user_profile">Users Notification</a>
               </li>
-              <li><a class="menu-item" href="user-cards.html" data-i18n="nav.users.user_cards">Blacklisted Users</a>
+              <li><a class="menu-item" href="#" data-i18n="nav.users.user_cards">Blacklisted Users</a>
               </li>
             </ul>
           </li> 

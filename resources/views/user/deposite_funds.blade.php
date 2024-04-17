@@ -30,7 +30,7 @@
                                 <a href="javascript:void(0);" data-tab="navpills-3" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn" data-bs-toggle="tab" aria-expanded="true">E-WALLET</a>
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:void(0);" data-tab="navpills-4" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn" data-bs-toggle="tab" aria-expanded="true">LOCAL BANK TRANSFER</a>
+                                <a href="javascript:void(0);" data-tab="navpills-4" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn" data-bs-toggle="tab" aria-expanded="true">BANK WIRE TRANSFER</a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0);" data-tab="navpills-5" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn active" data-bs-toggle="tab" aria-expanded="true">BY ADMIN</a>
@@ -134,23 +134,23 @@
                                     <div class="xl:w-2/3 col-xxl-8 w-full">
                                         <div class="row">
                                             <div class="md:w-1/2">
-                                               <a href="#">
+                                               <a href="/bank_wire">
                                                 <div class="card">
-                                                    {{-- <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+                                                    <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
                                                         <div class="clearfix">
-                                                            <h1 class="card-title text-base">CRYPTOCURRENCY</h1>
-                                                            <span class="text-body-color dark:text-white text-sm">By BTCpay Server</span>
+                                                            <h1 class="card-title text-base">Bank Wire Transfer Request</h1>
+                                                            {{-- <span class="text-body-color dark:text-white text-sm">By BTCpay Server</span> --}}
                                                         </div>
                                                         <div class="clearfix text-center">
-                                                            <img src="{{ asset('user_assets/cryptocurrency.png')}}" alt="">
+                                                            <img src="{{ asset('user_assets/transfer.png')}}" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="sm:p-5 p-4 text-center">
                                                         <div class="ico-sparkline">
                                                             <div id="spark-bar"></div>
                                                         </div>
-                                                    </div> --}}
-                                                    WILL BE AVAILABLE SOON
+                                                    </div>
+                                                    
                                                 </div>
                                                </a>
                                             </div>

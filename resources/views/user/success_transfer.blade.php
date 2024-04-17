@@ -1,7 +1,6 @@
 @extends('user.layout.main')
 @section('title', 'Success')
 @section('main-container')
-   
 
 <div class="w-full  " style="margin:auto">
     <div class="card">
@@ -11,7 +10,7 @@
                 
                 <div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-success text-success bg-success-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
                    
-                    <h3 class="text-center">The amount has been invested successfully.</h3>
+                    <h3 class="text-center">The funds have been transferred successfully.</h3>
                 </div>
                 <p class=" flex items-center justify-center"><img src="{{ asset('user_assets/verified.gif') }}" width="28%" alt=""></p>
                
@@ -24,15 +23,15 @@
                         <tbody>
                             <tr>
                                 
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>Investment Name: </strong></td>
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">{{ $data['plan_name'] }}</td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>To: </strong></td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">{{ $data['receiver'] }}</td>
 
                             </tr>
 
                             <tr>
                                 
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>Investment Id: </strong></td>
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"># {{ $data['investment_id'] }}</td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>Email: </strong></td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">{{ $data['receiver_email'] }}</td>
 
                             </tr>
 
@@ -45,8 +44,8 @@
 
                             <tr>
                                 
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>User Name: </strong></td>
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">{{$data['user_name']}}</td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>Transaction ID: </strong></td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">{{$data['transaction_id']}}</td>
 
                             </tr>
 
@@ -61,5 +60,5 @@
         </div>
     </div>
 </div>     
-       
+
 @endsection

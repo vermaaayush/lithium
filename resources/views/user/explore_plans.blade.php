@@ -14,7 +14,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Program Name</th>
-                                    <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Duration</th>
+                                    {{-- <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Duration</th> --}}
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Return on Investment</th>
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Budget (Minimum)</th>
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Total Invested</th>
@@ -36,16 +36,18 @@
                                                 </div>  
                                             </div>
                                         </td>
-                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">{{ $data->duration }} Days</td>
+                                        {{-- <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">{{ $data->duration }} Days</td> --}}
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-success"><i class="fa-solid fa-arrow-trend-up me-1"></i> {{ $data->roi }}%</td>
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">${{ number_format($data->minimum_amount) }}</td>
-                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">${{ number_format($data->total_invested) }}</td>
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">${{ number_format($data->total_invested) }}
+                                           
+                                        </td>
                                         @if ($data->status=="Active")
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] py-2.5 px-5 whitespace-nowrap"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] text-success bg-success-light dark:text-white dark:bg-[#3a9b941a]">Active</span></td>
                                         @else
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] py-2.5 px-5 whitespace-nowrap"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] text-danger bg-danger-light dark:text-white dark:bg-[#3a9b941a]">Inctive</span></td>
                                         @endif
-                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color"><a class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-secondary text-white bg-secondary hover:bg-hover-secondary hover:border-hover-secondary duration-300 btn-sm" href="/v_plan">View</a>
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color"><a class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-secondary text-white bg-secondary hover:bg-hover-secondary hover:border-hover-secondary duration-300 btn-sm" href="/v_plan/{{ $data->id }}">View</a>
                                         @if ($data->status=="Active")
                                         <a class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-sm" href="/trade_now/{{ $data->id }}">Invest Now</a>
                                         @endif

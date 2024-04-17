@@ -271,6 +271,11 @@
 							<span class="nav-text">Authentication</span>
 						</a>
 					</li>
+					<li><a href="/dashboard" class="" aria-expanded="false">
+						<i class="fas fa-house"></i>
+							<span class="nav-text">Dashboard</span>
+						</a>
+					</li>
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
 							<i class="fas fa-house"></i>
@@ -309,6 +314,21 @@
 							<li><a href="/all_deposite">All Deposites</a></li>
 							
 						</ul>
+					</li>
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+						<div class="menu-icon">
+							<i class=" fas fa-solid fa-money-bill-transfer"></i>
+						</div>	
+						<span class="nav-text">Transfer</span>
+						</a>
+						<ul aria-expanded="false">
+							
+							<li><a href="/transfer">Fund Transfer</a></li>
+							<li><a href="/all_transfer">All Transfers</a></li>
+							
+						</ul>
+					</li>
+					
 					</li>
 					<li><a href="task.html" class="" aria-expanded="false">
 						<i class="fas fa-list-check"></i>

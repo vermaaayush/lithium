@@ -6,6 +6,7 @@ use App\Http\Controllers\InvestmentProgram;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api_admin;
 use App\Http\Controllers\CronJobController;
+use App\Http\Controllers\BotxController;
 
 Route::get('/', function () {
     return view('admin.login');
@@ -32,6 +33,9 @@ Route::get('/deposits', [AdminController::class, 'deposits']);
 Route::get('/app_depo/{id}', [AdminController::class, 'app_depo']);
 Route::get('/all_investment', [AdminController::class, 'all_investment']);
 Route::get('/system_config', [AdminController::class, 'system_config']);
+Route::get('/bank_info', [AdminController::class, 'bank_info']);
+Route::post('/update_bank', [AdminController::class, 'update_bank']);
+
 
 
 
@@ -113,8 +117,22 @@ Route::get('/user_logout', [UserController::class, 'user_logout']);
 Route::get('/explore_plans', [UserController::class, 'explore_plans']);
 Route::get('/trade_now/{id}', [InvestmentProgram::class, 'trade_now']);
 Route::post('/trade_in', [InvestmentProgram::class, 'trade_in']);
-Route::get('/invest_success', [UserController::class, 'invest_success']);
+
+Route::get('/invest/success', [InvestmentProgram::class, 'showInvestSuccess'])->name('invest.success');
+
 Route::get('/my_investments', [UserController::class, 'my_investments']);
+Route::get('/transfer', function () { return view('user.transfer'); });
+Route::post('/transfer', [UserController::class, 'transfer']);
+Route::post('/transfer_now', [UserController::class, 'transfer_now']);
+Route::get('/success_transfer', [UserController::class, 'success_transfer']);
+Route::get('/v_plan/{id}', [UserController::class, 'v_plan']);
+Route::get('/bank_wire', [UserController::class, 'bank_wire']);
+Route::post('/wire_deposite', [UserController::class, 'wire_deposite']);
+
+Route::get('/test', [UserController::class, 'test']);
+
+
+
 
 
 
@@ -130,7 +148,10 @@ Route::get('/my_investments', [UserController::class, 'my_investments']);
 Route::get('/run_invest_checker', [CronJobController::class, 'index']);
 
 
+Route::get('/run_botx', [BotxController::class, 'index']);
 
+
+Route::get('/dummy_cronjob', function () { return view('user.dummy_cronjob'); });
 
 
 

@@ -1,6 +1,7 @@
 @php
 
     use App\Models\Plan;
+    use Carbon\Carbon; 
     
 @endphp
 @extends('admin.layout.main')
@@ -56,6 +57,7 @@
                                  
                                   <th>Name</th>
                                   <th>Amount</th>
+                                  <th>Status</th>
                                   <th>Plan</th>
                                   <th>Invested On</th>
                                   <th>Days Left</th>
@@ -70,11 +72,25 @@
                                   <td>$ {{ $data->amount }}</td>
                                   @php
                                      $p_data = Plan::where('plan_id', $data->plan_id)->first(); 
+
+
                                   @endphp
+                                  @if ($data->status==1)
+                                 <td><div class="badge badge-success">Completed!</div></td>
+                                  
+                                  @else
+                                  <td><div class="badge badge-primary">In Progress</div></td>
+                                  @endif
                                   <td>{{ $p_data->name }}</td>
                                   {{-- <td>{{ $data->description }}</td> --}}
                                   <td>{{ $data->created_at }}</td> 
-                                  <td>-</td> 
+
+                                  @php
+                                  $currentDate = Carbon::now();
+                                  $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->end_date);
+                                  $remainingDays = round($currentDate->diffInDays($endDate));
+                                  @endphp
+                                  <td>{{$remainingDays}} Days</td> 
                                   
                                  
                                  

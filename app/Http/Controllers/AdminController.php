@@ -15,6 +15,8 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Deposite;
 use App\Models\Investment;
+use App\Models\Transaction;
+use App\Models\Bank;
 
 class AdminController extends Controller
 {   
@@ -229,8 +231,26 @@ class AdminController extends Controller
     {
        
         $depo = Deposite::find($id);
+        $user_id= $depo->user_id;
+        $amount = $depo->amount;
+
+        $u = User::where('user_id', $user_id)->first();
+        $u->balance += $amount;
+        $u->deposite += $amount;
+        $u->save();
+
         $depo->status = 1;
         $depo->save();
+
+        $trx = new Transaction();
+
+        $trx->user_id = $depo->user_id;
+        $trx->subject = 'Fund Deposite';
+        $trx->name = $depo->name;
+        $trx->amount = $amount;
+        $trx->status = 'credit';
+        $trx->save();
+        
         return redirect('deposits')->with('success', 'Deposit Approved successfully');
     }
 
@@ -243,5 +263,31 @@ class AdminController extends Controller
     public function system_config()
     {
         return view('admin.system_config');
+    }
+
+    public function bank_info()
+    {
+        $bank = Bank::find(1);
+       
+        return view('admin.bank_info',compact('bank'));
+    }
+
+    public function update_bank(Request $request)
+    {
+        $bank = Bank::find(1);
+       
+            $bank->name= $request->bank_name;
+            $bank->account_number= $request->account_no;
+            $bank->address= $request->bank_address;
+            $bank->swift_code= $request->swift_code;
+            $bank->ibank_number= $request->iban_no;
+            $bank->rounting_number= $request->rounting_no;
+            $bank->description= $request->description;
+            $bank->save();
+        
+        
+        return redirect('bank_info')->with('success', 'Info Updated successfully');
+        
+
     }
 }

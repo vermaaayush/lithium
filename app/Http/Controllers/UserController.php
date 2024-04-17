@@ -12,11 +12,16 @@ use App\Mail\Maildemo;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Stock;
 use App\Models\Plan;
 use App\Models\Investment;
+use App\Models\Transfer;
+use App\Models\Transaction;
 use App\Models\Deposite;
+use App\Models\Bank;
 use App\Rules\Captcha;
 use Illuminate\Support\Facades\Storage; 
+
 
 class UserController extends Controller
 {
@@ -197,7 +202,7 @@ class UserController extends Controller
         $u_info = User::find($id);
 
         
-        $transactionId = 'TX' . time() . mt_rand(1000, 9999);
+        $transactionId = 'AD' . time() . mt_rand(1000, 9999);
 
         $user = new Deposite();
 
@@ -205,20 +210,23 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->amount = $request->input('amount');
 
-        $user->pay_mode = $request->input('pay_mode');
+        $user->pay_mode = 'By Admin';
    
         // $user->description = $request->input('description');
         $user->transaction_id =  $transactionId;
         $user->status = '0';
         $user->save();
 
-        return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');;
+        return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');
 
     }
     public function all_deposite()
     {
         $userId = session('s_user')['user_id'];
-        $data = Deposite::where('user_id', $userId)->get();
+        $data = Deposite::where('user_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
         return view('user.all_deposite', compact('data'));
     }
 
@@ -242,4 +250,178 @@ class UserController extends Controller
         $data = Investment::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
         return view('user.my_investments', compact('data'));
     }
-}
+
+    public function transfer(Request $request)
+    {
+        $amount = str_replace(',', '', $request->input('amount'));
+        $avl_balance = $request->input('avl_balance');
+        $identifier = $request->input('receiver');
+
+       
+        if ($identifier === session('s_user')['email'] || $identifier === session('s_user')['user_id']) {
+            return redirect()->back()->withInput()->with('error', 'You cannot transfer funds to yourself.');
+        }
+
+        if ($amount > $avl_balance) 
+        {
+            return redirect()->back()->withInput()->with('error', 'Entered amount is more then a wallet balance !');
+        }
+     
+
+        // Check if the input matches an email format
+        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            // Input is an email address
+            $user = User::where('email', $identifier)->first();
+            
+        } else {
+            // Input is assumed to be a user ID
+            $user = User::where('user_id', $identifier)->first();
+        }
+
+        return view('user.receiver_details', compact('user'), compact('amount'));
+
+
+    }
+
+    public function transfer_now(Request $request)
+    {
+        $amount = $request->input('amount');
+        $transactionId = 'TX' . time() . mt_rand(1000, 9999);
+        //deposite balance to receiver wallet
+        $user = User::where('user_id', $request->input('user_id'))->first();
+        $user->balance += $amount;
+        $user->save();
+
+
+        //balance deduction from current user
+        $user = User::where('user_id', session('s_user')['user_id'])->first();
+        $user->balance -= $amount;
+        $user->save();
+
+        //add entry in transfer 
+        $transfer = new Transfer();
+
+        $transfer->user_id = session('s_user')['user_id'];
+        $transfer->receiver_name = $request->input('name');
+        $transfer->receiver_user_id = $request->input('user_id');
+        $transfer->receiver_email = $request->input('email');
+        $transfer->amount = $amount;
+        $transfer->transaction_id =$transactionId ;
+        $transfer->status = 1;
+        $transfer->save();
+
+        //add entry in transaction history 
+
+        //for sender
+        
+        $trx = new Transaction();
+
+        $trx->user_id = session('s_user')['user_id'];
+        $trx->subject = 'Fund Transfer';
+        $trx->name = $request->input('name');
+        $trx->amount = $amount;
+        $trx->status = 'debit';
+        $trx->save();
+        
+
+        //for receiver
+
+
+        $trx = new Transaction();
+
+        $trx->user_id = $request->input('user_id');
+        $trx->subject = 'Fund Transfer';
+        $trx->name = session('s_user')['name'];
+        $trx->amount = $amount;
+        $trx->status = 'credit';
+        $trx->save();
+
+        $data = [
+            'amount' =>  $amount ,
+            'sender' => session('s_user')['name'],
+            'sender_email' => session('s_user')['email'],
+            'receiver' => $request->input('name'),
+            'receiver_email' => $request->input('email'),
+            'transaction_id'=> $transactionId,
+            
+        ];
+
+        session(['transfer_success_data' => $data]);
+        // OTP
+        //Email
+
+        return redirect('success_transfer');
+        // return view('user.success_transfer', compact('data'));
+
+       
+
+        
+       
+
+    }
+
+    public function success_transfer()
+    {
+        $data = session('transfer_success_data');
+        return view('user.success_transfer', compact('data')); 
+    }
+
+    public function v_plan($id)
+    {
+        $data = Plan::find($id);
+
+       $planId = $data->plan_id;
+   
+       $filePath = asset('storage/' . $planId.'.csv');
+
+       $stock = Stock::where(['plan_id'=>$planId])->first();
+       $s_value= $stock->base_value;
+     
+        return view('user.view_plan',  compact('data', 'filePath', 's_value'));
+    }
+
+
+    public function bank_wire()
+    {
+         
+    //  $randomNumber = str_pad(mt_rand(1, 999999999999), 12, '0', STR_PAD_LEFT);
+     $bank = Bank::find(1);
+     return view('user.bank_wire',  compact('bank'));
+
+        
+    }
+
+    public function wire_deposite(Request $request)
+    {
+        $id = session('s_user')['id'];
+        $u_info = User::find($id);
+
+        
+        $transactionId = 'BW' . time() . mt_rand(1000, 9999);
+
+        $depo = new Deposite();
+
+        $depo->user_id = $u_info->user_id;
+        $depo->name = $u_info->name;
+        $depo->amount = $request->input('amount');
+        $depo->pay_mode = 'Bank Wire';
+   
+        // $user->description = $request->input('description');
+        $depo->transaction_id =  $transactionId;
+        $depo->status = '0';
+        $depo->bank_name = $request->input('bank_name');
+        $depo->acc_number = $request->input('account_no');
+        $depo->save();
+
+        return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');
+
+    }
+ 
+    public function test()
+    {
+        return view('user.test');
+
+    }
+
+
+ }

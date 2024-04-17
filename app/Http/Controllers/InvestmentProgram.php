@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\Stock;
 use App\Models\Investment;
+use App\Models\Transaction;
 use Carbon\Carbon; 
 class InvestmentProgram extends Controller
 {
@@ -23,7 +25,7 @@ class InvestmentProgram extends Controller
         $plan->status = $request->input('status');
         $plan->roi = $request->input('roi');
         $plan->minimum_amount = $request->input('minimum_amount');
-        $plan->period = $request->input('period');
+        // $plan->period = $request->input('period');
         $plan->duration = $request->input('duration');
 
         $plan->risk = $request->input('risk');
@@ -55,6 +57,15 @@ class InvestmentProgram extends Controller
 
         $plan->save();
 
+        
+        $stock = new Stock();
+        $stock->plan_id = $randomNumber;
+        $stock->base_value = $request->input('base_value');
+        $stock->down_limit = $request->input('down_limit');
+        $stock->up_limit = $request->input('up_limit');
+        $stock->status = 1;
+        $stock->save();
+      
         // Redirect to a success page or return a response
         return redirect('plans')->with('success', 'Investment plan created successfully');
 
@@ -212,23 +223,48 @@ class InvestmentProgram extends Controller
         
         $user->save();
 
+        $trx = new Transaction();
+
+        $trx->user_id = $request->user_id;
+        $trx->subject = 'Investment';
+        $trx->name =  $plan->name;
+        $trx->amount = $amount;
+        $trx->status = 'debit';
+        $trx->save();
 
 
-
-        //in investment, add amount + , and + user 
-        // check minimum amount
-        //remove funds from wallet
-        //success page
         //email
-        // time cron code
 
-        // $data = [
-        //     'message' => 'Investment successful!',
-        //     'amount' => 1000,
-        //     'investor' => 'John Doe'
-        // ];
+
+        $data = [
+            'message' => 'Investment successful!',
+            'amount' => 1000,
+            'plan_name' => $plan->name,
+            'user_name'=> $user->name,
+            'investment_id'=>$randomNumber,
+
+        ];
+
+    
         
-        return view('user.invest_success');
+        // return view('user.invest_success',compact('data'));
+        session(['invest_success_data' => $data]);
+        return redirect()->route('invest.success');
+        
   
     }
+
+    // app/Http/Controllers/InvestmentController.php
+
+public function showInvestSuccess(Request $request)
+{
+    // Retrieve data from session
+    $data = session('invest_success_data');
+    
+    //return $data;
+
+
+    return view('user.invest_success',compact('data'));
+}
+
 }

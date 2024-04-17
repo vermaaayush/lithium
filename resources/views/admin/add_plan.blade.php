@@ -28,7 +28,8 @@
                       <form class="form form-horizontal"  action="/add_plan" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                           <div class="form-body">
-                           
+                            <h3>Investment Plan: </h3>
+                            <br>
                               <div class="form-group row">
                                   <label class="col-md-3 label-control" for="projectinput1">Plan Name</label>
                                   <div class="col-md-9">
@@ -62,7 +63,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label class="col-md-3 label-control" for="projectinput6">Plan Period</label>
                                 <div class="col-md-9">
                                     <select id="projectinput6" name="period" class="form-control">
@@ -77,7 +78,7 @@
 
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group row">
                                 <label class="col-md-3 label-control" for="projectinput4">Plan Duration</label>
@@ -158,7 +159,31 @@
                             </div>
                         
 
-                            
+                            <hr>
+                            <h3>BOTX (Graph BOT): </h3>
+                            <p>Fill all the details for stock graph bot.</p>
+                            <br>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 label-control" for="projectinput4">Stock Value</label>
+                                <div class="col-md-9">
+                                    <input type="number" id="projectinput4" class="form-control" placeholder="Enter the stock value"  name="base_value" required>
+                                </div>
+                            </div>
+
+                              <div class="form-group row">
+                                  <label class="col-md-3 label-control" for="projectinput4">Down limit (Loss)</label>
+                                  <div class="col-md-9">
+                                      <input type="number" min="0"  step="0.01" id="projectinput4" class="form-control" placeholder="Enter the stock max down limit"  name="down_limit" required>
+                                  </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label class="col-md-3 label-control" for="projectinput4">Up limit (Profit)</label>
+                                <div class="col-md-9">
+                                    <input type="number" min="0" step="0.01" id="projectinput4" class="form-control" placeholder="Enter the stock max up limit"  name="up_limit" required>
+                                </div>
+                            </div>
 
     
 

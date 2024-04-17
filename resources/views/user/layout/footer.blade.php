@@ -36,9 +36,16 @@
 <script src="{{ asset('user_assets/assets/vendor/niceselect/js/jquery.nice-select.min.js') }}"></script> <!-- nice-select -->
 <script src="{{ asset('user_assets/assets/vendor/powerful-calendar/calendar.min.js') }}"></script> <!-- Date picker -->
 
+<script src="{{ asset('user_assets/assets/vendor/flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/flot/jquery.flot.pie.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/flot/jquery.flot.resize.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/flot-spline/jquery.flot.spline.min.js') }}"></script>
+<script src="{{ asset('user_assets/assets/js/plugins-init/flot-init.js') }}"></script>
+
 <script src="{{ asset('user_assets/assets/js/custom.min.js') }}"></script>
 <script src="{{ asset('user_assets/assets/js/deznav-init.js') }}"></script>
 <script src="{{ asset('user_assets/assets/js/demo.js') }}"></script>
+
 
 
 
