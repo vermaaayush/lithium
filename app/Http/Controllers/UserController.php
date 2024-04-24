@@ -20,6 +20,7 @@ use App\Models\Transaction;
 use App\Models\Deposite;
 use App\Models\Bank;
 use App\Rules\Captcha;
+use App\Models\Withrawal;
 use Illuminate\Support\Facades\Storage; 
 
 
@@ -34,6 +35,12 @@ class UserController extends Controller
 
     public function signup(Request $request)
     { 
+
+        $existingUser = User::where('email', $request->input('email'))->first();
+
+        if ($existingUser) {
+            return redirect()->back()->withInput()->with('error', 'Email is already registered!');
+        }
         
         if($request->input('password') !== $request->input('password_confirmation'))
         {
@@ -372,7 +379,7 @@ class UserController extends Controller
 
        $planId = $data->plan_id;
    
-       $filePath = asset('storage/' . $planId.'.csv');
+       $filePath = env('APP_URL').'/storage/app/public/'.$planId.'.csv';
 
        $stock = Stock::where(['plan_id'=>$planId])->first();
        $s_value= $stock->base_value;
@@ -408,13 +415,92 @@ class UserController extends Controller
    
         // $user->description = $request->input('description');
         $depo->transaction_id =  $transactionId;
-        $depo->status = '0';
+        $depo->status = '2';
         $depo->bank_name = $request->input('bank_name');
-        $depo->acc_number = $request->input('account_no');
+        $depo->acc_number = $request->input('acc_no');
         $depo->save();
 
         return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');
 
+    }
+
+    public function upload_bw_proof(Request $request, $tx_id)
+    {
+         
+
+          $uploadedFile = $request->file('img');
+        
+          $fileName = uniqid('img') . '.' . $uploadedFile->getClientOriginalExtension();
+      
+         
+          $folderPath = 'upload/bank_wire';
+     
+          $storedFilePath = $uploadedFile->move(public_path($folderPath), $fileName);
+      
+          if ($storedFilePath) {
+         
+              $img_path = $folderPath . '/' . $fileName;
+
+              $data = Deposite::where('transaction_id', $tx_id)->first();
+              $data->img = $img_path;
+              $data->save();
+
+              return redirect('all_deposite')->with('success', 'Payment Proof Upload successfully.');
+              
+
+              
+          }
+    }
+
+    public function history()
+    {
+        $user_id = session('s_user')['user_id'];
+        $data = Transaction::where('user_id', $user_id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('user.history', compact('data'));
+       
+    }
+
+    public function withraw_funds()
+    {
+        $u_id=session('s_user')['id'];
+        $user = User::find($u_id);
+        
+        return view('user.withraw', compact('user'));
+
+    } 
+
+    public function add_withrawal(Request $request)
+    {
+        $id = session('s_user')['id'];
+        $u_info = User::find($id);
+
+        
+        $transactionId = 'AD' . time() . mt_rand(1000, 9999);
+
+        $user = new Withrawal();
+
+        $user->user_id = $u_info->user_id;
+        $user->name = $request->input('name');
+        $user->amount = $request->input('amount');
+   
+        // $user->description = $request->input('description');
+        $user->transaction_id =  $transactionId;
+        $user->status = '0';
+        $user->save();
+
+        return redirect('all_withrawal')->with('success', 'New withdrawal requested has been generated');
+    }
+
+    public function all_withrawal()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Withrawal::where('user_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('user.all_withrawal', compact('data'));
     }
  
     public function test()

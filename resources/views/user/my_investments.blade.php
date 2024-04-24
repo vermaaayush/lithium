@@ -23,9 +23,9 @@
                             <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">Name</th>
                             <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">Status</th>
                             <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">Start Date</th>
-                            <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">End Date</th>
+                            {{-- <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">End Date</th> --}}
                             <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">Investment</th>
-                            <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">Remaining Days</th>
+                            <th class="text-[13px] py-[0.625rem] px-5 bg-primary-light text-primary capitalize font-medium bg-none text-left whitespace-nowrap">View</th>
  
                         </tr>
                     </thead>
@@ -56,20 +56,18 @@
                             @endif
                             
                             <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap"><span class="text-[13px] font-normal text-body-color dark:text-white">{{$data->start_date}}</span></td>
-                            <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
+                            {{-- <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                                 <span class="text-[13px] font-normal text-body-color dark:text-white">{{$data->end_date}}</span>
-                            </td>
+                            </td> --}}
                             <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                                 <span class="text-[13px] font-normal text-body-color dark:text-white">${{number_format($data->amount)}}</span>
                             </td>
-                             @php
-                                 $currentDate = Carbon::now();
-                                 $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->end_date);
-                                 $remainingDays = round($currentDate->diffInDays($endDate));
-                             @endphp
+                            
+                            @if ($data->status==0)
                             <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
-                                <span class="text-[13px] font-normal text-body-color dark:text-white">{{$remainingDays}} Days</span>
+                                <a href="/view_mystock/{{$data->investment_id}}" class="inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.375rem] py-2.5 px-4 border border-secondary text-dark bg-secondary">View Now</a>
                             </td>
+                            @endif
                            
                            
                             

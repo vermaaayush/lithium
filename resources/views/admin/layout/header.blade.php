@@ -280,7 +280,7 @@
                   <a class="dropdown-item" href="/system_config"><i class="ft-mail"></i>System Config</a>
                   <a class="dropdown-item" href="/bank_info"><i class="ft-check-square"></i>Bank Info</a>
                   <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
-                  <div class="dropdown-divider"></div><a class="#" href="login-with-bg-image.html"><i class="ft-power"></i> Logout</a>
+                  <div class="dropdown-divider"></div><a class="#" href="/admin_logout"><i class="ft-power"></i> Logout</a>
                 </div>
               </li>
             </ul>
@@ -332,6 +332,10 @@
               <li><a class="menu-item" href="#" data-i18n="nav.users.user_cards">Invest Now</a>
               </li>
             </ul>
+          </li>
+
+          <li class=" nav-item"><a href="/withrawals"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Withdrawal</span></a>
+          
           </li>
           
           <li class=" navigation-header"><span data-i18n="nav.category.support">Support</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Support"></i>

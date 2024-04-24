@@ -14,9 +14,11 @@ use Illuminate\Support\Str;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Deposite;
+use App\Models\Withrawal;
 use App\Models\Investment;
 use App\Models\Transaction;
 use App\Models\Bank;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {   
@@ -27,6 +29,17 @@ class AdminController extends Controller
     }
     public function login(Request $req)
     { 
+
+        // $credentials = $request->only('email', 'password');
+
+        // if (Auth::guard('admin')->attempt($credentials)) {
+        //     // Authentication passed
+        //     return redirect()->intended('/admin_dashboard');
+        // } else {
+        //     // Authentication failed
+        //     return redirect('/admin')->withInput()->withErrors(['error' => 'Login failed.']);
+        // }
+
         $validator=Validator::make($req->all(),[
            
             'email' => 'required',
@@ -248,7 +261,7 @@ class AdminController extends Controller
         $trx->subject = 'Fund Deposite';
         $trx->name = $depo->name;
         $trx->amount = $amount;
-        $trx->status = 'credit';
+        $trx->status = 'Credit';
         $trx->save();
         
         return redirect('deposits')->with('success', 'Deposit Approved successfully');
@@ -289,5 +302,48 @@ class AdminController extends Controller
         return redirect('bank_info')->with('success', 'Info Updated successfully');
         
 
+    }
+
+    public function withrawals()
+    {
+        $data = Withrawal::orderBy('created_at', 'desc')->get();
+        return view('admin.all_withdrawal', compact('data'));
+    }
+
+    public function app_withdrawal($id)
+    {
+        $depo = Withrawal::find($id);
+        $user_id= $depo->user_id;
+        $amount = $depo->amount;
+
+        $u = User::where('user_id', $user_id)->first();
+        
+        if ($u->balance <  $amount) {
+            return redirect('withrawals')->with('error', 'Issuficient balance');
+        }
+         
+        $u->balance -= $amount;
+        $u->withraw += $amount;
+        $u->save();
+
+        $depo->status = 1;
+        $depo->save();
+
+        $trx = new Transaction();
+
+        $trx->user_id = $depo->user_id;
+        $trx->subject = 'Fund Withdrawal';
+        $trx->name = $u->name;
+        $trx->amount = $amount;
+        $trx->status = 'Debit';
+        $trx->save();
+        
+        return redirect('withrawals')->with('success', 'Withdrawal Approved successfully');
+    }
+
+    public function admin_logout()
+    {
+        Session::forget('admin');
+        return redirect('/admin');
     }
 }

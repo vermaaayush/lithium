@@ -122,13 +122,13 @@
                            
 
                               <div class="form-group row">
-                                  <label class="col-md-3 label-control" for="projectinput6">Principal Release</label>
+                                  <label class="col-md-3 label-control" for="projectinput6">Exit Before End</label>
                                   <div class="col-md-9">
                                       <select id="projectinput6" name="principal_release" class="form-control">
                                           
                                         
                                           <option value="Disabled" selected>Disabled</option>
-                                          <option value="Suspended">Enabled</option>
+                                          <option value="Enabled">Enabled</option>
                                          
                                       </select>
                                   </div>

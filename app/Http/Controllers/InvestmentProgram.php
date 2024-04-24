@@ -80,7 +80,12 @@ class InvestmentProgram extends Controller
     public function view_plan($id)
     {
         $p_info = Plan::find($id);
-        return view('admin.view_plan', compact('p_info'));
+        $planId = $p_info->plan_id;
+      
+        $filePath = asset('storage/' . $planId.'.csv');
+        $stock = Stock::where(['plan_id'=>$planId])->first();
+        $s_value= $stock->base_value;
+        return view('admin.view_plan', compact('p_info', 'filePath', 's_value'));
     }
 
     public function edit_plan(Request $request,$id)

@@ -20,11 +20,9 @@
 
 <!-- Required vendors -->
 <script src="{{ asset('user_assets/assets/vendor/global/global.min.js') }}"></script>
-<script src="{{ asset('user_assets/assets/vendor/chart.js/chart.bundle.min.js') }}"></script>
-<script src="{{ asset('user_assets/assets/vendor/apexchart/apexchart.js') }}"></script>
+
 
 <!-- Dashboard 1 -->
-<script src="{{ asset('user_assets/assets/js/dashboard/dashboard-1.js') }}"></script>
 <script src="{{ asset('user_assets/assets/vendor/draggable/draggable.js') }}"></script>
 <script src="{{ asset('user_assets/assets/vendor/swiper/js/swiper-bundle.min.js') }}"></script>
 
@@ -44,7 +42,7 @@
 
 <script src="{{ asset('user_assets/assets/js/custom.min.js') }}"></script>
 <script src="{{ asset('user_assets/assets/js/deznav-init.js') }}"></script>
-<script src="{{ asset('user_assets/assets/js/demo.js') }}"></script>
+
 
 
 

@@ -76,7 +76,7 @@
                                           <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
                                           <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                               <a href="/view_plan/{{$plan->id}}" class="dropdown-item"><i class="ft-edit-2 success"></i> Manage</a>
-
+                                              <a href="/end_investment_plan/{{$plan->plan_id}}" class="dropdown-item"><i class="ft-alert-triangle danger"></i> End Now</a>
                                               {{-- <a href="/invest_now/{{$plan->id}}" class="dropdown-item"><i class="ft-trash-2 danger"></i> Invest Now</a> --}}
                                               <a href="/funds/{{$plan->id}}" class="dropdown-item"><i class="ft-plus-circle primary"></i> Funds</a>
                                               <a href="/delete/{{$plan->id}}" class="dropdown-item"><i class="ft-trash-2 danger"></i> Delete</a>

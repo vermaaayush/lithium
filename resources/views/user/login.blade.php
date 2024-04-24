@@ -88,7 +88,9 @@
                                             </div>
                                         </div>
                                         <br>
-                                        <div class="g-recaptcha" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}" data-callback="onCaptchaCompleted" ></div>
+										{{ env('NOCAPTCHA_SITEKEY') }}
+									
+                                        <div class="g-recaptcha" data-sitekey="6LcCR7EpAAAAAF7OTGKPpDUZmpMJlfFxPtRsO5Ox" data-callback="onCaptchaCompleted" ></div>
 
                                          <br>
                                         <div class="text-center">

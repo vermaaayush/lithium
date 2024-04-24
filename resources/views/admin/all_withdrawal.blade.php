@@ -1,5 +1,5 @@
 @extends('admin.layout.main')
-@section('title', 'All Deposits')
+@section('title', 'All Withdrawal')
 @section('main-container')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -24,7 +24,7 @@
       <div class="card" >
           <div class="card-head">
               <div class="card-header">
-                  <h4 class="card-title">All Investments Plans</h4>
+                  <h4 class="card-title">All Withdrawal</h4>
                   <a class="heading-elements-toggle"><i class="ft-ellipsis-h font-medium-3"></i></a>
                   <div class="heading-elements">
                       
@@ -51,7 +51,7 @@
                                  
                                   <th>Name</th>
                                   <th>Amount</th>
-                                  <th>Mode</th>
+                              
                                   <th>Tras.ID</th>
                                   <th>Date/Time</th>
                                   <th>Status</th>
@@ -63,7 +63,7 @@
                                   {{-- <td>{{ $data->user_id }}</td> --}}
                                   <td>{{ $data->name }}</td>
                                   <td>$ {{ $data->amount }}</td>
-                                  <td>{{ $data->pay_mode }}</td>
+                                 
                                   {{-- <td>{{ $data->description }}</td> --}}
                                   <td>{{ $data->transaction_id }}</td> 
                                   <td>{{ $data->created_at }}</td> 
@@ -71,32 +71,7 @@
                                     @if ($data->status==0)
                                     <span class="badge border-warning warning badge-border">Pending!</span>
                                       
-                                        <a href="app_depo/{{ $data->id }}" class="btn btn-sm btn-primary" id="approve_btn">Approved</a>
-                                    @elseif ($data->status==2)
-                                        <span class="badge border-warning warning badge-border">Pending!</span>
-                                       
-                                        <button type="button" class="btn btn-sm btn-primary view-proof-btn" data-toggle="modal" data-target="#default" data-img="{{ $data->img }}">
-                                            View Proof
-                                        </button>
-                                            <a href="app_depo/{{ $data->id }}" class="btn btn-sm btn-success" id="approve_btn">Approved</a>
-
-
-                                            <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel1">Proof Image</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <!-- Image will be dynamically added here -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
+                                        <a href="app_withdrawal/{{ $data->id }}" class="btn btn-sm btn-primary" id="approve_btn">Approved</a>
                                     @else
                                     
                                         <span class="badge border-success success badge-border">Success</span>
@@ -122,18 +97,6 @@
     </div>
   </div>
 
-  <script>
-    document.querySelectorAll('.view-proof-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const imgUrl = this.dataset.img;
-            const modalBody = document.querySelector('.modal-body');
-            
-            // Update the modal body content with the image
-            modalBody.innerHTML = `
-                <img src="${imgUrl}" alt="No Proof Available" width="95%">
-            `;
-        });
-    });
-</script>
+
 
 @endsection

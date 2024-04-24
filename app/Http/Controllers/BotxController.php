@@ -10,9 +10,9 @@ class BotxController extends Controller
 {
     public function generateBotData()
     {
-        $baseValue = 100;
-        $downLimit = 80;
-        $upLimit = 130;
+        $baseValue = 500;
+        $downLimit = 380;
+        $upLimit = 620;
         $downInterval = [-0.5, -1, -0.7, -0.4, -2];
         $upInterval = [0.5, 1, 3, 3.5, 0.7, 0.4, 2, 2.5, 1.5];
     
