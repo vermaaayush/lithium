@@ -23,7 +23,7 @@
                             <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Available Wallet Balance <span class="required text-danger">*</span></label>
                             <div class="flex items-stretch flex-wrap relative w-full">
                               
-                                <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="${{ number_format($user->balance) }}" style="color:green;font-weight:bold" name="balance" readonly>
+                                <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="${{ number_format($user->balance) }}"style="background-color: green;color:white" name="balance" readonly>
                                
                             </div>
                         </div>
@@ -63,7 +63,15 @@
             </div>
         </div>
     </div>
-                  
+              
+    @else
+    <div class="xl:w-1/2 w-full" style="margin: auto">
+        <div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent text-danger bg-danger-light dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26] notification">
+            <p class="text-danger mb-2"><strong>Pending! </strong>Address Proof Verification</p>
+            <p class="mb-4 text-danger leading-[1.5]">Submit and verify your proof of address to withdrawal funds.</p>
+           
+        </div>
+    </div>    
                       
     <script>
         document.addEventListener('DOMContentLoaded', function () {

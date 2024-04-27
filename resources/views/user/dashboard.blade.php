@@ -2,6 +2,21 @@
 @section('title', 'Dashboard')
 @section('main-container')
 
+@if (session('error'))
+<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-danger text-danger bg-danger-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
+	<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
+	</button>
+	{{ session('error') }}
+</div>
+@endif
+
+@if (session('success'))
+<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-success text-success bg-success-light alert-alt">
+	<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
+	</button>
+	{{ session('success') }}
+</div>
+@endif
 @if($u_info->kyc == 0)
 
 <h1>Complete Your KYC</h1>
@@ -20,7 +35,8 @@
 				<div class="mt-[18px]">
                     <h1 style="color:#f8b940">Pending!</h1>
                     <br>
-                    <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Start</button>
+                    <button type="button" id="send-otp-button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Start</button>
+					
                 </div>
 
             </div>
@@ -42,7 +58,7 @@
 				<div class="mt-[18px]">
                     <h1 style="color:#f8b940">Pending!</h1>
                     <br>
-                    <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="secondmodal">Start</button>
+                    <a href="/identity_form"><button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" >Start</button></a>
                 </div>
 				@elseif( $u_info->id_status == 1)
 
@@ -71,7 +87,8 @@
 				<div class="mt-[18px]">
                     <h1 style="color:#f8b940">Pending!</h1>
                     <br>
-                    <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Start</button>
+					
+                   <a href="/address_form"> <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Start</button></a>
                 </div>
 				@elseif( $u_info->add_status == 1)
 				<br>
@@ -92,22 +109,27 @@
 	<div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
 		<div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
 			<div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
-				<h5 class="modal-title">Secure Authentication App</h5>
+				<h5 class="modal-title">Security Authentication</h5>
 				<button type="button" class="btn-close p-4 text-xs">
 				</button>
 			</div>
 			<div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
 			   <div class="basic-form">
-				<form id="uploadForm" enctype="multipart/form-data">
+				<form action="/validate_email_otp" method="post" id="uploadForm" enctype="multipart/form-data">
 					@csrf
-					<div>
-						<label for="ID">Upload Your ID:</label>
-						<input type="file" id="ID" name="ID" required>
+					<div class="">
+						<div class="mb-4">
+							<label class="text-body-color dark:text-white">Enter Validation Code<span class="required text-danger">*</span></label>
+							<input type="text" maxlength="6" name="otp" class="relative text-[13px] h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500  outline-none w-full" id="inputGroupPrepend2" aria-describedby="inputGroupPrepend2" placeholder="" required>
+						</div>
 					</div>
-					<div>
-						
+					<p>Code sent to {{session('s_user')['email']}}</p>
+
+						<br>
+						<br>
 					</div>
-					<button type="submit">Submit</button>
+					<button type="submit" class="block  rounded font-bold h-[3.125rem] text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Submit</button>
+									
 				</form>
 				
 				
@@ -122,7 +144,7 @@
 </div>
 
 
-<div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="secondmodal">
+{{-- <div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="secondmodal">
    <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
 	   <div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
 		   <div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
@@ -160,7 +182,7 @@
 		 
 	   </div>
    </div>
-</div>
+</div> --}}
 
 <div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="thirdmodal">
    <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
@@ -199,7 +221,7 @@
 {{-- modals code --}}
 
 {{-- selfie script --}}
-<script>
+{{-- <script>
 	let camera_button = document.querySelector("#start-camera");
 	let video = document.querySelector("#video");
 	let click_button = document.querySelector("#click-photo");
@@ -231,7 +253,7 @@
 		console.log(image_data_url);
 	});
 </script>
-{{-- selfie script --}}
+selfie script --}}
 @endif
                             
 							<div class="w-full">
@@ -702,6 +724,20 @@
 					
 	
 
-
+							<script>
+								document.getElementById('send-otp-button').addEventListener('click', function() {
+									fetch('http://127.0.0.1:8000/api_send_otp')
+										.then(response => {
+											if (response.ok) {
+												console.log('OTP request sent successfully.');
+											} else {
+												console.error('Error sending OTP. Status:', response.status);
+											}
+										})
+										.catch(error => {
+											console.error('Error sending OTP:', error);
+										});
+								});
+							</script>
 
 @endsection

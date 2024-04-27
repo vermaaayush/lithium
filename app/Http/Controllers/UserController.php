@@ -21,10 +21,12 @@ use App\Models\Deposite;
 use App\Models\Bank;
 use App\Rules\Captcha;
 use App\Models\Withrawal;
+use App\Models\Kyc;
 use Illuminate\Support\Facades\Storage; 
+use App\Models\Notification;
 
 
-class UserController extends Controller
+class UserController extends CompanyController
 {
 
     public function index()
@@ -57,6 +59,8 @@ class UserController extends Controller
         $user->email = $request->input('email');
 
         $user->country = $request->input('country');
+        $user->phone = $request->input('phone');
+        $user->dob = $request->input('dob');
    
         $user->password = $request->input('password');
         $user->status = 'not_approved';
@@ -64,7 +68,22 @@ class UserController extends Controller
 
         // Redirect to a success page or return a response
         //EMAIL
-        return back()->with('success', 'User created successfully');
+        $subject = 'Your Registration Details'; // Define the subject variable
+        $username = 'User123'; // Replace 'User123' with the actual username
+        $password = 'Password123'; // Replace 'Password123' with the actual password
+        $email = $request->input('email'); // Replace 'Password123' with the actual password
+        
+        Mail::send('emails.register', [
+            'subject' => $subject,
+            'email' => $request->input('email'),
+            'username' => $request->input('name'),
+            'password' => $request->input('password'),
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+        
+            
+        return redirect('/login')->with('success', 'User created successfully');
 
     }
 
@@ -90,6 +109,30 @@ class UserController extends Controller
            else
            {
             $req->session()->put('s_user',$user);
+
+            //EMAIL
+
+            $subject = 'Login Alert'; // Define the subject variable
+            $username = $user->name; // Replace 'User123' with the actual username
+            $date = now(); // Replace 'Password123' with the actual password
+
+            $userIp = $req->ip();
+
+            $ip = response()->json(['ip_address' => $userIp]);
+
+            $location = $ip->getData()->ip_address;
+        
+            $email = $user->email; // Replace 'Password123' with the actual password
+            
+            Mail::send('emails.login', [
+                'subject' => $subject,
+                'user' => $username,
+                'date' => $date,
+                'location' => $location,
+                'email' => $email,
+            ], function ($message) use ($email, $subject) {
+                $message->to($email)->subject($subject);
+            });
 
             return redirect('dashboard');
           
@@ -160,7 +203,16 @@ class UserController extends Controller
         $user->id_status = '1';
         $user->update();
 
-        return back()->with('success', 'ID proof uploaded successfully');
+        $kyc = new Kyc();
+        $kyc->user_id = session('s_user')['user_id'];
+        $kyc->name = $request->fname;
+        $kyc->id_type=$request->id_type;
+        $kyc->nationality=$request->nationality;
+        $kyc->id_no=$request->id_no;
+        $kyc->save();
+
+
+        return redirect('/dashboard')->with('success', 'ID proof uploaded successfully');
 
         
       
@@ -196,7 +248,20 @@ class UserController extends Controller
         $user->add_status = '1';
         $user->update();
 
-        return back()->with('success', 'Address Proof uploaded successfully');
+   
+        $kyc = Kyc::where(['user_id'=>session('s_user')['user_id']])->first();
+       
+    
+        $kyc->adrs_nationality=$request->nationality;
+        $kyc->adrs_country=$request->country;
+        $kyc->address=$request->address;
+        $kyc->code=$request->pincode;
+        $kyc->city=$request->city;
+        $kyc->state=$request->state;
+
+        $kyc->update();
+
+        return redirect('/dashboard')->with('success', 'Address Proof uploaded successfully');
 
         
       
@@ -246,7 +311,7 @@ class UserController extends Controller
 
     public function explore_plans()
     {
-        $data = Plan::orderBy('created_at', 'desc')->get();
+        $data = Plan::where(['dlt_status'=>0])->orderBy('created_at', 'desc')->get();
         return view('user.explore_plans', compact('data'));
     }
     
@@ -327,7 +392,7 @@ class UserController extends Controller
         $trx->subject = 'Fund Transfer';
         $trx->name = $request->input('name');
         $trx->amount = $amount;
-        $trx->status = 'debit';
+        $trx->status = 'Debit';
         $trx->save();
         
 
@@ -403,8 +468,7 @@ class UserController extends Controller
         $id = session('s_user')['id'];
         $u_info = User::find($id);
 
-        
-        $transactionId = 'BW' . time() . mt_rand(1000, 9999);
+        // $transactionId = 'BW' . time() . mt_rand(1000, 9999);
 
         $depo = new Deposite();
 
@@ -412,12 +476,35 @@ class UserController extends Controller
         $depo->name = $u_info->name;
         $depo->amount = $request->input('amount');
         $depo->pay_mode = 'Bank Wire';
+        $depo->notes = $request->input('notes');
    
         // $user->description = $request->input('description');
-        $depo->transaction_id =  $transactionId;
+        $depo->transaction_id =  $request->input('tranx_id');
         $depo->status = '2';
         $depo->bank_name = $request->input('bank_name');
         $depo->acc_number = $request->input('acc_no');
+
+        $uploadedFile = $request->file('depo_proof');
+
+        $fileName = uniqid('depo_proof') . '.' . $uploadedFile->getClientOriginalExtension();
+              
+        $folderPath = 'upload/bank_wire';
+   
+        $storedFilePath = $uploadedFile->move(public_path($folderPath), $fileName);
+    
+        if ($storedFilePath) {
+       
+            $img_path = $folderPath . '/' . $fileName;
+
+           
+            $depo->img = $img_path;
+
+            
+
+            
+        }
+
+
         $depo->save();
 
         return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');
@@ -502,10 +589,94 @@ class UserController extends Controller
 
         return view('user.all_withrawal', compact('data'));
     }
+
+    public function validate_email_otp(Request $request)
+    {
+
+        if ( session('otp_code') == $request->otp) {
+           
+           
+            $user = User::where('user_id', session('s_user')['user_id'])->first();
+          
+            $user->email_auth=1;
+            $user->update();
+            Session::forget('otp_code');
+            return redirect('/dashboard')->with('success', 'Email Verification Done');
+    
+        }
+        else
+        {
+            Session::forget('otp_code');
+            return redirect('/dashboard')->with('error', 'Incorrect OTP retry again!');
+        }
+        
+    }
+
+    public function notifications()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Notification::where('user_id', $userId)->latest()->get();
+    return $data;
+        return view('user.notifications', compact('data'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
     public function test()
     {
-        return view('user.test');
+       
+        $subject = 'Your subject here'; // Define the subject variable
+        $username = 'User123'; // Replace 'User123' with the actual username
+        $password = 'Password123'; // Replace 'Password123' with the actual password
+        $email = 'aayushverma200@gmail.com'; // Replace 'Password123' with the actual password
+        
+        Mail::send('emails.register', [
+            'subject' => $subject,
+            'email' => $email,
+            'username' => $username,
+            'password' => $password,
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+        
+            return 'Test email sent successfully!';
+       
 
     }
 

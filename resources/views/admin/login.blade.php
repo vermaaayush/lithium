@@ -1,3 +1,8 @@
+@php
+  use App\Models\Config;
+  $company = Config::first();
+  
+@endphp
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
   <head>
@@ -7,7 +12,7 @@
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page - Robust - Responsive Bootstrap 4 Admin Dashboard Template for Web Application</title>
+    <title>Login - {{$company->name}}</title>
     <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
@@ -40,9 +45,9 @@
             <div class="card border-grey border-lighten-3 m-0">
                 <div class="card-header border-0">
                     <div class="card-title text-center">
-                        <div class="p-1"><img src="app-assets/images/logo/logo-dark.png" alt="branding logo"></div>
+                        <div class="p-1"><img src="{{$company->logo}}" alt="branding logo" width="270"></div>
                     </div>
-                    <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>Login with Robust</span></h6>
+                    <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>Login with {{$company->name}}</span></h6>
                 </div>
                 <div class="card-content">
                     <div class="card-body">

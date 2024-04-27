@@ -48,7 +48,7 @@
 
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                             <span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-warning bg-warning-light">Pending</span>
-                            <button type="button" class="btn btn-primary sm:py-[0.719rem] px-2 sm:px-[1rem] py-1.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Upload Proof</button>
+                            {{-- <button type="button" class="btn btn-primary sm:py-[0.719rem] px-2 sm:px-[1rem] py-1.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Upload Proof</button> --}}
                         </td>
 
                         <div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="firstmodal">

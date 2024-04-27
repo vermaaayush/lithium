@@ -35,14 +35,15 @@
                                    
                                     <td><a target="_blank" href="{{ asset($u_info->image_data) }}"><img src="{{ asset($u_info->image_data) }}" alt="ss" width="160" height="160"></a></td>
                                     <td><a target="_blank" href="{{ asset($u_info->id_proof) }}"><img src="{{ asset($u_info->id_proof) }}" alt="ss" width="160" height="160"></a></td>
-                                    <td><h2>Identity Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a></td>
+                                    <td><h2>Identity Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a> <br> <br> <a href="" class="btn btn-danger">Reject Now</a></td>
+                                  
                                   
                                 </tr>
                                 <tr>
                                    
                                     <td><a target="_blank" href="{{ asset($u_info->address_proof) }}"><img src="{{ asset($u_info->address_proof) }}" alt="ss" width="160" height="160"></a></td>
                                     <td></td>
-                                    <td><h2>Address Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a></td>
+                                    <td><h2>Address Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a> <br> <br> <a href="" class="btn btn-danger">Reject Now</a></td>
                                   
                                 </tr>
                                 <tr>
@@ -97,12 +98,12 @@
                                 <label for="status">Status</label>
                                 <select id="status" name="status" class="form-control">
                                     <option value="Active" {{ $u_info->status == 'Active' ? 'selected' : '' }}>Active</option>
-                                    <option value="Disabled" {{ $u_info->status == 'Disabled' ? 'selected' : '' }}>Disabled</option>
+
                                     <option value="Suspended" {{ $u_info->status == 'Suspended' ? 'selected' : '' }}>Suspended</option>
                                 </select>
                             </div>
                            
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="auto_withdraw">Auto-Withdrawal Enabled</label>
                                 <select id="auto_withdraw" name="auto_withdraw" class="form-control">
                                     <option value="No" {{ $u_info->auto_withdraw == 'No' ? 'selected' : '' }}>No</option>
@@ -116,12 +117,23 @@
                                     <option value="No" {{ $u_info->pay_earning == 'No' ? 'selected' : '' }}>No</option>
                                     <option value="Yes" {{ $u_info->pay_earning == 'Yes' ? 'selected' : '' }}>Yes</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             
                             <div class="form-group">
-                                <label for="max_withdraw">Max Withdraw</label>
-                                <input type="text" id="max_withdraw" class="form-control" name="max_withdraw" value="{{ $u_info->max_withdraw }}"  >
+                                <label for="max_withdraw">Country</label>
+                                <input type="text" id="max_withdraw" class="form-control" name="country" value="{{ $u_info->country }}"  >
                             </div>
+
+                            <div class="form-group">
+                                <label for="max_withdraw">Phone</label>
+                                <input type="text" id="max_withdraw" class="form-control" name="phone" value="{{ $u_info->phone }}"  >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="max_withdraw">DOB</label>
+                                <input type="text" id="max_withdraw" class="form-control" name="dob" value="{{ $u_info->dob }}"  >
+                            </div>
+
                             <div class="form-group">
                                 <label for="admin_note">Admin Note</label>
                                 <textarea id="admin_note" rows="5" class="form-control" name="admin_note"  required>
@@ -161,34 +173,31 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="balance">Balance:</label>
-                                        <input class="form-control border-primary" type="text" value="${{ $u_info->balance }}" id="balance">
+                                        <input class="form-control border-primary" type="text" value="{{ $u_info->balance }}" id="balance" name="balance">
                                     </div>
                             
                                     <div class="form-group">
-                                        <label for="funded">Funded:</label>
-                                        <input class="form-control border-primary" type="text" value="${{ $u_info->funded }}" id="funded">
+                                        <label for="funded">Invested:</label>
+                                        <input class="form-control border-primary" type="text" value="{{ $u_info->funded }}" id="funded" name="funded">
                                     </div>
                             
                                     <div class="form-group">
                                         <label for="withdraw">Withdraw:</label>
-                                        <input class="form-control border-primary" id="withdraw" type="text" value="${{ $u_info->withraw }}">
+                                        <input class="form-control border-primary" id="withdraw" type="text" name="withraw" value="{{ $u_info->withraw }}">
                                     </div>
                                 </div>
                             
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="commission">Commission:</label>
-                                        <input class="form-control border-primary" id="commission" type="text" value="${{ $u_info->commission }}">
+                                        <label for="commission">Deposite:</label>
+                                        <input class="form-control border-primary" id="commission" type="text" value="{{ $u_info->commission }}" name="deposite">
                                     </div>
                             
-                                    <div class="form-group">
-                                        <label for="assets">Assets:</label>
-                                        <input class="form-control border-primary" id="assets" type="text" value="${{ $u_info->assets }}">
-                                    </div>
+                                    
                             
                                     <div class="form-group">
                                         <label for="earnings">Earnings:</label>
-                                        <input class="form-control border-primary" id="earnings" type="text" value="${{ $u_info->Earning }}">
+                                        <input class="form-control border-primary" id="earnings" type="text" value="{{ $u_info->Earning }}" name="Earning">
                                     </div>
                                 </div>
                             </div>

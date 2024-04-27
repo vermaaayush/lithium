@@ -1,14 +1,21 @@
 @php
     use App\Models\User;
+    use App\Models\Accesscontrol;
     $p_data = User::where('id', session('s_user')['id'])->first(); 
+    $a_c = Accesscontrol::where('id', 1)->first(); 
 @endphp
 @extends('user.layout.main')
 @section('title', 'Deposite Funds')
 @section('main-container')
 		<!-- Content body start -->
        <!-- Nav tabs -->
+     
+       @if ($a_c->extra2==1)
+           
+      
        @if ($p_data->id_status==2)
            
+       @endif
        
        <div class="w-full">
         <div class="card dz-card dz-tab-area" id="nav-pills">
@@ -196,6 +203,8 @@
                 </div>
                       
         @else
+
+           
         <div class="xl:w-1/2 w-full" style="margin: auto">
             <div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent text-danger bg-danger-light dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26] notification">
                 <p class="text-danger mb-2"><strong>Pending! </strong>Identity Verification</p>

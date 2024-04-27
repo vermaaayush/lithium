@@ -1,3 +1,8 @@
+@php
+  use App\Models\Config;
+  $company = Config::first();
+  
+@endphp
 </div>
 </div>
 
@@ -9,7 +14,7 @@
      <!-- Footer start -->
         <div class="footer dark:bg-[#182237] mt-4 border-t border-b-color dark:border-[#ffffff1a]">
           <div class="p-[0.9375rem]">
-             <p class="text-center text-[#918f8f] dark:text-[#ffffffb3] text-[0.775rem] leading-[1.8]">Copyright © Developed by <a href="https://dexignzone.com/" target="_blank" class="text-primary">DexignZone</a> 2024</p>
+             <p class="text-center text-[#918f8f] dark:text-[#ffffffb3] text-[0.775rem] leading-[1.8]">Copyright © Developed by <a href="#" target="_blank" class="text-primary">{{$company->name}}</a> 2024</p>
           </div>
       </div>
       <!-- Footer end -->

@@ -1,15 +1,20 @@
+@php
+  use App\Models\Config;
+  $company = Config::first();
+  
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	
 	<!--Title-->
-	<title>Signup Now | DexignZone</title>
+	<title>Signup Now | {{$company->name}}</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="author" content="DexignZone">
+
 
 	<meta name="format-detection" content="telephone=no">
 
@@ -18,7 +23,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="{{ asset('user_assets/assets/images/favicon.png') }}">
+	<link rel="shortcut icon" type="image/png" href="{{ $company->favicon }}">
 
 	<link rel="stylesheet" href="{{ asset('user_assets/assets/icons/fontawesome/css/all.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('user_assets/assets/icons/line-awesome/css/line-awesome.min.css') }}">
@@ -74,7 +79,7 @@
 							<div class="w-full">
 								<div class="auth-form p-[3.125rem]">
 									<div class="text-center mb-4">
-										<a href="index.html"><img src="{{ asset('user_assets/assets/images/logo/logo-full.png') }}" alt="" class="w-[160px] inline-block"></a>
+										<a href="index.html"><img src="{{ $company->logo }}" alt="" class="w-[160px] inline-block"></a>
 									</div>
 									<h4 class="text-center mb-6">Sign up your account</h4>
 									@if (session('error'))
@@ -356,6 +361,16 @@
 										<div class="mb-4">
 											<label class="mb-1 form-label text-dark">Email</label>
 											<input type="email" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="hello@example.com" name="email" required>
+										</div>
+
+                                        <div class="mb-4">
+											<label class="mb-1 form-label text-dark">Phone</label>
+											<input type="phone" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter Phone" name="phone" required>
+										</div>
+
+                                        <div class="mb-4">
+											<label class="mb-1 form-label text-dark">Date of Birth</label>
+											<input type="date" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full"  name="dob" required>
 										</div>
 									
 									

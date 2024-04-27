@@ -4,91 +4,58 @@
 		<!-- Content body start -->
         <div class="w-full lg:w-1/2 " style="margin:auto">
             <div class="card">
-                <div class="card-header flex flex-wrap justify-between items-center sm:p-5 sm:pt-6 p-4 pt-5 max-sm:pb-5 relative z-[2] border-b border-[#E6E6E6] dark:border-[#ffffff1a]">
-                    <h4 class="card-title text-base capitalize">Company Account Details</h4>
-                </div>
+              
                 <div class="sm:p-5 p-4">
-                    <div class="basic-form">
-                        <form  > 
-                          
-                            @if(!empty($bank->name))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Bank Name</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                    
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->name }}" readonly>
-                                    
-                                </div>
+                    <div class="">
+						<div class="card overflow-hidden">
+							<div class="text-center p-4 relative z-[1] overlay-box" style="background-image: url(assets/images/big/img1.jpg);">
+								<div class="profile-photo">
+									<i class="fas fa-solid fa-building-columns" style="color:white;font-size: 100px;"></i>
+								</div>
+							
+							</div>
+                            <div style="padding: 5%;">
+                                <h3>Deposit Instruction</h3>
+                                <p class="text-base">1. Please ensure that clearly shows
+                                    your full name, account number,
+                                    and deposit amount so we can
+                                    process your transaction.</p>
+                                <p class="text-base">2. Please allow 1-6 hours for the
+                                        funds to be credited to your
+                                        account.</p>
                             </div>
-                            @endif
-                           
-                            @if(!empty($bank->account_number))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Account Number</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                   
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->account_number }}" readonly>
-                                    
-                                </div>
-                            </div>
-                            @endif
-                            @if(!empty($bank->address))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Bank Address</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                    
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->address }}" readonly>
-                                    
-                                </div>
-                            </div>
-                            @endif
-                            @if(!empty($bank->swift_code))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Swift Code</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                    
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->swift_code }}" readonly>
-                                    
-                                </div>
-                            </div>
-                            @endif
-                            @if(!empty($bank->ibank_number))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">IBAN Number</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                   
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->ibank_number }}" readonly>
-                                    
-                                </div>
-                            </div>
-                            @endif
-                            @if(!empty($bank->rounting_number))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Routing Number</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                    
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->rounting_number }}" readonly>
-                                   
-                                </div>
-                            </div>
-                            @endif
-                            @if(!empty($bank->description))
-                            <div class="mb-4">
-                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Description</label>
-                                <div class="flex items-stretch flex-wrap relative w-full">
-                                   
-                                        <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="{{ $bank->description }}" readonly>
-                                   
-                                </div>
-                            </div>
-                            @endif
+							<ul class="list-group flex flex-col list-group-flush">
+                                @if(!empty($bank->name))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Bank Name</span> <strong class="">{{ $bank->name }}	</strong></li>
+                                @endif
 
-                          
+                                @if(!empty($bank->account_number))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Account Number</span> <strong class="">{{ $bank->account_number }}	</strong></li>
+                                @endif
 
-                            
-                            
-                       </form>
-                    </div>
+                                @if(!empty($bank->address))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Bank Address</span> <strong class="">{{ $bank->address }}	</strong></li>
+                                @endif
+
+                                @if(!empty($bank->swift_code))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Swift code</span> <strong class="">{{ $bank->swift_code }}	</strong></li>
+                                @endif
+
+                                @if(!empty($bank->ibank_number))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">IBAN number</span> <strong class="">{{ $bank->ibank_number }}	</strong></li>
+                                @endif
+                                
+                                @if(!empty($bank->rounting_number))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Rounting Number</span> <strong class="">{{ $bank->rounting_number }}	</strong></li>
+                                @endif
+
+                                @if(!empty($bank->description))
+								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Description</span> <strong class="">{{ $bank->description }}	</strong></li>
+                                @endif
+							</ul>
+                          
+                        </div>
+					</div>
                 </div>
             </div>
         </div>
@@ -97,11 +64,13 @@
         <div class="w-full lg:w-1/2 " style="margin:auto">
             <div class="card">
                 <div class="card-header flex flex-wrap justify-between items-center sm:p-5 sm:pt-6 p-4 pt-5 max-sm:pb-5 relative z-[2] border-b border-[#E6E6E6] dark:border-[#ffffff1a]">
-                    <h4 class="card-title text-base capitalize">Deposite Request By Bank Wire</h4>
+                    <h2 class="card-title  capitalize" style="color:red">SEND RECEIPT</h2>
+                    <p class="text-base">Once you have made the transfer, please complete the form below and attach a copy
+                        of the bank transfer receipt.</p>
                 </div>
                 <div class="sm:p-5 p-4">
                     <div class="basic-form">
-                        <form action="/wire_deposite" method="post" class="form-valide-with-icon needs-validation" > 
+                        <form action="/wire_deposite" method="post" class="form-valide-with-icon needs-validation"  enctype="multipart/form-data" > 
                             @csrf 
                             <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Bank Name <span class="required text-danger">*</span></label>
@@ -126,6 +95,34 @@
                                 <div class="flex items-stretch flex-wrap relative w-full">
                                   
                                     <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Enter the amount" name="amount" required>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Transaction ID <span class="required text-danger">*</span></label>
+                                <div class="flex items-stretch flex-wrap relative w-full">
+                                  
+                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Transaction ID" name="tranx_id" required>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Notes <span class="required text-danger">*</span></label>
+                                <div class="flex items-stretch flex-wrap relative w-full">
+                                  
+                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Notes" name="notes" required>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Upload <span class="required text-danger">*</span></label>
+                                <div class="flex items-stretch flex-wrap relative w-full">
+                                  
+                                    <input type="file"  class="form-control"  name="depo_proof" required>
+
                                    
                                 </div>
                             </div>

@@ -1,3 +1,7 @@
+@php
+    use App\Models\Stock;                            
+@endphp
+
 @extends('admin.layout.main')
 @section('title', 'Investment Plan Details')
 @section('main-container')
@@ -145,6 +149,39 @@
                                 <label class="col-md-3 label-control" for="projectinput5">Image</label>
                                 <div class="col-md-9">
                                     <input type="file" id="projectinput5" class="form-control"  name="plan_image">
+                                </div>
+                            </div>
+
+                            <hr>
+                            <h3>BOTX (Graph BOT): </h3>
+                            <p>Fill all the details for stock graph bot.</p>
+                            <br>
+
+                            @php
+                                
+                                $stock = Stock::where(['plan_id'=>$p_info->plan_id])->first();
+                                
+
+                            @endphp
+
+                            <div class="form-group row">
+                                <label class="col-md-3 label-control" for="projectinput4">Stock Value</label>
+                                <div class="col-md-9">
+                                    <input type="number" id="projectinput4" class="form-control" placeholder="Enter the stock value" value="{{$stock->base_value}}"  name="base_value" required>
+                                </div>
+                            </div>
+
+                              <div class="form-group row">
+                                  <label class="col-md-3 label-control" for="projectinput4">Down limit (Loss)</label>
+                                  <div class="col-md-9">
+                                      <input type="number" min="0"  step="0.01" id="projectinput4" class="form-control" placeholder="Enter the stock max down limit" value="{{$stock->down_limit}}"   name="down_limit" required>
+                                  </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label class="col-md-3 label-control" for="projectinput4">Up limit (Profit)</label>
+                                <div class="col-md-9">
+                                    <input type="number" min="0" step="0.01" id="projectinput4" class="form-control" value="{{$stock->up_limit}}"  placeholder="Enter the stock max up limit"  name="up_limit" required>
                                 </div>
                             </div>
                         

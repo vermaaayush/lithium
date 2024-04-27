@@ -85,12 +85,8 @@
                                   {{-- <td>{{ $data->description }}</td> --}}
                                   <td>{{ $data->created_at }}</td> 
 
-                                  @php
-                                  $currentDate = Carbon::now();
-                                  $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->end_date);
-                                  $remainingDays = round($currentDate->diffInDays($endDate));
-                                  @endphp
-                                  <td>{{$remainingDays}} Days</td> 
+                                  
+                                  <td>Days</td> 
                                   
                                  
                                  

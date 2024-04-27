@@ -1,15 +1,20 @@
+@php
+  use App\Models\Config;
+  $company = Config::first();
+  
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	
 	<!--Title-->
-	<title>Login Now | DexignZone</title>
+	<title>Login Now | {{$company->name}}</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="author" content="DexignZone">
+
 
 	<meta name="format-detection" content="telephone=no">
 
@@ -18,7 +23,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="{{ asset('user_assets/assets/images/favicon.png') }}">
+	<link rel="shortcut icon" type="image/png" href="{{ $company->favicon }}">
 
 	<link rel="stylesheet" href="{{ asset('user_assets/assets/icons/fontawesome/css/all.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('user_assets/assets/icons/line-awesome/css/line-awesome.min.css') }}">
@@ -45,7 +50,7 @@
 							<div class="w-full">
 								<div class="auth-form p-[3.125rem]">
 									<div class="text-center mb-4">
-										<a href="index.html"><img src="{{ asset('user_assets/assets/images/logo/logo-full.png') }}" alt="" class="w-[160px] inline-block"></a>
+										<a href="index.html"><img src="{{ $company->logo }}" alt="" class="w-[160px] inline-block"></a>
 									</div>
 									<h4 class="text-center mb-6">Log in your account</h4>
 									@if (session('error'))

@@ -39,7 +39,7 @@
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                             {{ $data->created_at }}
                         </td>
-                        @if ($data->status == 'debit')
+                        @if ($data->status == 'Debit')
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                             <span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-danger bg-danger-light">DEBIT</span>
                         </td>

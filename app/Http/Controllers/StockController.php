@@ -73,7 +73,7 @@ class StockController extends Controller
             $trx->subject = 'Profit In Investment';
             $trx->name =  $user_info->name;
             $trx->amount = $request->current_value - $data->amount;
-            $trx->status = 'credit';
+            $trx->status = 'Credit';
             $trx->save();
 
 
@@ -134,7 +134,7 @@ class StockController extends Controller
             $trx->subject = 'Profit In Investment';
             $trx->name =  $user_info->name;
             $trx->amount = $investedMoneyValue - $amount;
-            $trx->status = 'credit';
+            $trx->status = 'Credit';
             $trx->save();
 
 

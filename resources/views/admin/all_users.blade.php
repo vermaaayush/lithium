@@ -29,15 +29,15 @@
                   <div class="heading-elements">
                       
                       <a href="/add_user" class="btn btn-primary btn-sm"><i class="ft-plus white"></i> Add User</a>
-                      <span class="dropdown">
+                      {{-- <span class="dropdown">
                           <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-warning dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-download-cloud white"></i></button>
                           <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
                               <a href="#" class="dropdown-item"><i class="ft-upload"></i> Import</a>
                               <a href="#" class="dropdown-item"><i class="ft-download"></i> Export</a>
                               <a href="#" class="dropdown-item"><i class="ft-shuffle"></i> Find Duplicate</a>
                           </span>
-                      </span>
-                      <button class="btn btn-default btn-sm"><i class="ft-settings white"></i></button>
+                      </span> --}}
+                      
                   </div>
               </div>
           </div>
@@ -52,7 +52,7 @@
                                   <th>Name</th>
                                   <th>Email</th>
                                   <th>Status</th>
-                                  <th>Wallet Balance</th>
+                                  <th>Funds</th>
                                   <th>Actions</th>
                               </tr>
                           </thead>
@@ -73,19 +73,54 @@
                                   <td class="text-center">
                                     {{ $user->email }}
                                   </td>
-                                  <td style="color: {{ $user->status === 'Disabled' ? 'red' : 'green' }}">
-                                    {{ $user->status }}
+                                  <td>
+                                    @if ( $user->status == 'Active' )
+                                    <span style="color: green">{{$user->status}}</span>
+                                    <br>
+                                    @else
+                                     <span style="color:red">{{$user->status}}</span>
+                                    <br>
+                                    @endif
+                                    
+
+                                    @if ( $user->id_status == 0 )
+                                    <span style="color: red">Identity Verification Pending!</span>
+                                    <br>
+                                    @elseif( $user->id_status==1)
+                                     <span style="color:#967adc">Check Identity Proof</span>
+                                    <br>
+                                    @endif
+
+                                    @if ( $user->id_status == 0 )
+                                    <span style="color: red">Address Verification Pending!</span>
+                                    <br>
+                                    @elseif( $user->id_status==1)
+                                    <span style="color:#967adc">Check Address Proof</span>
+                                    <br>
+                                    @endif
+
                                   </td>
-                                  <td>$ {{number_format($user->balance) }}</td>
+                                  <td>    
+                                    Balance:   <span style="float:right">${{number_format($user->balance) }}</span><br>
+                                    Invested:  <span style="float:right">${{number_format($user->funded) }}</span><br>
+                                    Deposite:  <span style="float:right">${{number_format($user->deposite) }}</span><br>
+                                    Withrawal: <span style="float:right">${{number_format($user->withraw) }}</span><br>
+                                    Earning:   <span style="float:right">${{number_format($user->Earning) }}</span><br>
+                                </td>
                                   <td>
                                       <span class="dropdown">
-                                          <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
+                                          <button id="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
                                           <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                               <a href="/veiw_user/{{$user->id}}" class="dropdown-item"><i class="ft-edit-2 success"></i> Edit</a>
                                               <a href="/funds/{{$user->id}}" class="dropdown-item"><i class="ft-plus-circle primary"></i> Funds</a>
                                               <a href="/invest_now/{{$user->id}}" class="dropdown-item"><i class="ft-plus-circle primary"></i> Invest Now</a>
-                                              <a href="/block_suspend/{{$user->id}}" class="dropdown-item"><i class="ft-trash-2 danger"></i> Block</a>
-                                              <a href="/delete/{{$user->id}}" class="dropdown-item"><i class="ft-trash-2 danger"></i> Delete</a>
+                                              
+                                              @if ($user->status=='Active')
+                                              <a href="/block_suspend/{{$user->id}}" class="dropdown-item"><i class="ft-alert-octagon danger"></i> Block</a>
+                                              @else
+                                              <a href="/activate_user/{{$user->id}}" class="dropdown-item"><i class="ft-heart success"></i> Activate</a>
+                                              @endif
+                                              <a href="#" class="dropdown-item"><i class="ft-trash-2 danger"></i> Delete</a>
                                               
  
                                           </span>

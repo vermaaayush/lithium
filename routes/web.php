@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvestmentProgram;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api_admin;
+use App\Http\Controllers\Api_user;
 use App\Http\Controllers\CronJobController;
 use App\Http\Controllers\BotxController;
 use App\Http\Controllers\StockController;
@@ -12,13 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Admin_Auth;
 use App\Http\Middleware\User_Auth;
 
-Route::get('/', function () {
-    return view('admin.login');
-});
 
 // Admin routes
-
-Route::get('/admin', function () { return view('admin.login'); });
+Route::get('/', [AdminController::class, 'index']);
+Route::get('/admin', [AdminController::class, 'index']);
 Route::post('/admin_login',[AdminController::class,'login']);
 
 // Admin auth routes
@@ -35,6 +33,7 @@ Route::middleware([Admin_Auth::class])->group(function () {
     Route::get('/app_depo/{id}', [AdminController::class, 'app_depo']);
     Route::get('/all_investment', [AdminController::class, 'all_investment']);
     Route::get('/system_config', [AdminController::class, 'system_config']);
+    Route::post('/system_config', [AdminController::class, 'update_system_config']);
     Route::get('/bank_info', [AdminController::class, 'bank_info']);
     Route::post('/update_bank', [AdminController::class, 'update_bank']);
     Route::get('/withrawals', [AdminController::class, 'withrawals']);
@@ -48,6 +47,29 @@ Route::middleware([Admin_Auth::class])->group(function () {
     Route::get('/invest_now/{id}', [InvestmentProgram::class, 'invest_now']);
     Route::post('/invest_in/{user_id}', [InvestmentProgram::class, 'invest_in']);
     Route::get('/end_investment_plan/{plan_id}', [StockController::class, 'end_investment_plan']);
+    Route::get('/access_control', [AdminController::class, 'access_control']);
+    Route::post('/access_control', [AdminController::class, 'update_access_control']);
+    Route::get('/block_suspend/{id}', [AdminController::class, 'block_suspend']);
+    Route::get('/blacklisted_user', [AdminController::class, 'blacklisted_user']);
+    Route::get('/newsletter', [AdminController::class, 'newsletter']);
+    Route::post('/send_newsletter', [AdminController::class, 'send_newsletter']);
+    Route::get('/all_newsletter', [AdminController::class, 'all_newsletter']);
+    Route::get('/delete_plan/{id}', [InvestmentProgram::class, 'delete_plan']);
+
+    Route::get('/user_transfer', function () { return view('admin.user_transfer'); });
+    Route::get('/api_user_transfer', [Api_admin::class, 'api_user_transfer']);
+
+    Route::get('/trs_history', function () { return view('admin.history'); });
+    Route::get('/api_history', [Api_admin::class, 'api_history']);
+
+    Route::get('/api_dashboard', [Api_admin::class, 'api_dashboard']);
+
+    
+ 
+
+    
+
+    
 });
 
 
@@ -57,7 +79,7 @@ Route::get('/signup', function () { return view('user.register'); });
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
 
-// Admin User routes
+// User routes
 Route::middleware([User_Auth::class])->group(function () {
 
     Route::get('/dashboard', [UserController::class, 'dashboard']);
@@ -88,6 +110,16 @@ Route::middleware([User_Auth::class])->group(function () {
     Route::get('/withraw_funds', [UserController::class, 'withraw_funds']);
     Route::post('/add_withrawal', [UserController::class, 'add_withrawal']);
     Route::get('/all_withrawal', [UserController::class, 'all_withrawal']);
+    Route::get('/identity_form', function () { return view('user.identity_form'); });
+    Route::get('/address_form', function () { return view('user.address_form'); });
+    Route::get('/api_send_otp', [Api_user::class, 'api_send_otp']);
+    Route::post('/validate_email_otp', [UserController::class, 'validate_email_otp']);
+    Route::get('/notifications', [UserController::class, 'notifications']);
+    
+
+
+    
+    
     
    
 });
@@ -103,6 +135,7 @@ Route::get('/run_invest_checker', [CronJobController::class, 'index']);
 Route::get('/run_botx', [BotxController::class, 'index']);
 Route::get('/dummy_cronjob', function () { return view('user.dummy_cronjob'); });
 
+Route::get('/someMethod', [AdminController::class, 'someMethod']);
 
 
 ?>

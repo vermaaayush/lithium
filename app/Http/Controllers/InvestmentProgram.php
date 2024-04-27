@@ -73,7 +73,7 @@ class InvestmentProgram extends Controller
 
     public function plans()
     {
-        $plan = Plan::all();
+        $plan = Plan::where(['dlt_status'=>0])->orderBy('created_at', 'desc')->get();
         return view('admin.all_plans', compact('plan'));
     }
 
@@ -126,6 +126,17 @@ class InvestmentProgram extends Controller
         }
 
         $plan->update();
+
+        $stock = Stock::where(['plan_id'=>$plan->plan_id])->first();
+
+        $stock->base_value=$request->input('base_value');
+        $stock->down_limit=$request->input('down_limit');
+        $stock->up_limit=$request->input('up_limit');
+
+        $stock->update();
+
+
+
         return back()->with('success', 'Investment plan updated successfully');
     }
 
@@ -149,11 +160,13 @@ class InvestmentProgram extends Controller
         $investment->plan_id = $request->input('plan_id');
         $investment->amount =  $amount;
         $investment->name = $request->input('name');
+        $investment->status =  0;
        
         $investment->save();
 
         $plan = Plan::where('plan_id', $request->plan_id)->first();
         $plan->total_invested += $amount; 
+        $plan->no_of_users += 1; 
         $plan->save();
 
 
@@ -165,6 +178,17 @@ class InvestmentProgram extends Controller
         $user->save();
 
 
+        $trx = new Transaction();
+
+        $trx->user_id = $user_id;
+        $trx->subject = 'Investment';
+        $trx->name =  $plan->name;
+        $trx->amount = $amount;
+        $trx->status = 'Debit';
+        $trx->save();
+
+
+        //email
 
 
         //in investment, add amount + , and + user 
@@ -234,7 +258,7 @@ class InvestmentProgram extends Controller
         $trx->subject = 'Investment';
         $trx->name =  $plan->name;
         $trx->amount = $amount;
-        $trx->status = 'debit';
+        $trx->status = 'Debit';
         $trx->save();
 
 
@@ -270,6 +294,17 @@ public function showInvestSuccess(Request $request)
 
 
     return view('user.invest_success',compact('data'));
+}
+
+public function delete_plan($id)
+{
+    
+    $plan = Plan::find($id)->first();
+   
+    $plan->dlt_status =1; 
+    $plan->update();
+   
+    return redirect()->back()->with('success', 'Investment Plan deleted successfully');
 }
 
 }
