@@ -267,8 +267,8 @@ selfie script --}}
 														<div class="depostit-card-media flex justify-between relative z-[2]">
 															<div>
 																<h6 class="font-normal">Wallet Balance</h6>
-																<h3 class="font-semibold leading-[1.346]">$2000000</h3>
-																<p>Add now</p>
+																<h3 class="font-semibold leading-[1.346]" id="x_balance">0</h3>
+																<a href="/deposite_funds"><p>Add now</p></a>
 															</div>
 															<div class="icon-box bg-warning text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
 																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -291,8 +291,8 @@ selfie script --}}
 														<div class="depostit-card-media flex justify-between relative z-[2]">
 															<div>
 																<h6 class="font-normal">Total Deposite</h6>
-																<h3 class="font-semibold leading-[1.346]">$2000000</h3>
-																<p>Add now</p>
+																<h3 class="font-semibold leading-[1.346]" id="x_deposite">0</h3>
+																<a href="/deposite_funds"><p>Add now</p></a>
 															</div>
 															<div class="icon-box bg-primary text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
 																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -316,8 +316,9 @@ selfie script --}}
 														<div class="depostit-card-media flex justify-between relative z-[2]">
 															<div>
 																<h6 class="font-normal">Total Investment</h6>
-																<h3 class="font-semibold leading-[1.346]">$2000000</h3>
-																<p>Add now</p>
+																<h3 class="font-semibold leading-[1.346]" id="x_funded">0</h3>
+																&nbsp;
+																
 															</div>
 															<div class="icon-box bg-danger text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
 																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -341,8 +342,9 @@ selfie script --}}
 														<div class="depostit-card-media flex justify-between relative z-[2]">
 															<div>
 																<h6 class="font-normal">Total Earning</h6>
-																<h3 class="font-semibold leading-[1.346]">$2000000</h3>
-																<p>Add now</p>
+																<h3 class="font-semibold leading-[1.346]" id="x_earning">0</h3>
+																&nbsp;
+															
 															</div>
 															<div class="icon-box bg-success text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
 																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -360,93 +362,14 @@ selfie script --}}
 												</div>	
 											</div>
                                              
-											<h1 style="text-align: center;padding:1%">Top Performer Plans</h1>
+											<h1 style="text-align: center;padding:1%" >Top Performer Plans</h1>
 
-											<div class="md:w-1/4">
-												<div class="card sale-card">
-													<div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
-														<div>
-															<img src="{{ asset('user_assets/man.png') }}" width="100px" alt="">
-															<span class="text-sm text-body-color">Total Sale</span>
-															<h4 class="mb-2">$1,255 <i class="fa-solid fa-arrow-trend-up ml-1"></i></h4>
-														</div>
-														<span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-primary">3.5<i class="fa-solid fa-caret-up ml-1"></i></span>
-													</div>
-													<div class="custome-tooltip">
-														<div id="totalSale"></div>
-													</div>
-													<div class="py-4 px-5">
-														<span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-primary">
-															<svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-														</span>
-													</div>	
-												</div>
-											</div>
-											<div class="md:w-1/4">
-												<div class="card sale-card">
-													<div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
-														<div>
-															<img src="{{ asset('user_assets/man.png') }}" width="100px" alt="">
-															<span class="text-sm text-body-color">Total Sale</span>
-															<h4 class="mb-2">$1,255 <i class="fa-solid fa-arrow-trend-up ml-1"></i></h4>
-														</div>
-														<span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-primary">3.5<i class="fa-solid fa-caret-up ml-1"></i></span>
-													</div>
-													<div class="custome-tooltip">
-														<div id="totalSale"></div>
-													</div>
-													<div class="py-4 px-5">
-														<span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-primary">
-															<svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-														</span>
-													</div>	
-												</div>
-											</div>
-											<div class="md:w-1/4">
-												<div class="card sale-card">
-													<div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
-														<div>
-															<img src="{{ asset('user_assets/man.png') }}" width="100px" alt="">
-															<span class="text-sm text-body-color">Total Purchase</span>
-															<h4 class="mb-2">5,552k <i class="fa-solid fa-arrow-trend-down ml-1"></i></h4>
-														</div>
-														<span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-secondary">5.5<i class="fa-solid fa-caret-down ml-1"></i></span>
-													</div>
-													<div class="custome-tooltip">
-														<div id="totalPurchase"></div>
-													</div>
-													<div class="py-4 px-5">
-														<span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-primary">
-															<svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-														</span>
-													</div>	
-												</div>
-											</div>
-											<div class="md:w-1/4">
-												<div class="card sale-card">
-													<div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
-														<div>
-															<img src="{{ asset('user_assets/man.png') }}" width="100px" alt="">
-															<span class="text-sm text-body-color">Active Customers</span>
-															<h4 class="mb-2">3,431k <i class="fa-solid fa-arrow-trend-down ml-1"></i></h4>
-														</div>
-														<span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-primary">6.5<i class="fa-solid fa-caret-down ml-1"></i></span>
-													</div>
-													<div class="custome-tooltip">
-														<div id="activeCustomers"></div>
-													</div>
-													<div class="py-4 px-5">
-														<span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-info">
-															<svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-														</span>
-													</div>	
-												</div>
-											</div>
+											<div id="quick_plan" class="flex flex-wrap" style="padding:1%">
 
-                                             <br>
+                                             
+											</div>
+											<br>
                                                 <p style="text-align: center"><button type="button" class="mr-1 mb-2 inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.563rem] py-2.5 px-4 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">View All</button></p>
-											 <br>
-											 <br>
 											 <br>
 											 <br>
 											 <hr>
@@ -454,243 +377,96 @@ selfie script --}}
 											<div class="md:w-1/2">
 												
 												<div class="card">
-													<h2 style="padding:1%">My Investments</h2>
+													<div class="flex items-center justify-between" style="padding: 3%">
+														<h2 class="p-1">My Investments</h2>
+													    <a href="/my_investments" class="text-primary">View All</a>
+
+													</div>
+													
+												
 													<div class="overflow-x-auto table-scroll">
-														<table class="table mb-4 min-w-[36rem] w-full">
+														<table class="table mb-4 min-w-[36rem] w-full" id="x_investment">
 															<thead>
 																<tr>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black" style="width:80px;"><strong class="font-medium text-[15px]">#</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">PATIENT</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">DR NAME</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">DATE</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">STATUS</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">PRICE</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"></th>
-																</tr>
+
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Name</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Investment Id</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Amount</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Created At</strong></th>
+																	</tr>
 															</thead>
 															<tbody>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>01</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-success bg-success-light dark:text-white dark:bg-[#3a9b941a]">Successful</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-success rounded-md dz-dropdown bg-success-light hover:bg-success duration-300 light sharp" data-dz-dropdown="dropdown-1">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-1">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>02</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-danger bg-danger-light">Canceled</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-danger rounded-md dz-dropdown bg-danger-light hover:bg-danger duration-300 light sharp" data-dz-dropdown="dropdown-2">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-2">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>03</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-warning bg-warning-light">Pending</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-warning rounded-md dz-dropdown bg-warning-light hover:bg-warning duration-300 light sharp" data-dz-dropdown="dropdown-3">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-3">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
+																
+															
 															</tbody>
+															
 														</table>
+														
 													</div>
-
+													
 												</div>
+												
+													{{-- <a href="/my_investments"><button type="button" style="width:100%" class="mr-1 mb-2 inline-block rounded  font-semibold text-[15px] leading-5 py-[0.438rem] px-4 text-xs border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs">View All Investments</button></a> --}}
+
 											</div>
 
 											<div class="md:w-1/2">
 												
 												<div class="card">
-													<h2 style="padding:1%">Transfers</h2>
+													<div class="flex items-center justify-between" style="padding: 3%">
+														<h2 class="p-1">Transfers</h2>
+													    <a href="/all_transfer" class="text-primary">View All</a>
+
+													</div>
 													<div class="overflow-x-auto table-scroll">
-														<table class="table mb-4 min-w-[36rem] w-full">
+														<table class="table mb-4 min-w-[36rem] w-full" id="x_transfer">
 															<thead>
 																<tr>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black" style="width:80px;"><strong class="font-medium text-[15px]">#</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">PATIENT</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">DR NAME</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">DATE</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">STATUS</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">PRICE</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"></th>
-																</tr>
+
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Sent To</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Email</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Amount</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Transaction Id</strong></th>
+                                                              	</tr>
 															</thead>
 															<tbody>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>01</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-success bg-success-light dark:text-white dark:bg-[#3a9b941a]">Successful</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-success rounded-md dz-dropdown bg-success-light hover:bg-success duration-300 light sharp" data-dz-dropdown="dropdown-1">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-1">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>02</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-danger bg-danger-light">Canceled</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-danger rounded-md dz-dropdown bg-danger-light hover:bg-danger duration-300 light sharp" data-dz-dropdown="dropdown-2">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-2">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>03</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-warning bg-warning-light">Pending</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-warning rounded-md dz-dropdown bg-warning-light hover:bg-warning duration-300 light sharp" data-dz-dropdown="dropdown-3">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-3">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
+															
+															
 															</tbody>
+															
 														</table>
+														
 													</div>
 
 												</div>
+												{{-- <a href="/all_transfer"><button type="button" style="width:100%" class="mr-1 mb-2 inline-block rounded  font-semibold text-[15px] leading-5 py-[0.438rem] px-4 text-xs border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs">View All Investments</button></a> --}}
+
 											</div>
 											
 
 											<div class="" style="padding-top: 5%">
 												
 												<div class="card">
-													<h2 style="padding:1%">Transaction History</h2>
+													<div class="flex items-center justify-between" style="padding: 3%">
+														<h2 class="p-1">Transaction History</h2>
+													    <a href="/history" class="text-primary">View All</a>
+
+													</div>
 													<div class="overflow-x-auto table-scroll">
-														<table class="table mb-4 min-w-[36rem] w-full">
+														<table class="table mb-4 min-w-[36rem] w-full" id="x_hist">
 															<thead>
 																<tr>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black" style="width:80px;"><strong class="font-medium text-[15px]">#</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">PATIENT</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">DR NAME</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">DATE</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">STATUS</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">PRICE</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">ID</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Name</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Subject</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Amount</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Status</strong></th>
+																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Date/Time</strong></th>
+	
 																</tr>
 															</thead>
 															<tbody>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>01</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-success bg-success-light dark:text-white dark:bg-[#3a9b941a]">Successful</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-success rounded-md dz-dropdown bg-success-light hover:bg-success duration-300 light sharp" data-dz-dropdown="dropdown-1">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-1">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>02</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-danger bg-danger-light">Canceled</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-danger rounded-md dz-dropdown bg-danger-light hover:bg-danger duration-300 light sharp" data-dz-dropdown="dropdown-2">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-2">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><strong>03</strong></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Mr. Bobby</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">Dr. Jackson</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">01 August 2020</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-warning bg-warning-light">Pending</span></td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$21.56</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-right text-body-color">
-																		<div class="dropdown">
-																			<button type="button" class="btn min-w-[2.4rem] p-[0.4375rem] h-[2.4rem] leading-[1.7] min-h-[2.5rem] btn-warning rounded-md dz-dropdown bg-warning-light hover:bg-warning duration-300 light sharp" data-dz-dropdown="dropdown-3">
-																				<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-																			</button>
-																			<div class="dz-dropdown-menu dropdown-menu-end border py-2 rounded-md min-w-[10rem] z-[9] translate-x-[-96px] translate-y-1 shadow-[0_0_3.125rem_0_rgba(82,63,105,0.15)] overflow-hidden border-b-color absolute bg-white dark:bg-[#182237] dark:shadow-[0rem_0rem_0rem_0.0625rem_rgba(255,255,255,0.1)] hidden" id="dropdown-3">
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Edit</a>
-																				<a class="dropdown-item py-2 px-5 text-body-color text-[13px] text-left block w-full whitespace-nowrap hover:bg-[#f8f9fa] hover:text-primary dark:hover:bg-[#151C2C]" href="javascript:void(0);">Delete</a>
-																			</div>
-																		</div>
-																	</td>
-																</tr>
+														
 															</tbody>
 														</table>
 													</div>
@@ -739,5 +515,130 @@ selfie script --}}
 										});
 								});
 							</script>
+
+
+
+
+<script>
+    // Fetch data from API using fetch API
+    fetch('http://127.0.0.1:8000/api_dash')
+        .then(response => response.json())
+        .then(data => {
+          
+                document.getElementById('x_balance').innerHTML = `$${data.balance.toLocaleString()}`;
+                document.getElementById('x_deposite').innerHTML = `$${data.deposite.toLocaleString()}`;
+                document.getElementById('x_funded').innerHTML = `$${data.invested.toLocaleString()}`;
+                document.getElementById('x_earning').innerHTML = `$${data.earning.toLocaleString()}`;
+
+				const quickPlanDiv = document.getElementById('quick_plan');
+quickPlanDiv.innerHTML = ''; // Clear existing content
+
+
+data.plans.forEach(plan => {
+    const newCard = `
+        <div class="md:w-1/4" style="padding:0.5%">
+            <div class="card sale-card">
+                <div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
+                    <div>
+                        <img src="${plan.image}" width="100" alt="">
+                        <span class="text-sm text-body-color">${plan.name}</span>
+                        <h4 class="mb-2">Total Invested: $${plan.total_invested} <i class="fa-solid fa-arrow-trend-up ml-1"></i></h4>
+                    </div>
+                    <span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-primary">${plan.roi}<i class="fa-solid fa-caret-up ml-1"></i></span>
+                </div>
+                <div class="custome-tooltip">
+                    <div id="totalSale"></div>
+                </div>
+                <div class="py-4 px-5">
+                    <span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-primary">
+                        <svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    `;
+    quickPlanDiv.insertAdjacentHTML('beforeend', newCard);
+});
+
+
+
+
+
+            const topwithTable = document.getElementById('x_investment');
+            const topwithBody = topwithTable.getElementsByTagName('tbody')[0];
+            topwithBody.innerHTML = ''; // Clear existing table rows
+
+            data.investment.forEach(investment => {
+                const newRow = `
+				<tr>
+				
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${investment.name}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${investment.investment_id}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$${investment.amount}</td>
+
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${investment.created_at}</td>
+																
+																</tr>
+                `;
+                topwithBody.insertAdjacentHTML('beforeend', newRow);
+            });
+
+            const topinvestor = document.getElementById('x_transfer');
+            const topinvestorBody = topinvestor.getElementsByTagName('tbody')[0];
+            topinvestorBody.innerHTML = ''; // Clear existing table rows
+
+            data.transfer.forEach(transfer => {
+                const newRow = `
+				<tr>
+				
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transfer.receiver_name}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transfer.receiver_email}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$${transfer.amount}</td>
+
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transfer.transaction_id}</td>
+																
+																</tr>
+                `;
+                topinvestorBody.insertAdjacentHTML('beforeend', newRow);
+            });
+			
+
+    
+        })
+
+		
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
+
+<script>
+    // Fetch data from API using fetch API
+    fetch('http://127.0.0.1:8000/api_dash')
+        .then(response => response.json())
+        .then(data => {
+           
+			 			const topwithTable = document.getElementById('x_hist');
+            const topwithBody = topwithTable.getElementsByTagName('tbody')[0];
+            topwithBody.innerHTML = ''; // Clear existing table rows
+
+            data.transaction.forEach(transaction => {
+                const newRow = `
+				<tr>
+				
+					<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">#${transaction.id}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.name}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.subject}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$${transaction.amount}</td>
+                                                                    <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.status}</td>
+																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.created_at}</td>
+																
+																</tr>
+                `;
+                topwithBody.insertAdjacentHTML('beforeend', newRow);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+
 
 @endsection

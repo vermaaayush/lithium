@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Stock;
 use App\Models\Investment;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon; 
 class InvestmentProgram extends Controller
 {
@@ -264,6 +265,8 @@ class InvestmentProgram extends Controller
 
         //email
 
+        
+
 
         $data = [
             'message' => 'Investment successful!',
@@ -273,6 +276,36 @@ class InvestmentProgram extends Controller
             'investment_id'=>$randomNumber,
 
         ];
+
+
+        $subject = 'Trade Confirmation - Stock Purchase Completed'; // Define the subject variable
+        $username = 'User123'; // Replace 'User123' with the actual username
+        $password = 'Password123'; // Replace 'Password123' with the actual password
+        $email = $user->email;
+        $stock_name = $plan->name;
+        $total_amount =$amount;
+        $investment_id = $randomNumber;
+        $user_x= $user->name;
+        $date= Carbon::now();
+        
+        
+
+        
+        Mail::send('emails.tradein', [
+            'subject' => $subject,
+            'email' => $email,
+            'user_x' =>$user_x,
+            'username' => $username,
+            'password' => $password,
+            'stock_name' => $stock_name,
+            'total_amount' => $total_amount,
+            'investment_id' => $investment_id,
+            'date' => $date,
+            
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+        
 
     
         
@@ -303,6 +336,11 @@ public function delete_plan($id)
    
     $plan->dlt_status =1; 
     $plan->update();
+
+    $stock = Stock::where('plan_id', $plan->plan_id)->first();
+   
+    $stock->status =0; 
+    $stock->update();
    
     return redirect()->back()->with('success', 'Investment Plan deleted successfully');
 }

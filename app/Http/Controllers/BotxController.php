@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class BotxController extends Controller
 {
-    public function generateBotData()
+    public function generateBotData($a,$b,$c)
     {
-        $baseValue = 500;
-        $downLimit = 380;
-        $upLimit = 620;
+        $baseValue = $a; 
+        $downLimit = $b;
+        $upLimit = $c;
         $downInterval = [-0.5, -1, -0.7, -0.4, -2];
-        $upInterval = [0.5, 1, 3, 3.5, 0.7, 0.4, 2, 2.5, 1.5];
+        $upInterval = [0.5, 1, 3, 3.5, 0.7, 0.4, 2, 7.5, 10.5,11.5, 12, 13, 14.5, 15, 16, 6, 11, 10.9];
     
         $totalMovements = 0;
     
@@ -64,16 +64,16 @@ class BotxController extends Controller
     public function index()
 {
     // Get all stocks
-    $stocks = Stock::all();
+    $stocks = Stock::where('status', 1)->get();
 
     foreach ($stocks as $stock) {
         // Create CSV file for each stock if it doesn't exist
         $planId = $stock->plan_id;
         $fileName = "$planId.csv";
         $filePath = 'public/' . $fileName;
-
+          
         // Generate bot data for this stock
-        $botData = $this->generateBotData();
+        $botData = $this->generateBotData($stock->base_value,$stock->down_limit,$stock->up_limit);
 
         // Format the data as CSV
         $csvData = "{$botData['dateTime']},{$botData['open']},{$botData['high']},{$botData['low']},{$botData['close']}";

@@ -11,6 +11,8 @@ use App\Models\Transaction;
 use App\Models\Withrawal;
 use Illuminate\Support\Facades\Session;
 use App\Models\Investment;
+use App\Models\Plan;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -45,6 +47,67 @@ class Api_user extends CompanyController
             // Error occurred while sending email
             return response()->json(['error' => 'Error sending email: ' . $e->getMessage()], 500);
         }
+
+    }
+
+    public function api_portfolio()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Investment::where('user_id', $userId)
+        ->where('status', 0) 
+        ->orderBy('created_at', 'desc')
+        ->get();
+        // return $data;
+
+        $investments = [];
+ 
+        foreach ($data as $investment) {
+            $p_data = Plan::where('plan_id', $investment->plan_id)->first();
+            $filePath = asset('storage/' . $investment->plan_id . '.csv');
+            $stock = Stock::where('plan_id', $investment->plan_id)->first();
+            $stock_value = $stock->base_value;
+        
+            $investments[] = [
+                'filePath' => $filePath,
+                'stock_value' => $stock_value,
+                't_investment' => $investment->amount,
+                'plan_name' => $p_data->name,
+                'investment_id' => $investment->investment_id,
+                'img'=>$p_data->image,
+            ];
+        }
+
+        return response()->json(['investments' => $investments]);
+       
+
+    }
+
+    public function api_dash()
+    {
+        $userId = session('s_user')['user_id'];
+        $user = User::where('user_id', $userId)->first();
+        $investment = Investment::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
+        $transfer = Transfer::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
+        $transaction = Transaction::where('user_id', $userId)->orderBy('created_at', 'desc')->take(8)->get();
+        $plans = Plan::orderBy('created_at', 'desc')->take(4)->get();
+       
+
+
+        $data = [
+            'balance' => $user->balance,
+            'deposite' => $user->deposite,
+            'invested' => $user->funded,
+            'earning' => $user->Earning,
+            'investment' => $investment,
+            'transfer' => $transfer,
+            'transaction' => $transaction,
+            'plans' => $plans,
+            
+        ];
+
+        return $data;
+
+
 
     }
 }

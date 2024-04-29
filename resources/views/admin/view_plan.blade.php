@@ -121,7 +121,7 @@
                                   <div class="col-md-9">
                                     <select id="projectinput6" name="principal_release" class="form-control">
                                         <option value="Disabled" {{ $p_info->principal_release == 'Disabled' ? 'selected' : '' }}>Disabled</option>
-                                        <option value="Suspended" {{ $p_info->principal_release == 'Suspended' ? 'selected' : '' }}>Enabled</option>
+                                        <option value="Enabled" {{ $p_info->principal_release == 'Enabled' ? 'selected' : '' }}>Enabled</option>
                                     </select>
                                         
                                   </div>

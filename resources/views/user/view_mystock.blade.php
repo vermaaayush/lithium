@@ -35,7 +35,7 @@
                                 @csrf
                                 <input type="text" hidden name="investment_id" value="{{$data->investment_id}}">
                                 <input type="text" hidden name="current_value" id="current_value2" value="">
-                                <button type="submit" class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-sm">Release Funds</button>
+                                <button type="submit" class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-sm">Sell Now</button>
                             </form>
                             @endif
 

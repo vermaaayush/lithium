@@ -115,6 +115,13 @@ Route::middleware([User_Auth::class])->group(function () {
     Route::get('/api_send_otp', [Api_user::class, 'api_send_otp']);
     Route::post('/validate_email_otp', [UserController::class, 'validate_email_otp']);
     Route::get('/notifications', [UserController::class, 'notifications']);
+    Route::get('/all_transfer', [UserController::class, 'all_transfer']);
+    Route::get('/portfolio', [UserController::class, 'portfolio']);
+    Route::get('/api_portfolio', [Api_user::class, 'api_portfolio']);
+    Route::get('/api_dash', [Api_user::class, 'api_dash']);
+    
+
+    
     
 
 

@@ -22,6 +22,7 @@ use App\Models\Bank;
 use App\Rules\Captcha;
 use Illuminate\Support\Facades\Storage; 
 
+
 class StockController extends Controller
 {
     public function view_mystock($ivst_id)
@@ -75,6 +76,25 @@ class StockController extends Controller
             $trx->amount = $request->current_value - $data->amount;
             $trx->status = 'Credit';
             $trx->save();
+
+            //Email
+            $plan = Plan::where(['plan_id'=>$data->plan_id])->first();
+            // $subject = 'Stock Sale Confirmation'; // Define the subject variable
+            // $planname = 'User123'; // Replace 'User123' with the actual username
+            // $investment_id = 'Password123'; // Replace 'Password123' with the actual password
+            // $email = 'aayushverma200@gmail.com'; // Replace 'Password123' with the actual password
+            
+            Mail::send('emails.sell', [
+                'subject' => 'Stock Sale Confirmation',
+                'email' => $user_info->email,
+                'user' => $user_info->name,
+                'invest_id' => $request->investment_id,
+                'amount' => $request->current_value,
+                'plan_name' => $plan->name,
+            ], function ($message) use ($user_info) {
+                $message->to($user_info->email)->subject('Stock Sale Confirmation');
+            });
+            
 
 
         }

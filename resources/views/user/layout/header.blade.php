@@ -52,6 +52,27 @@
 	}
 	
   </style>
+  <script>
+	// Function to update the clock
+	function updateClock() {
+		const now = new Date();
+		const date = now.toDateString(); // Get the date in a human-readable format
+		const hours = now.getHours().toString().padStart(2, '0');
+		const minutes = now.getMinutes().toString().padStart(2, '0');
+		const seconds = now.getSeconds().toString().padStart(2, '0');
+		const currentTime = `${date} ${hours}:${minutes}:${seconds}`; // Combine date and time
+		const clockElement = document.getElementById('clock');
+		if (clockElement) {
+			clockElement.innerText = currentTime;
+		}
+	}
+
+	// Initial call to update the clock
+	updateClock();
+
+	// Refresh the clock every second (1000 milliseconds)
+	setInterval(updateClock, 1000);
+</script>
 </head>
 <body class="selection:text-white selection:bg-primary">
 
@@ -92,7 +113,7 @@
                     <div class="navbar-collapse justify-between">
                         <div class="header-left">
 							<div class="dashboard_bar max-md:hidden dark:text-white">
-                                Dashboard
+                               <span id="clock" class="text-primary"></span>
                             </div>
                         </div>
                         <div class="header-right flex items-center h-full">
@@ -196,13 +217,13 @@
 	
 														<span class="ml-2 text-[13px] text-body-color group-hover:text-primary">Profile </span>
 													</a>
-													<a href="/my_investments" class="dropdown-item py-[0.6rem] px-[1.25rem] block w-full ai-icon hover:bg-primary-light group">
+													<a href="/portfolio" class="dropdown-item py-[0.6rem] px-[1.25rem] block w-full ai-icon hover:bg-primary-light group">
 														<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart inline-block"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
 	
 														<span class="ml-2 text-[13px] text-body-color group-hover:text-primary">My Portfolio</span>
 															</a>
 													
-													<a href="#" class="dropdown-item py-[0.6rem] px-[1.25rem] block w-full ai-icon hover:bg-primary-light group">
+													<a href="/notifications" class="dropdown-item py-[0.6rem] px-[1.25rem] block w-full ai-icon hover:bg-primary-light group">
 														<svg class="inline-block" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.8476C17.6392 17.8476 20.2481 17.1242 20.5 14.2205C20.5 11.3188 18.6812 11.5054 18.6812 7.94511C18.6812 5.16414 16.0452 2 12 2C7.95477 2 5.31885 5.16414 5.31885 7.94511C5.31885 11.5054 3.5 11.3188 3.5 14.2205C3.75295 17.1352 6.36177 17.8476 12 17.8476Z" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 															<path d="M14.3888 20.8572C13.0247 22.372 10.8967 22.3899 9.51947 20.8572" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -246,6 +267,8 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
 					</li>
+
+					
 					
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<div class="menu-icon">
@@ -296,7 +319,7 @@
 					</li>
 					<li><a href="/notifications" class="" aria-expanded="false">
 						<i class="fas fa-list-check"></i>
-							<span class="nav-text">Notifications</span>
+							<span class="nav-text">NewsLetter</span>
 						</a>
 					</li>
 					<li>
@@ -304,6 +327,13 @@
 							<i class="fas fa-user"></i>
 							<!-- Added margin-right: 5px to create space between icon and text -->
 							<span class="nav-text">Referral</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="" aria-expanded="false">
+							<i class="fas fa-envelope"></i>
+							<!-- Added margin-right: 5px to create space between icon and text -->
+							<span class="nav-text">Contact Us</span>
 						</a>
 					</li>
 					<li>

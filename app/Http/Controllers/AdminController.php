@@ -481,7 +481,18 @@ class AdminController extends CompanyController
                 
               
     
-               //Email
+                $subject = 'New Notification'; // Define the subject variable
+    
+                $email = $user->email;
+                $msg=$message;
+                
+                Mail::send('emails.notification', [
+                    'subject' => $subject,
+                    'email' => $request->input('email'),
+                    'msg' => $msg,
+                ], function ($msg) use ($email, $subject) {
+                    $msg->to($email)->subject($subject);
+                });
             }
         }
     

@@ -1,3 +1,8 @@
+@php
+  use App\Models\Config;
+  $company = Config::first();
+  
+@endphp
 @extends('user.layout.main')
 @section('title', 'Success')
 @section('main-container')
@@ -51,7 +56,7 @@
                             </tr>
 
                             <tr >
-                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a]  text-body-color" colspan="2"><strong>COMPANY NAME</strong></td>
+                                <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap border-x border-x-[#E6E6E6] sm:text-sm text-xs font-normal border-b border-[#E6E6E6] dark:border-[#ffffff1a]  text-body-color" colspan="2"><strong> {{$company->name}}</strong></td>
                             </tr>
                         
                         </tbody>

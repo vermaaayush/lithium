@@ -67,7 +67,7 @@
         <div class="navbar-header">
           <ul class="nav navbar-nav flex-row">
             <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-            <li class="nav-item"><a class="navbar-brand" href="#"><img class="brand-logo" alt="robust admin logo" src="{{ $company->favicon }}">
+            <li class="nav-item"><a class="navbar-brand" href="#"><img class="brand-logo" src="{{ $company->favicon }}">
                 <h3 class="brand-text">Admin Control</h3></a></li>
             <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
           </ul>
@@ -83,13 +83,13 @@
              
             
              
-              <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><img src="{{ $company->favicon }}" alt="avatar"><i></i></span><span class="user-name">John Doe</span></a>
+              <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><img src="{{ $company->favicon }}" alt="avatar"><i></i></span><span class="user-name">{{ $company->name }}</span></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
-                  <a class="dropdown-item" href="/system_config"><i class="ft-mail"></i>System Config</a>
-                  <a class="dropdown-item" href="/bank_info"><i class="ft-check-square"></i>Bank Info</a>
-                  <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
-                  <div class="dropdown-divider"></div><a class="#" href="/admin_logout"><i class="ft-power"></i> Logout</a>
+                  <a class="dropdown-item" href="#"><i class="ft-server"></i> Settings</a>
+                  <a class="dropdown-item" href="/system_config"><i class="ft-settings"></i>System Config</a>
+                  <a class="dropdown-item" href="/bank_info"><i class="ft-file"></i>Bank Info</a>
+                  {{-- <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a> --}}
+                 <a  class="dropdown-item" href="/admin_logout"><i class="ft-power"></i> Logout</a>
                 </div>
               </li>
             </ul>
@@ -142,56 +142,55 @@
             </ul>
           </li> --}}
 
-          <li class=" nav-item"><a href="/deposits"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Deposite</span></a>
+          <li class=" nav-item"><a href="/deposits"><i class="ft-trending-up"></i><span class="menu-title" data-i18n="nav.dash.main">Deposite</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/withrawals"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Withdrawal</span></a>
+          <li class=" nav-item"><a href="/withrawals"><i class="ft-trending-down"></i><span class="menu-title" data-i18n="nav.dash.main">Withdrawal</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/user_transfer"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">User Transfers</span></a>
+          <li class=" nav-item"><a href="/user_transfer"><i class="ft-radio"></i><span class="menu-title" data-i18n="nav.dash.main">User Transfers</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Add bonus</span></a>
+          <li class=" nav-item"><a href="/system_config"><i class="icon-trophy"></i><span class="menu-title" data-i18n="nav.dash.main">Add bonus</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Add Penalty</span></a>
+          <li class=" nav-item"><a href="/system_config"><i class="icon-fire"></i><span class="menu-title" data-i18n="nav.dash.main">Add Penalty</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/trs_history"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Transaction History</span></a>
+          <li class=" nav-item"><a href="/trs_history"><i class="ft-layers"></i><span class="menu-title" data-i18n="nav.dash.main">Transaction History</span></a>
           
           </li>
-          <li class=" nav-item"><a href="/newsletter"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Send a Newsletter</span></a>
-          
-          </li>
-
-          
-          <li class=" nav-item"><a href="/system_config"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Referral</span></a>
+          <li class=" nav-item"><a href="/newsletter"><i class="ft-heart"></i><span class="menu-title" data-i18n="nav.dash.main">Send a Newsletter</span></a>
           
           </li>
 
+          
+          <li class=" nav-item"><a href="/system_config"><i class="icon-notebook"></i><span class="menu-title" data-i18n="nav.dash.main">Referral</span></a>
+          
+          </li>
 
-          <li class=" nav-item"><a href="/access_control"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">User Access Control</span></a>
+
+          <li class=" nav-item"><a href="/access_control"><i class="ft-shield"></i><span class="menu-title" data-i18n="nav.dash.main">User Access Control</span></a>
           
           </li>
          
-          <li class=" nav-item"><a href="/system_config"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">System Config</span></a>
+          <li class=" nav-item"><a href="/system_config"><i class="ft-settings"></i><span class="menu-title" data-i18n="nav.dash.main">System Config</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Auto Withdrawals</span></a>
+          <li class=" nav-item"><a href="/system_config"><i class="ft-cpu"></i><span class="menu-title" data-i18n="nav.dash.main">Auto Withdrawals</span></a>
+          
+          </li>
+          <li class=" nav-item"><a href="/system_config"><i class="ft-chrome"></i><span class="menu-title" data-i18n="nav.dash.main">IP Logs</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">IP Logs</span></a>
-          
-          </li>
-
-          <li class=" nav-item"><a href="/admin_logout"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Logout</span></a>
+          <li class=" nav-item"><a href="/admin_logout"><i class="ft-power"></i><span class="menu-title" data-i18n="nav.dash.main">Logout</span></a>
           
           </li>
 

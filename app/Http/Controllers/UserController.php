@@ -440,6 +440,10 @@ class UserController extends CompanyController
 
     public function v_plan($id)
     {
+        $u_id=session('s_user')['id'];
+        $user = User::find($u_id);
+       
+        
         $data = Plan::find($id);
 
        $planId = $data->plan_id;
@@ -449,7 +453,7 @@ class UserController extends CompanyController
        $stock = Stock::where(['plan_id'=>$planId])->first();
        $s_value= $stock->base_value;
      
-        return view('user.view_plan',  compact('data', 'filePath', 's_value'));
+        return view('user.view_plan',  compact('data', 'filePath', 's_value','user'));
     }
 
 
@@ -615,9 +619,41 @@ class UserController extends CompanyController
     public function notifications()
     {
         $userId = session('s_user')['user_id'];
-        $data = Notification::where('user_id', $userId)->latest()->get();
-    return $data;
+        $data = Notification::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+
+
+ 
         return view('user.notifications', compact('data'));
+    }
+
+
+
+
+
+
+
+
+
+    public function all_transfer()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Transfer::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+
+
+ 
+        return view('user.all_transfer', compact('data'));
+    }
+
+    public function portfolio()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Investment::where('user_id', $userId)
+        ->where('status', 0) 
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+
+        return view('user.portfolio', compact('data'));
     }
 
 
