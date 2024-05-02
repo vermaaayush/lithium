@@ -117,8 +117,10 @@ Route::middleware([User_Auth::class])->group(function () {
     Route::get('/notifications', [UserController::class, 'notifications']);
     Route::get('/all_transfer', [UserController::class, 'all_transfer']);
     Route::get('/portfolio', [UserController::class, 'portfolio']);
+    Route::get('/profile', [UserController::class, 'profile']);
     Route::get('/api_portfolio', [Api_user::class, 'api_portfolio']);
     Route::get('/api_dash', [Api_user::class, 'api_dash']);
+
     
 
     

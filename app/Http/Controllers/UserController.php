@@ -656,6 +656,13 @@ class UserController extends CompanyController
         return view('user.portfolio', compact('data'));
     }
 
+    public function profile()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = User::where('user_id', $userId)->first();
+        return view('user.profile', compact('data'));
+    }
+
 
 
 
