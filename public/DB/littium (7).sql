@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 10:29 AM
+-- Generation Time: May 06, 2024 at 11:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,6 +37,7 @@ CREATE TABLE `access_control` (
   `extra2` varchar(255) DEFAULT NULL,
   `extra3` varchar(255) DEFAULT NULL,
   `extra4` varchar(255) DEFAULT NULL,
+  `referral` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -45,8 +46,8 @@ CREATE TABLE `access_control` (
 -- Dumping data for table `access_control`
 --
 
-INSERT INTO `access_control` (`id`, `m_email`, `m_instant_payment`, `m_deposite`, `m_transfer`, `extra1`, `extra2`, `extra3`, `extra4`, `created_at`, `updated_at`) VALUES
-(1, '0', '1', '1', '1', '1', '1', '0', '0', '2024-04-24 16:16:17', '2024-04-27 16:22:31');
+INSERT INTO `access_control` (`id`, `m_email`, `m_instant_payment`, `m_deposite`, `m_transfer`, `extra1`, `extra2`, `extra3`, `extra4`, `referral`, `created_at`, `updated_at`) VALUES
+(1, '1', '1', '1', '1', '1', '1', '0', '0', '1', '2024-04-24 16:16:17', '2024-05-06 08:09:46');
 
 -- --------------------------------------------------------
 
@@ -142,15 +143,18 @@ CREATE TABLE `configs` (
   `logo` varchar(255) NOT NULL,
   `favicon` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `reff_code_bonus` varchar(80) DEFAULT NULL,
+  `reff_depo_earning` varchar(80) DEFAULT NULL,
+  `reff_trade_earning` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `configs`
 --
 
-INSERT INTO `configs` (`id`, `name`, `url`, `phone`, `address`, `email`, `licence_key`, `logo`, `favicon`, `created_at`, `updated_at`) VALUES
-(1, 'asdsad', 'asdsad', 'asdasd', 'asdasd', 'sadas@gmail.com', '123213213', 'upload/logo/company_logo662b7b756cde1.png', 'upload/favicon/favicon662b7b756ef25.png', '2024-04-08 13:24:41', '2024-04-26 04:31:25');
+INSERT INTO `configs` (`id`, `name`, `url`, `phone`, `address`, `email`, `licence_key`, `logo`, `favicon`, `created_at`, `updated_at`, `reff_code_bonus`, `reff_depo_earning`, `reff_trade_earning`) VALUES
+(1, 'asdsad', 'asdsad', 'asdasd', 'asdasd', 'sadas@gmail.com', '123213213', 'upload/logo/company_logo662b7b756cde1.png', 'upload/favicon/favicon662b7b756ef25.png', '2024-04-08 13:24:41', '2024-05-06 07:53:42', '100', '5', '5');
 
 -- --------------------------------------------------------
 
@@ -170,7 +174,7 @@ CREATE TABLE `deposite` (
   `bank_name` varchar(100) DEFAULT NULL,
   `acc_number` varchar(100) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
-  `notes` varchar(200) NOT NULL,
+  `notes` varchar(200) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -184,7 +188,14 @@ INSERT INTO `deposite` (`id`, `user_id`, `name`, `amount`, `pay_mode`, `descript
 (25, '823119', 'John King', '1200', 'Bank Wire', NULL, 'BW17136862555472', '1', 'TEST', '12321321321', NULL, '', '2024-04-21 02:27:35', '2024-04-27 17:23:29'),
 (26, '823119', 'John King', '1200', 'Bank Wire', NULL, 'BW17136864507074', '1', 'TEST', '12321321321', 'upload/bank_wire/img6624c7c1461c9.jpeg', '', '2024-04-21 02:30:50', '2024-04-21 02:33:17'),
 (27, '871985', 'Avi', 'dsad', 'Bank Wire', NULL, 'dsad', '1', 'assasd', 'sad', 'upload/bank_wire/depo_proof662d7ea004fc9.png', 'sadas', '2024-04-27 17:09:28', '2024-04-27 17:23:26'),
-(28, '871985', 'Avi', '2312', 'Bank Wire', NULL, 'asdasd', '1', 'adadasd', 'sasasd', 'upload/bank_wire/depo_proof662d82160b3a3.png', 'sasdasd', '2024-04-27 17:24:14', '2024-04-27 17:24:21');
+(28, '871985', 'Avi', '2312', 'Bank Wire', NULL, 'asdasd', '1', 'adadasd', 'sasasd', 'upload/bank_wire/depo_proof662d82160b3a3.png', 'sasdasd', '2024-04-27 17:24:14', '2024-04-27 17:24:21'),
+(29, '212130', 'asbdksbdkjasd', '20000', 'Bank Wire', NULL, 'asdasfsafsaf', '1', 'kjkasbkdjbkajdbkasbd', '123213213123', 'upload/bank_wire/depo_proof6638e7e1d88a2.png', 'asdavascasv', '2024-05-06 08:53:29', '2024-05-06 09:07:07'),
+(30, '871985', 'Aayush Verma', '324234324', 'Bank Wire', NULL, 'sdvasdjsdnkasn', '1', 'asdadv kladnd', '12332424', 'upload/bank_wire/depo_proof66390e0d8f1b5.png', '', '2024-05-06 11:36:21', '2024-05-06 12:21:38'),
+(31, '871985', 'Aayush Verma', '20000', 'By Admin', NULL, 'AD17150153084489', '1', NULL, NULL, NULL, NULL, '2024-05-06 11:38:28', '2024-05-06 11:39:30'),
+(32, '871985', 'Aayush Verma', '2342423', 'Bank Wire', NULL, 'wdfaddv', '1', 'asdsad', '23532623432542', 'upload/bank_wire/depo_proof6639198b2f2b1.png', 'qdsvdfdfsad', '2024-05-06 12:25:23', '2024-05-06 12:25:41'),
+(33, '871985', 'Aayush Verma', '324423', 'Bank Wire', NULL, 'wdnfmbanmfb', '3', 'jkasbdhb', '32324324', 'upload/bank_wire/depo_proof66391c6dd34c1.png', 'fadfdsfds', '2024-05-06 12:37:41', '2024-05-06 12:37:58'),
+(34, '871985', 'Aayush Verma', '324324', 'Bank Wire', NULL, 'ad,fj,', '3', 'nasbdkjasd', '324324324', 'upload/bank_wire/depo_proof66391cf2c445a.png', 'wfqfdf', '2024-05-06 12:39:54', '2024-05-06 12:43:57'),
+(35, '871985', 'Aayush Verma', '2324324', 'Bank Wire', NULL, 'asdasd', '2', 'asdsad', '123123', 'upload/bank_wire/depo_proof6639280004b15.png', 'dsadasda', '2024-05-06 13:27:04', '2024-05-06 13:27:04');
 
 -- --------------------------------------------------------
 
@@ -242,7 +253,45 @@ INSERT INTO `investments` (`id`, `investment_id`, `name`, `plan_id`, `user_id`, 
 (79, '704006', 'Avi', '861008', '871985', '200000', 198667, '2024-04-28 08:00:44', '2024-05-19 08:00:44', '2024-04-28 02:30:44', '2024-04-28 16:17:50', 1),
 (80, '713134', 'Avi', '861008', '871985', '200000', 201067, '2024-04-28 08:00:54', '2024-05-19 08:00:54', '2024-04-28 02:30:54', '2024-04-28 10:11:15', 1),
 (81, '482048', 'Avi', '861008', '871985', '2032421', 2235663, '2024-04-28 08:02:15', '2024-05-19 08:02:15', '2024-04-28 02:32:15', '2024-04-28 10:09:30', 1),
-(82, '983191', 'Avi', '861008', '871985', '20000', 24267, '2024-04-28 08:03:09', '2024-05-19 08:03:09', '2024-04-28 02:33:09', '2024-04-28 09:48:37', 1);
+(82, '983191', 'Avi', '861008', '871985', '20000', 24267, '2024-04-28 08:03:09', '2024-05-19 08:03:09', '2024-04-28 02:33:09', '2024-04-28 09:48:37', 1),
+(83, '642484', 'Aayush Verma', '129149', '871985', '20000', 20080, '2024-05-04 16:04:48', '2024-05-24 16:04:48', '2024-05-04 10:34:48', '2024-05-04 10:37:37', 1),
+(84, '231531', 'asbdksbdkjasd', '129149', '212130', '20000', 20080, '2024-05-06 14:55:48', '2024-05-26 14:55:48', '2024-05-06 09:25:48', '2024-05-06 09:32:51', 1),
+(85, '684730', 'asbdksbdkjasd', '861008', '212130', '20000', 20533, '2024-05-06 15:05:30', '2024-05-27 15:05:30', '2024-05-06 09:35:30', '2024-05-06 09:35:53', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `iplogs`
+--
+
+CREATE TABLE `iplogs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `ip_address` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `iplogs`
+--
+
+INSERT INTO `iplogs` (`id`, `ip_address`, `country`, `created_at`, `updated_at`) VALUES
+(1, '127.0.0.1', NULL, '2024-05-04 14:28:23', '2024-05-04 14:28:23'),
+(2, '127.0.0.1', NULL, '2024-05-05 14:50:44', '2024-05-05 14:50:44'),
+(3, '127.0.0.1', NULL, '2024-05-06 03:18:59', '2024-05-06 03:18:59'),
+(4, '127.0.0.1', NULL, '2024-05-06 06:49:39', '2024-05-06 06:49:39'),
+(5, '127.0.0.1', NULL, '2024-05-06 07:11:47', '2024-05-06 07:11:47'),
+(6, '127.0.0.1', NULL, '2024-05-06 08:07:39', '2024-05-06 08:07:39'),
+(7, '127.0.0.1', NULL, '2024-05-06 08:52:31', '2024-05-06 08:52:31'),
+(8, '127.0.0.1', NULL, '2024-05-06 09:07:35', '2024-05-06 09:07:35'),
+(9, '127.0.0.1', NULL, '2024-05-06 09:25:16', '2024-05-06 09:25:16'),
+(10, '127.0.0.1', NULL, '2024-05-06 09:33:24', '2024-05-06 09:33:24'),
+(11, '127.0.0.1', NULL, '2024-05-06 09:34:56', '2024-05-06 09:34:56'),
+(12, '127.0.0.1', NULL, '2024-05-06 11:02:08', '2024-05-06 11:02:08'),
+(13, '127.0.0.1', NULL, '2024-05-06 11:16:15', '2024-05-06 11:16:15'),
+(14, '127.0.0.1', NULL, '2024-05-06 11:35:15', '2024-05-06 11:35:15'),
+(15, '127.0.0.1', NULL, '2024-05-06 13:40:10', '2024-05-06 13:40:10');
 
 -- --------------------------------------------------------
 
@@ -307,7 +356,7 @@ CREATE TABLE `kyc` (
 --
 
 INSERT INTO `kyc` (`id`, `user_id`, `name`, `nationality`, `id_type`, `id_no`, `adrs_nationality`, `adrs_country`, `address`, `code`, `city`, `state`, `updated_at`, `created_at`) VALUES
-(3, '871985', 'test', 'asdasdsad', 'Driving License', '2213213213', 'test', 'Albania', 'asdasd', 'asdasd', 'asdasdsad', 'asdasdd', '2024-04-27', '2024-04-27');
+(3, '871985', 'test', 'asdasdsad', 'Driving License', '2213213213', 'qdjkasmd', 'Åland Islands', 'asdsad', 'asdsadsad', 'asdsad', 'asdsad', '2024-05-06', '2024-04-27');
 
 -- --------------------------------------------------------
 
@@ -343,7 +392,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2024_04_18_210156_create__withrawals', 13),
 (16, '2024_04_18_210445_create_withrawals', 14),
 (17, '2024_04_24_131113_create_configs', 15),
-(18, '2024_04_24_155649_create_access_control', 16);
+(18, '2024_04_24_155649_create_access_control', 16),
+(19, '2024_05_04_194146_create_iplogs', 17);
 
 -- --------------------------------------------------------
 
@@ -366,7 +416,13 @@ CREATE TABLE `notifications` (
 INSERT INTO `notifications` (`id`, `user_id`, `message`, `updated_at`, `created_at`) VALUES
 (35, '871985', 'dscasdasdsad', '2024-04-28 00:48:31', '2024-04-28 00:48:31'),
 (36, '871985', 'dscasdasdsad', '2024-04-28 00:48:37', '2024-04-28 00:48:37'),
-(37, '871985', 'ssssssssssssss', '2024-04-28 00:49:21', '2024-04-28 00:49:21');
+(37, '871985', 'ssssssssssssss', '2024-04-28 00:49:21', '2024-04-28 00:49:21'),
+(38, '871985', 'Congratulations! You just received an investment bonus USD500, Happy investing!', '2024-05-04 12:43:44', '2024-05-04 12:43:44'),
+(39, '871985', 'Congratulations! You just received an investment bonus USD500, Happy investing!', '2024-05-04 12:44:10', '2024-05-04 12:44:10'),
+(40, '871985', 'Congratulations! You just received an investment bonus of $3, Happy investing!', '2024-05-04 12:46:17', '2024-05-04 12:46:17'),
+(41, '871985', 'We regret to inform you that a penalty of $460 has been deducted from your account', '2024-05-04 13:04:54', '2024-05-04 13:04:54'),
+(42, '871985', 'Congratulations! You just received an investment bonus of $1, Happy investing!', '2024-05-04 13:07:23', '2024-05-04 13:07:23'),
+(43, '871985', 'We regret to inform you that a penalty of $1 has been deducted from your account', '2024-05-04 13:07:47', '2024-05-04 13:07:47');
 
 -- --------------------------------------------------------
 
@@ -415,8 +471,8 @@ CREATE TABLE `plans` (
 
 INSERT INTO `plans` (`id`, `plan_id`, `name`, `status`, `minimum_amount`, `period`, `duration`, `roi`, `risk`, `description`, `compounding`, `compound_perc`, `principal_release`, `release_fee`, `total_invested`, `image`, `no_of_users`, `created_at`, `updated_at`, `dlt_status`) VALUES
 (10, '337694', 'asdsad', 'Active', '21213213', 'Daily', '12213', '1', '1.99', 'asddasdasdasd', 'Disabled', NULL, 'Suspended', '1231', '20000', 'upload/plans/plan_image_6622acd139094.png', 1, '2024-04-19 12:11:37', '2024-04-28 02:47:27', 1),
-(11, '861008', 'TESTING #!@@#@$@#$@', 'Active', '20000', 'Daily', '21', '40', '20', 'Testing 1234 tewrwe1212', 'Disabled', 20, 'Enabled', '2', '3762421', 'upload/plans/plan_image_6622d200b5ecb.png', 14, '2024-04-19 14:50:16', '2024-04-28 09:48:12', 0),
-(12, '129149', 'Alpha asklcjklb akldmsakf AS', 'Active', '20000', 'Daily', '20', '30', '20', 'lkasnkld as,dasfasd asf asd as fsdf as dasf', 'Disabled', 2, 'Disabled', '20', '200000', 'upload/plans/plan_image_662f69e48922b.png', 0, '2024-04-29 04:02:29', '2024-04-29 04:05:32', 0);
+(11, '861008', 'TESTING #!@@#@$@#$@', 'Active', '20000', 'Daily', '21', '40', '20', 'Testing 1234 tewrwe1212', 'Disabled', 20, 'Enabled', '2', '3782421', 'upload/plans/plan_image_6622d200b5ecb.png', 15, '2024-04-19 14:50:16', '2024-05-06 09:35:30', 0),
+(12, '129149', 'Alpha asklcjklb akldmsakf AS', 'Active', '20000', 'Daily', '20', '30', '20', 'lkasnkld as,dasfasd asf asd as fsdf as dasf', 'Disabled', 2, 'Enabled', '20', '240000', 'upload/plans/plan_image_662f69e48922b.png', 2, '2024-04-29 04:02:29', '2024-05-06 09:25:48', 0);
 
 -- --------------------------------------------------------
 
@@ -438,8 +494,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('tINtLiyADD66hWkJ7ozSbR04XKrSrX7CA8WTpP70', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOWlhVFVDZkV5czk3a2dpS2NsZ2xoeTBhWmlMSFM2V1ZjdDNHcTNFbiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9maWxlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJzX3VzZXIiO086MTU6IkFwcFxNb2RlbHNcVXNlciI6MzA6e3M6MTM6IgAqAGNvbm5lY3Rpb24iO3M6NToibXlzcWwiO3M6ODoiACoAdGFibGUiO3M6NToidXNlcnMiO3M6MTM6IgAqAHByaW1hcnlLZXkiO3M6MjoiaWQiO3M6MTA6IgAqAGtleVR5cGUiO3M6MzoiaW50IjtzOjEyOiJpbmNyZW1lbnRpbmciO2I6MTtzOjc6IgAqAHdpdGgiO2E6MDp7fXM6MTI6IgAqAHdpdGhDb3VudCI7YTowOnt9czoxOToicHJldmVudHNMYXp5TG9hZGluZyI7YjowO3M6MTA6IgAqAHBlclBhZ2UiO2k6MTU7czo2OiJleGlzdHMiO2I6MTtzOjE4OiJ3YXNSZWNlbnRseUNyZWF0ZWQiO2I6MDtzOjI4OiIAKgBlc2NhcGVXaGVuQ2FzdGluZ1RvU3RyaW5nIjtiOjA7czoxMzoiACoAYXR0cmlidXRlcyI7YTozMzp7czoyOiJpZCI7aToyNTtzOjc6InVzZXJfaWQiO3M6NjoiODcxOTg1IjtzOjM6Imt5YyI7aTowO3M6NDoibmFtZSI7czozOiJBdmkiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czo5OiIxMmUyMWUyMWUiO3M6MzoiZG9iIjtzOjEwOiIyMDI0LTA0LTEyIjtzOjc6ImNvdW50cnkiO3M6OToiQXVzdHJhbGlhIjtzOjEwOiJpbWFnZV9kYXRhIjtzOjM0OiJ1cGxvYWQvc2VsZmllL0lENjYyZDU0YTE4NjNlYi5qcGVnIjtzOjg6ImlkX3Byb29mIjtzOjQxOiJ1cGxvYWQvaWRfaW1hZ2UvaWRfaW1hZ2U2NjJkNTRhMTg2ODRmLnBuZyI7czoxMzoiYWRkcmVzc19wcm9vZiI7czo1MToidXBsb2FkL2FkZHJlc3NfcHJvb2YvYWRkcmVzc19wcm9vZjY2MmQ1ODAxZGVkNDYucG5nIjtzOjg6InBhc3N3b3JkIjtzOjU6IjEyMzQ1IjtzOjY6InN0YXR1cyI7czoxMjoibm90X2FwcHJvdmVkIjtzOjEzOiJhdXRvX3dpdGhkcmF3IjtOO3M6MTY6InBheV9lYXJuaW5nX2F1dG8iO047czoxMjoibWF4X3dpdGhkcmF3IjtOO3M6MTI6ImRlbW9fYWNjb3VudCI7TjtzOjk6ImJsYWNrbGlzdCI7TjtzOjEwOiJhZG1pbl9ub3RlIjtOO3M6MTA6ImNyZWF0ZWRfYXQiO3M6MTk6IjIwMjQtMDQtMjcgMTc6NDg6NDEiO3M6MTA6InVwZGF0ZWRfYXQiO3M6MTk6IjIwMjQtMDQtMjggMjE6NTQ6MDkiO3M6NzoiYmFsYW5jZSI7aToyODk5NjM3NztzOjY6ImZ1bmRlZCI7aTozNzAyNDIxO3M6Nzoid2l0aHJhdyI7aToyMDAwMDtzOjg6ImRlcG9zaXRlIjtpOjIzMTIzMTIzO3M6MTA6ImNvbW1pc3Npb24iO2k6MDtzOjY6ImFzc2V0cyI7aTowO3M6NzoiRWFybmluZyI7aTo4NDczNjk7czoxMToicmVmZXJyYWxfaWQiO047czoxNDoidG90YWxfZGVwb3NpdGUiO3M6MToiMCI7czo5OiJpZF9zdGF0dXMiO2k6MTtzOjEwOiJhZGRfc3RhdHVzIjtpOjE7czoxMDoiZW1haWxfYXV0aCI7aTowO31zOjExOiIAKgBvcmlnaW5hbCI7YTozMzp7czoyOiJpZCI7aToyNTtzOjc6InVzZXJfaWQiO3M6NjoiODcxOTg1IjtzOjM6Imt5YyI7aTowO3M6NDoibmFtZSI7czozOiJBdmkiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czo5OiIxMmUyMWUyMWUiO3M6MzoiZG9iIjtzOjEwOiIyMDI0LTA0LTEyIjtzOjc6ImNvdW50cnkiO3M6OToiQXVzdHJhbGlhIjtzOjEwOiJpbWFnZV9kYXRhIjtzOjM0OiJ1cGxvYWQvc2VsZmllL0lENjYyZDU0YTE4NjNlYi5qcGVnIjtzOjg6ImlkX3Byb29mIjtzOjQxOiJ1cGxvYWQvaWRfaW1hZ2UvaWRfaW1hZ2U2NjJkNTRhMTg2ODRmLnBuZyI7czoxMzoiYWRkcmVzc19wcm9vZiI7czo1MToidXBsb2FkL2FkZHJlc3NfcHJvb2YvYWRkcmVzc19wcm9vZjY2MmQ1ODAxZGVkNDYucG5nIjtzOjg6InBhc3N3b3JkIjtzOjU6IjEyMzQ1IjtzOjY6InN0YXR1cyI7czoxMjoibm90X2FwcHJvdmVkIjtzOjEzOiJhdXRvX3dpdGhkcmF3IjtOO3M6MTY6InBheV9lYXJuaW5nX2F1dG8iO047czoxMjoibWF4X3dpdGhkcmF3IjtOO3M6MTI6ImRlbW9fYWNjb3VudCI7TjtzOjk6ImJsYWNrbGlzdCI7TjtzOjEwOiJhZG1pbl9ub3RlIjtOO3M6MTA6ImNyZWF0ZWRfYXQiO3M6MTk6IjIwMjQtMDQtMjcgMTc6NDg6NDEiO3M6MTA6InVwZGF0ZWRfYXQiO3M6MTk6IjIwMjQtMDQtMjggMjE6NTQ6MDkiO3M6NzoiYmFsYW5jZSI7aToyODk5NjM3NztzOjY6ImZ1bmRlZCI7aTozNzAyNDIxO3M6Nzoid2l0aHJhdyI7aToyMDAwMDtzOjg6ImRlcG9zaXRlIjtpOjIzMTIzMTIzO3M6MTA6ImNvbW1pc3Npb24iO2k6MDtzOjY6ImFzc2V0cyI7aTowO3M6NzoiRWFybmluZyI7aTo4NDczNjk7czoxMToicmVmZXJyYWxfaWQiO047czoxNDoidG90YWxfZGVwb3NpdGUiO3M6MToiMCI7czo5OiJpZF9zdGF0dXMiO2k6MTtzOjEwOiJhZGRfc3RhdHVzIjtpOjE7czoxMDoiZW1haWxfYXV0aCI7aTowO31zOjEwOiIAKgBjaGFuZ2VzIjthOjA6e31zOjg6IgAqAGNhc3RzIjthOjA6e31zOjE3OiIAKgBjbGFzc0Nhc3RDYWNoZSI7YTowOnt9czoyMToiACoAYXR0cmlidXRlQ2FzdENhY2hlIjthOjA6e31zOjEzOiIAKgBkYXRlRm9ybWF0IjtOO3M6MTA6IgAqAGFwcGVuZHMiO2E6MDp7fXM6MTk6IgAqAGRpc3BhdGNoZXNFdmVudHMiO2E6MDp7fXM6MTQ6IgAqAG9ic2VydmFibGVzIjthOjA6e31zOjEyOiIAKgByZWxhdGlvbnMiO2E6MDp7fXM6MTA6IgAqAHRvdWNoZXMiO2E6MDp7fXM6MTA6InRpbWVzdGFtcHMiO2I6MTtzOjEzOiJ1c2VzVW5pcXVlSWRzIjtiOjA7czo5OiIAKgBoaWRkZW4iO2E6MDp7fXM6MTA6IgAqAHZpc2libGUiO2E6MDp7fXM6MTE6IgAqAGZpbGxhYmxlIjthOjA6e31zOjEwOiIAKgBndWFyZGVkIjthOjE6e2k6MDtzOjE6IioiO319fQ==', 1714593684),
-('V0f6wVRmHdKhAKTf5r3bwxz7ZTfYQdg43y5D9Z3o', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZTBlMk5jbTliNFduWWZzdlF6cUM1VEdBVmpZNmdIZmRzQ3ZnQXc0ZiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1714590263);
+('G2vIdcePiCPfA1RkgxAGcD1tOn5V5TE8X7iLP1hR', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoia0dhNXh3WXRpWkVRVGp2M2E4eVdqc0ZmR2Z3Rk5QNnVXNDVjYm9vciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGlfZGFzaCI7fXM6MTk6ImludmVzdF9zdWNjZXNzX2RhdGEiO2E6NTp7czo3OiJtZXNzYWdlIjtzOjIyOiJJbnZlc3RtZW50IHN1Y2Nlc3NmdWwhIjtzOjY6ImFtb3VudCI7aToxMDAwO3M6OToicGxhbl9uYW1lIjtzOjE5OiJURVNUSU5HICMhQEAjQCRAIyRAIjtzOjk6InVzZXJfbmFtZSI7czoxMzoiYXNiZGtzYmRramFzZCI7czoxMzoiaW52ZXN0bWVudF9pZCI7aTo2ODQ3MzA7fXM6Njoic191c2VyIjtPOjE1OiJBcHBcTW9kZWxzXFVzZXIiOjMwOntzOjEzOiIAKgBjb25uZWN0aW9uIjtzOjU6Im15c3FsIjtzOjg6IgAqAHRhYmxlIjtzOjU6InVzZXJzIjtzOjEzOiIAKgBwcmltYXJ5S2V5IjtzOjI6ImlkIjtzOjEwOiIAKgBrZXlUeXBlIjtzOjM6ImludCI7czoxMjoiaW5jcmVtZW50aW5nIjtiOjE7czo3OiIAKgB3aXRoIjthOjA6e31zOjEyOiIAKgB3aXRoQ291bnQiO2E6MDp7fXM6MTk6InByZXZlbnRzTGF6eUxvYWRpbmciO2I6MDtzOjEwOiIAKgBwZXJQYWdlIjtpOjE1O3M6NjoiZXhpc3RzIjtiOjE7czoxODoid2FzUmVjZW50bHlDcmVhdGVkIjtiOjA7czoyODoiACoAZXNjYXBlV2hlbkNhc3RpbmdUb1N0cmluZyI7YjowO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MzQ6e3M6MjoiaWQiO2k6MjU7czo3OiJ1c2VyX2lkIjtzOjY6Ijg3MTk4NSI7czo0OiJuYW1lIjtzOjEyOiJBYXl1c2ggVmVybWEiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czoxMDoiMTIzNDU2Nzg5MCI7czozOiJkb2IiO3M6MTA6IjE5OTktMDQtMTIiO3M6NzoiY291bnRyeSI7czo5OiJTaW5nYXBvcmUiO3M6MTA6ImltYWdlX2RhdGEiO3M6MzQ6InVwbG9hZC9zZWxmaWUvSUQ2NjJkNTRhMTg2M2ViLmpwZWciO3M6ODoiaWRfcHJvb2YiO3M6NDE6InVwbG9hZC9pZF9pbWFnZS9pZF9pbWFnZTY2MmQ1NGExODY4NGYucG5nIjtzOjEzOiJhZGRyZXNzX3Byb29mIjtzOjUxOiJ1cGxvYWQvYWRkcmVzc19wcm9vZi9hZGRyZXNzX3Byb29mNjYyZDU4MDFkZWQ0Ni5wbmciO3M6ODoicGFzc3dvcmQiO3M6NToiMTIzNDUiO3M6Njoic3RhdHVzIjtzOjY6IkFjdGl2ZSI7czoxMzoiYXV0b193aXRoZHJhdyI7TjtzOjE2OiJwYXlfZWFybmluZ19hdXRvIjtOO3M6MTI6Im1heF93aXRoZHJhdyI7TjtzOjEyOiJkZW1vX2FjY291bnQiO047czo5OiJibGFja2xpc3QiO047czoxMDoiYWRtaW5fbm90ZSI7TjtzOjEwOiJjcmVhdGVkX2F0IjtzOjE5OiIyMDI0LTA0LTI3IDE3OjQ4OjQxIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjE5OiIyMDI0LTA1LTA2IDE5OjA3OjMzIjtzOjc6ImJhbGFuY2UiO2k6MzU1NTk0Mjc0O3M6NjoiZnVuZGVkIjtpOjM3MjI0MjE7czo3OiJ3aXRocmF3IjtpOjIwNTAwO3M6ODoiZGVwb3NpdGUiO2k6MzQ5NzE5ODcwO3M6MTc6InJlZmVycmFsc19lYXJuaW5nIjtpOjA7czo2OiJhc3NldHMiO2k6MDtzOjc6IkVhcm5pbmciO2k6ODQ3NDQ5O3M6MTE6InJlZmVycmFsX2lkIjtzOjEzOiJzZGZhc3ZkYWZhc3ZhIjtzOjE2OiJub19yZWZlcnJhbF91c2VyIjtpOjE7czo5OiJpZF9zdGF0dXMiO2k6MjtzOjEwOiJhZGRfc3RhdHVzIjtpOjI7czoxMDoiZW1haWxfYXV0aCI7aToxO3M6OToicGFyZW50X2lkIjtOO3M6MTA6ImRsdF9zdGF0dXMiO2k6MDt9czoxMToiACoAb3JpZ2luYWwiO2E6MzQ6e3M6MjoiaWQiO2k6MjU7czo3OiJ1c2VyX2lkIjtzOjY6Ijg3MTk4NSI7czo0OiJuYW1lIjtzOjEyOiJBYXl1c2ggVmVybWEiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czoxMDoiMTIzNDU2Nzg5MCI7czozOiJkb2IiO3M6MTA6IjE5OTktMDQtMTIiO3M6NzoiY291bnRyeSI7czo5OiJTaW5nYXBvcmUiO3M6MTA6ImltYWdlX2RhdGEiO3M6MzQ6InVwbG9hZC9zZWxmaWUvSUQ2NjJkNTRhMTg2M2ViLmpwZWciO3M6ODoiaWRfcHJvb2YiO3M6NDE6InVwbG9hZC9pZF9pbWFnZS9pZF9pbWFnZTY2MmQ1NGExODY4NGYucG5nIjtzOjEzOiJhZGRyZXNzX3Byb29mIjtzOjUxOiJ1cGxvYWQvYWRkcmVzc19wcm9vZi9hZGRyZXNzX3Byb29mNjYyZDU4MDFkZWQ0Ni5wbmciO3M6ODoicGFzc3dvcmQiO3M6NToiMTIzNDUiO3M6Njoic3RhdHVzIjtzOjY6IkFjdGl2ZSI7czoxMzoiYXV0b193aXRoZHJhdyI7TjtzOjE2OiJwYXlfZWFybmluZ19hdXRvIjtOO3M6MTI6Im1heF93aXRoZHJhdyI7TjtzOjEyOiJkZW1vX2FjY291bnQiO047czo5OiJibGFja2xpc3QiO047czoxMDoiYWRtaW5fbm90ZSI7TjtzOjEwOiJjcmVhdGVkX2F0IjtzOjE5OiIyMDI0LTA0LTI3IDE3OjQ4OjQxIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjE5OiIyMDI0LTA1LTA2IDE5OjA3OjMzIjtzOjc6ImJhbGFuY2UiO2k6MzU1NTk0Mjc0O3M6NjoiZnVuZGVkIjtpOjM3MjI0MjE7czo3OiJ3aXRocmF3IjtpOjIwNTAwO3M6ODoiZGVwb3NpdGUiO2k6MzQ5NzE5ODcwO3M6MTc6InJlZmVycmFsc19lYXJuaW5nIjtpOjA7czo2OiJhc3NldHMiO2k6MDtzOjc6IkVhcm5pbmciO2k6ODQ3NDQ5O3M6MTE6InJlZmVycmFsX2lkIjtzOjEzOiJzZGZhc3ZkYWZhc3ZhIjtzOjE2OiJub19yZWZlcnJhbF91c2VyIjtpOjE7czo5OiJpZF9zdGF0dXMiO2k6MjtzOjEwOiJhZGRfc3RhdHVzIjtpOjI7czoxMDoiZW1haWxfYXV0aCI7aToxO3M6OToicGFyZW50X2lkIjtOO3M6MTA6ImRsdF9zdGF0dXMiO2k6MDt9czoxMDoiACoAY2hhbmdlcyI7YTowOnt9czo4OiIAKgBjYXN0cyI7YTowOnt9czoxNzoiACoAY2xhc3NDYXN0Q2FjaGUiO2E6MDp7fXM6MjE6IgAqAGF0dHJpYnV0ZUNhc3RDYWNoZSI7YTowOnt9czoxMzoiACoAZGF0ZUZvcm1hdCI7TjtzOjEwOiIAKgBhcHBlbmRzIjthOjA6e31zOjE5OiIAKgBkaXNwYXRjaGVzRXZlbnRzIjthOjA6e31zOjE0OiIAKgBvYnNlcnZhYmxlcyI7YTowOnt9czoxMjoiACoAcmVsYXRpb25zIjthOjA6e31zOjEwOiIAKgB0b3VjaGVzIjthOjA6e31zOjEwOiJ0aW1lc3RhbXBzIjtiOjE7czoxMzoidXNlc1VuaXF1ZUlkcyI7YjowO3M6OToiACoAaGlkZGVuIjthOjA6e31zOjEwOiIAKgB2aXNpYmxlIjthOjA6e31zOjExOiIAKgBmaWxsYWJsZSI7YTowOnt9czoxMDoiACoAZ3VhcmRlZCI7YToxOntpOjA7czoxOiIqIjt9fX0=', 1715030757),
+('JsFx4OoCg5ryVsUJiOUHGXgDLQzgA6xDJNRItNii', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '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', 1715030754);
 
 -- --------------------------------------------------------
 
@@ -531,7 +587,28 @@ INSERT INTO `transactions` (`id`, `user_id`, `subject`, `name`, `amount`, `balan
 (176, '871985', 'Profit In Investment', 'Avi', '203242.1', NULL, 'Credit', '2024-04-28 10:09:30', '2024-04-28 10:09:30'),
 (177, '871985', 'Profit In Investment', 'Avi', '1066.67', NULL, 'Credit', '2024-04-28 10:11:15', '2024-04-28 10:11:15'),
 (178, '871985', 'Loss In Investment', 'Avi', '1333.33', NULL, 'LOSS', '2024-04-28 16:17:50', '2024-04-28 16:17:50'),
-(179, '871985', 'Profit In Investment', 'Avi', '29066.67', NULL, 'Credit', '2024-04-28 16:24:09', '2024-04-28 16:24:09');
+(179, '871985', 'Profit In Investment', 'Avi', '29066.67', NULL, 'Credit', '2024-04-28 16:24:09', '2024-04-28 16:24:09'),
+(180, '871985', 'Investment', 'Alpha asklcjklb akldmsakf AS', '20000', NULL, 'Debit', '2024-05-04 10:34:48', '2024-05-04 10:34:48'),
+(181, '871985', 'Profit In Investment', 'Aayush Verma', '80', NULL, 'Credit', '2024-05-04 10:37:37', '2024-05-04 10:37:37'),
+(182, '871985', 'Bonus', 'Investment Bonus', '500', NULL, 'Credit', '2024-05-04 12:43:44', '2024-05-04 12:43:44'),
+(183, '871985', 'Bonus', 'Investment Bonus', '500', NULL, 'Credit', '2024-05-04 12:44:10', '2024-05-04 12:44:10'),
+(184, '871985', 'Bonus', 'Investment Bonus', '3', NULL, 'Credit', '2024-05-04 12:46:17', '2024-05-04 12:46:17'),
+(185, '871985', 'Penalty', 'Penalty Deducted', '460', NULL, 'Debit', '2024-05-04 13:04:54', '2024-05-04 13:04:54'),
+(186, '871985', 'Investment Bonus', 'Aayush Verma', '1', NULL, 'Credit', '2024-05-04 13:07:23', '2024-05-04 13:07:23'),
+(187, '871985', 'Penalty Deducted', 'Aayush Verma', '1', NULL, 'Debit', '2024-05-04 13:07:47', '2024-05-04 13:07:47'),
+(188, '974234', 'Bonus', 'Referral Code Reward', '100', NULL, 'Credit', '2024-05-06 08:46:05', '2024-05-06 08:46:05'),
+(189, '212130', 'Bonus', 'Referral Code Reward', '100', NULL, 'Credit', '2024-05-06 08:50:33', '2024-05-06 08:50:33'),
+(190, '212130', 'Fund Deposite', 'asbdksbdkjasd', '20000', NULL, 'Credit', '2024-05-06 09:07:07', '2024-05-06 09:07:07'),
+(191, '871985', 'Commission', 'Referral Deposite Bonus', '1000', NULL, 'Credit', '2024-05-06 09:07:07', '2024-05-06 09:07:07'),
+(192, '212130', 'Investment', 'Alpha asklcjklb akldmsakf AS', '20000', NULL, 'Debit', '2024-05-06 09:25:48', '2024-05-06 09:25:48'),
+(193, '212130', 'Profit In Investment', 'asbdksbdkjasd', '80', NULL, 'Credit', '2024-05-06 09:32:51', '2024-05-06 09:32:51'),
+(194, '212130', 'Investment', 'TESTING #!@@#@$@#$@', '20000', NULL, 'Debit', '2024-05-06 09:35:30', '2024-05-06 09:35:30'),
+(195, '212130', 'Profit In Investment', 'asbdksbdkjasd', '533.33', NULL, 'Credit', '2024-05-06 09:35:53', '2024-05-06 09:35:53'),
+(196, '871985', 'Commission', 'Trade Profit Commission', '26.6665', NULL, 'Credit', '2024-05-06 09:35:53', '2024-05-06 09:35:53'),
+(197, '871985', 'Fund Deposite', 'Aayush Verma', '20000', NULL, 'Credit', '2024-05-06 11:39:30', '2024-05-06 11:39:30'),
+(198, '871985', 'Fund Deposite', 'Aayush Verma', '324234324', NULL, 'Credit', '2024-05-06 12:21:38', '2024-05-06 12:21:38'),
+(199, '871985', 'Fund Deposite', 'Aayush Verma', '2342423', NULL, 'Credit', '2024-05-06 12:25:41', '2024-05-06 12:25:41'),
+(200, '871985', 'Fund Withdrawal', 'Aayush Verma', '500', NULL, 'Debit', '2024-05-06 13:11:00', '2024-05-06 13:11:00');
 
 -- --------------------------------------------------------
 
@@ -572,7 +649,6 @@ INSERT INTO `transfers` (`id`, `user_id`, `receiver_name`, `receiver_user_id`, `
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` varchar(255) NOT NULL,
-  `kyc` int(10) NOT NULL DEFAULT 0,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(155) DEFAULT NULL,
@@ -595,29 +671,35 @@ CREATE TABLE `users` (
   `funded` int(255) DEFAULT 0,
   `withraw` int(255) DEFAULT 0,
   `deposite` int(255) NOT NULL DEFAULT 0,
-  `commission` int(255) DEFAULT 0,
+  `referrals_earning` int(255) DEFAULT 0,
   `assets` int(255) DEFAULT 0,
   `Earning` int(255) NOT NULL DEFAULT 0,
   `referral_id` varchar(20) DEFAULT NULL,
-  `total_deposite` varchar(120) DEFAULT '0',
+  `no_referral_user` int(100) NOT NULL DEFAULT 0,
   `id_status` int(10) NOT NULL DEFAULT 0,
   `add_status` int(10) NOT NULL DEFAULT 0,
-  `email_auth` int(100) NOT NULL DEFAULT 0
+  `email_auth` int(100) NOT NULL DEFAULT 0,
+  `parent_id` varchar(100) DEFAULT NULL,
+  `dlt_status` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `kyc`, `name`, `email`, `phone`, `dob`, `country`, `image_data`, `id_proof`, `address_proof`, `password`, `status`, `auto_withdraw`, `pay_earning_auto`, `max_withdraw`, `demo_account`, `blacklist`, `admin_note`, `created_at`, `updated_at`, `balance`, `funded`, `withraw`, `deposite`, `commission`, `assets`, `Earning`, `referral_id`, `total_deposite`, `id_status`, `add_status`, `email_auth`) VALUES
-(17, '823119', 0, 'John King', 'john@gmail.com', NULL, NULL, 'Bahamas', 'upload/selfie/ID6624c52f0bad9.jpeg', 'upload/id_image/id_image6624c52f0be47.jpeg', 'upload/address_proof/address_proof6624c5bfeb462.jpeg', '12345', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-21 02:17:53', '2024-04-27 17:23:29', 181200, 20000, 0, 2400, 0, 0, 0, NULL, '0', 2, 2, 0),
-(18, '425016', 0, 'avi', 'avi@gmail.com', '21213123', '2024-05-03', '123213123', 'upload/users/user_pic_66293e09cd620.png', NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'ASDASDASDA', '2024-04-24 11:44:49', '2024-04-26 03:41:28', 120075123, 0, 0, 0, 0, 0, 0, NULL, '0', 2, 2, 2),
-(19, '608774', 0, 'test', 'test@gmail.com', '123213', '2024-04-12', 'Albania', 'upload/users/user_pic_66293ea7e4c11.png', NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'ACADASD', '2024-04-24 11:47:27', '2024-04-28 00:50:14', 48100, 0, 0, 0, 0, 0, 0, NULL, '0', 0, 0, 0),
-(20, '443218', 0, 'ASDSAD', 'ASDASD@GMAIL.COM', '23213', '2024-04-19', 'Bahamas', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'asdsadasd', '2024-04-24 11:48:44', '2024-04-24 11:48:44', 0, 0, 0, 0, 0, 0, 0, NULL, '0', 1, 1, 0),
-(21, '609355', 0, 'asdasd', 'asdasd@gmail.com', 'asdasdSAD', '2024-04-29', 'Antarctica', NULL, NULL, NULL, '12345', 'Suspended', NULL, NULL, NULL, NULL, NULL, '31213ASDSADAS', '2024-04-24 11:53:29', '2024-04-24 13:50:07', 0, 20000, 0, 0, 0, 0, 0, NULL, '0', 2, 2, 2),
-(22, '992901', 0, '123', 'alpha@gmail.com', '21213', '2024-05-03', 'Azerbaijan', NULL, NULL, NULL, 'testing', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 10:05:43', '2024-04-27 10:05:43', 0, 0, 0, 0, 0, 0, 0, NULL, '0', 0, 0, 0),
-(23, '692438', 0, 'sdasd', 'alpha1@gmail.com', '123213', '2024-05-09', 'Australia', NULL, NULL, NULL, '12345', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 10:07:03', '2024-04-27 10:07:03', 0, 0, 0, 0, 0, 0, 0, NULL, '0', 0, 0, 0),
-(25, '871985', 0, 'Avi', 'aayushverma200@gmail.com', '12e21e21e', '2024-04-12', 'Australia', 'upload/selfie/ID662d54a1863eb.jpeg', 'upload/id_image/id_image662d54a18684f.png', 'upload/address_proof/address_proof662d5801ded46.png', '12345', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 12:18:41', '2024-04-28 16:24:09', 28996377, 3702421, 20000, 23123123, 0, 0, 847369, NULL, '0', 1, 1, 0);
+INSERT INTO `users` (`id`, `user_id`, `name`, `email`, `phone`, `dob`, `country`, `image_data`, `id_proof`, `address_proof`, `password`, `status`, `auto_withdraw`, `pay_earning_auto`, `max_withdraw`, `demo_account`, `blacklist`, `admin_note`, `created_at`, `updated_at`, `balance`, `funded`, `withraw`, `deposite`, `referrals_earning`, `assets`, `Earning`, `referral_id`, `no_referral_user`, `id_status`, `add_status`, `email_auth`, `parent_id`, `dlt_status`) VALUES
+(17, '823119', 'John King', 'john@gmail.com', NULL, NULL, 'Bahamas', 'upload/selfie/ID6624c52f0bad9.jpeg', 'upload/id_image/id_image6624c52f0be47.jpeg', 'upload/address_proof/address_proof6624c5bfeb462.jpeg', '12345', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-21 02:17:53', '2024-05-06 13:33:26', 181200, 20000, 0, 2400, 0, 0, 0, NULL, 0, 2, 2, 0, NULL, 1),
+(18, '425016', 'avi', 'avi@gmail.com', '21213123', '2024-05-03', '123213123', 'upload/users/user_pic_66293e09cd620.png', NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'ASDASDASDA', '2024-04-24 11:44:49', '2024-04-26 03:41:28', 120075123, 0, 0, 0, 0, 0, 0, NULL, 0, 2, 2, 2, NULL, 0),
+(19, '608774', 'test', 'test@gmail.com', '123213', '2024-04-12', 'Albania', 'upload/users/user_pic_66293ea7e4c11.png', NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'ACADASD', '2024-04-24 11:47:27', '2024-04-28 00:50:14', 48100, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 0),
+(20, '443218', 'ASDSAD', 'ASDASD@GMAIL.COM', '23213', '2024-04-19', 'Bahamas', NULL, NULL, NULL, '12345', 'Suspended', NULL, NULL, NULL, NULL, NULL, 'asdsadasd', '2024-04-24 11:48:44', '2024-05-04 15:54:48', 0, 0, 0, 0, 0, 0, 0, NULL, 0, 1, 1, 0, NULL, 0),
+(21, '609355', 'asdasd', 'asdasd@gmail.com', 'asdasdSAD', '2024-04-29', 'Antarctica', NULL, NULL, NULL, '12345', 'Suspended', NULL, NULL, NULL, NULL, NULL, '31213ASDSADAS', '2024-04-24 11:53:29', '2024-04-24 13:50:07', 0, 20000, 0, 0, 0, 0, 0, NULL, 0, 2, 2, 2, NULL, 0),
+(22, '992901', '123', 'alpha@gmail.com', '21213', '2024-05-03', 'Azerbaijan', NULL, NULL, NULL, 'testing', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 10:05:43', '2024-04-27 10:05:43', 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 0),
+(23, '692438', 'sdasd', 'alpha1@gmail.com', '123213', '2024-05-09', 'Australia', NULL, NULL, NULL, '12345', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 10:07:03', '2024-04-27 10:07:03', 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 0),
+(25, '871985', 'Aayush Verma', 'aayushverma200@gmail.com', '1234567890', '1999-04-12', 'Singapore', 'upload/selfie/ID662d54a1863eb.jpeg', 'upload/id_image/id_image662d54a18684f.png', 'upload/address_proof/address_proof66394ad5b6de6.png', '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 12:18:41', '2024-05-06 15:55:53', 355594274, 3722421, 20500, 349719870, 0, 0, 847449, 'sdfasvdafasva', 1, 2, 2, 1, NULL, 0),
+(27, '974234', 'astwersdagafas', 'sdbsdvascklmk@gmail.com', '21414124', '2024-05-09', 'Australia', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-06 08:46:05', '2024-05-06 08:46:05', 100, 0, 0, 0, 0, 0, 0, 'nvpdRtCjtOHHAx5G', 0, 0, 0, 0, '871985', 0),
+(28, '212130', 'asbdksbdkjasd', 'aasadsadsadsad@gmail.com', '1221242', '2024-05-14', 'Armenia', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-06 08:50:33', '2024-05-06 09:35:53', 20713, 40000, 0, 20000, 0, 0, 613, 'bLHyLYa5jGdg4RkT', 0, 1, 1, 0, '871985', 0),
+(29, '530913', 'testtemp', 'pedecoy626@ociun.com', '1232131', '2024-05-21', 'Bahrain', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'hello', '2024-05-06 11:05:42', '2024-05-06 11:05:42', 0, 0, 0, 0, 0, 0, 0, 'whAIefseA1GbPHJf', 0, 2, 2, 2, NULL, 0),
+(30, '389824', 'testtemp', 'pedecoy626@ociun.com', '1232131', '2024-05-21', 'Bahrain', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'hello', '2024-05-06 11:06:09', '2024-05-06 11:07:38', 0, 0, 0, 0, 0, 0, 0, 'TFeGtAcz8U8Kqeq1', 0, 2, 2, 2, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -644,7 +726,8 @@ CREATE TABLE `withrawals` (
 
 INSERT INTO `withrawals` (`id`, `user_id`, `name`, `amount`, `extra`, `extra2`, `transaction_id`, `status`, `created_at`, `updated_at`) VALUES
 (3, '671123', 'test', '10000', NULL, NULL, 'AD17139779245197', '1', '2024-04-24 11:28:44', '2024-04-24 11:28:53'),
-(4, '871985', 'Avi', '20000', NULL, NULL, 'AD17142585241575', '1', '2024-04-27 17:25:24', '2024-04-27 17:25:30');
+(4, '871985', 'Avi', '20000', NULL, NULL, 'AD17142585241575', '1', '2024-04-27 17:25:24', '2024-04-27 17:25:30'),
+(5, '871985', 'Aayush Verma', '500', NULL, NULL, 'AD17150192696608', '1', '2024-05-06 12:44:29', '2024-05-06 13:11:00');
 
 --
 -- Indexes for dumped tables
@@ -704,6 +787,12 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `investments`
 --
 ALTER TABLE `investments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `iplogs`
+--
+ALTER TABLE `iplogs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -819,7 +908,7 @@ ALTER TABLE `configs`
 -- AUTO_INCREMENT for table `deposite`
 --
 ALTER TABLE `deposite`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -831,7 +920,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `investments`
 --
 ALTER TABLE `investments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+
+--
+-- AUTO_INCREMENT for table `iplogs`
+--
+ALTER TABLE `iplogs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -849,13 +944,13 @@ ALTER TABLE `kyc`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `plans`
@@ -873,7 +968,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT for table `transfers`
@@ -885,13 +980,13 @@ ALTER TABLE `transfers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `withrawals`
 --
 ALTER TABLE `withrawals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
