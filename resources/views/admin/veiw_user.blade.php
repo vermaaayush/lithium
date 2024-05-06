@@ -27,32 +27,137 @@
             <div class="card-content collapse show">
                 <div class="card-body">
                     <h2>User KYC</h2>
+                    
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table ">
                            
                             <tbody>
+
+                                @if ($data)
+                                    
+                               
+                                {{-- id  --}}
+                                
                                 <tr>
+
+                                    <td>
+                                      
+                                            <table id="users-contacts" class="table-borderless  row-grouping display no-wrap icheck table-middle" >
+                                                
+                                                <tbody>
+                                                    
+                                                
+                                                    <tr>
+                                                        <td><h4><strong>Full Name: </strong>{{$data->name}}</h4></td>
+                                                        <td><h4><strong>ID Type: </strong>{{$data->id_type}}</h4></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><h4><strong>Nationality: </strong>{{$data->nationality}}</h4></td>
+                                                        <td><h4><strong>ID Serial Number: </strong>{{$data->id_no}}</h4></td>
+                                                    </tr>
+                                 
+                                                    <tr>
+                                                        <td><a target="_blank" href="{{ asset($u_info->image_data) }}"><img src="{{ asset($u_info->image_data) }}" alt="ss" width="160" height="160"></a></td>
+                                                        <td><a target="_blank" href="{{ asset($u_info->id_proof) }}"><img src="{{ asset($u_info->id_proof) }}" alt="ss" width="160" height="160"></a></td>
+                                                    </tr>
+                                                   
+                                                  
+                                                  
+                                                </tbody>
+                                               
+                                            </table>
+                                       
+                                    </td>
                                    
-                                    <td><a target="_blank" href="{{ asset($u_info->image_data) }}"><img src="{{ asset($u_info->image_data) }}" alt="ss" width="160" height="160"></a></td>
-                                    <td><a target="_blank" href="{{ asset($u_info->id_proof) }}"><img src="{{ asset($u_info->id_proof) }}" alt="ss" width="160" height="160"></a></td>
-                                    <td><h2>Identity Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a> <br> <br> <a href="" class="btn btn-danger">Reject Now</a></td>
+                                   
+                                    <td><h2>Identity Proof</h2> <br>
+                                        
+                                        @if ($u_info->id_status == 2)
+
+                                         <h5 class="text-success">Approved</h5>
+
+                                        @elseif($u_info->id_status == 3) 
+
+                                         <h5 class="text-danger">Rejected</h5> 
+
+                                        @else
+                                        
+                                        <a href="/id_approve/{{$u_info->id}}" class="btn btn-success">Approved Now</a> <br> <br> <a href="/id_reject/{{$u_info->id}}" class="btn btn-danger">Reject Now</a>
+
+                                        @endif
+                                       
+                                    
+                                    </td>
                                   
                                   
                                 </tr>
+
+                                {{-- address --}}
                                 <tr>
                                    
-                                    <td><a target="_blank" href="{{ asset($u_info->address_proof) }}"><img src="{{ asset($u_info->address_proof) }}" alt="ss" width="160" height="160"></a></td>
-                                    <td></td>
-                                    <td><h2>Address Proof</h2> <br> <a href="" class="btn btn-success">Approved Now</a> <br> <br> <a href="" class="btn btn-danger">Reject Now</a></td>
+                                    <td><table id="users-contacts" class="table-borderless table-white-space  row-grouping display no-wrap icheck table-middle"  >
+                                                
+                                        <tbody>
+                                            
+                                        
+                                            <tr>
+                                                <td><h4><strong>Nationality: </strong>{{$data->adrs_nationality}}</h4></td>
+                                                <td><h4><strong>Country of Residence: </strong>{{$data->adrs_country}}</h4></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h4><strong>Address: </strong>{{$data->address}}</h4></td>
+                                                <td><h4><strong>Pincode: </strong>{{$data->code}}</h4></td>
+                                            </tr>
+                                            <tr>
+                                                <td><h4><strong>City: </strong>{{$data->city}}</h4></td>
+                                                <td><h4><strong>State: </strong>{{$data->state}}</h4></td>
+                                            </tr>
+                         
+                                           
+                                            <tr>
+                                                <td><a target="_blank" href="{{ asset($u_info->address_proof) }}"><img src="{{ asset($u_info->address_proof) }}" alt="ss" width="160" height="160"></a></td>
+                                            </tr>
+                                           
+                                          
+                                          
+                                        </tbody>
+                                       
+                                    </table></td>
+                                  
+                                   
+                                    <td>
+                                        <h2>Address Proof</h2> <br> 
+
+                                        @if ($u_info->add_status == 2)
+
+                                         <h5 class="text-success">Approved</h5>
+
+                                        @elseif($u_info->add_status == 3) 
+
+                                         <h5 class="text-danger">Rejected</h5> 
+
+                                        @else
+                                        
+                                        <a href="/address_approve/{{$u_info->id}}" class="btn btn-success">Approved Now</a> <br> <br> <a href="/address_reject/{{$u_info->id}}" class="btn btn-danger">Reject Now</a>
+                                    
+                                        @endif
+                                    </td>
                                   
                                 </tr>
+
+                                @endif
+
                                 <tr>
                                     <th><h1>Email: {{ $u_info->email }}</h1></th>
-                                    <td></td>
+                                 
                                     <td>
                                         <h2>Authentication</h2>
                                         <br>
+                                        @if ($u_info->email_auth == 1)
+                                        <h5 class="text-success">Verified!</h5>
+                                        @else
                                         <h5 class="text-danger">Pending!</h5>
+                                        @endif
                                     </td>
                                    
                                 </tr>

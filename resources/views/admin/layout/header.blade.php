@@ -17,7 +17,7 @@
 
     <title>@yield('title') - {{$company->name}}</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png') }}">
-<link rel="shortcut icon" type="image/x-icon" href="{{ $company->favicon }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset($company->favicon) }}">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CMuli:300,400,500,700" rel="stylesheet">
 <!-- BEGIN VENDOR CSS-->
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/vendors.css') }}">
@@ -67,7 +67,7 @@
         <div class="navbar-header">
           <ul class="nav navbar-nav flex-row">
             <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-            <li class="nav-item"><a class="navbar-brand" href="#"><img class="brand-logo" src="{{ $company->favicon }}">
+            <li class="nav-item"><a class="navbar-brand" href="#"><img class="brand-logo" src="{{ asset($company->favicon) }}">
                 <h3 class="brand-text">Admin Control</h3></a></li>
             <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
           </ul>
@@ -83,7 +83,7 @@
              
             
              
-              <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><img src="{{ $company->favicon }}" alt="avatar"><i></i></span><span class="user-name">{{ $company->name }}</span></a>
+              <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><img src="{{ asset($company->favicon) }}" alt="avatar"><i></i></span><span class="user-name">{{ $company->name }}</span></a>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="#"><i class="ft-server"></i> Settings</a>
                   <a class="dropdown-item" href="/system_config"><i class="ft-settings"></i>System Config</a>
@@ -154,11 +154,11 @@
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="icon-trophy"></i><span class="menu-title" data-i18n="nav.dash.main">Add bonus</span></a>
+          <li class=" nav-item"><a href="/add_bonus"><i class="icon-trophy"></i><span class="menu-title" data-i18n="nav.dash.main">Add bonus</span></a>
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="icon-fire"></i><span class="menu-title" data-i18n="nav.dash.main">Add Penalty</span></a>
+          <li class=" nav-item"><a href="/add_penalty"><i class="icon-fire"></i><span class="menu-title" data-i18n="nav.dash.main">Add Penalty</span></a>
           
           </li>
 
@@ -170,7 +170,7 @@
           </li>
 
           
-          <li class=" nav-item"><a href="/system_config"><i class="icon-notebook"></i><span class="menu-title" data-i18n="nav.dash.main">Referral</span></a>
+          <li class=" nav-item"><a href="/referral"><i class="icon-notebook"></i><span class="menu-title" data-i18n="nav.dash.main">Referral</span></a>
           
           </li>
 
@@ -186,7 +186,7 @@
           <li class=" nav-item"><a href="/system_config"><i class="ft-cpu"></i><span class="menu-title" data-i18n="nav.dash.main">Auto Withdrawals</span></a>
           
           </li>
-          <li class=" nav-item"><a href="/system_config"><i class="ft-chrome"></i><span class="menu-title" data-i18n="nav.dash.main">IP Logs</span></a>
+          <li class=" nav-item"><a href="/ip_logs"><i class="ft-chrome"></i><span class="menu-title" data-i18n="nav.dash.main">IP Logs</span></a>
           
           </li>
 

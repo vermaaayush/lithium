@@ -22,8 +22,14 @@ use App\Models\Bank;
 use App\Rules\Captcha;
 use App\Models\Withrawal;
 use App\Models\Kyc;
+use App\Models\Iplog;
+use App\Models\Accesscontrol;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\Notification;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF; 
+use Illuminate\Support\Facades\Http; 
+use App\Models\Config;
+
 
 
 class UserController extends CompanyController
@@ -39,6 +45,8 @@ class UserController extends CompanyController
     { 
 
         $existingUser = User::where('email', $request->input('email'))->first();
+        $parent_id='';
+        $bonus=0;
 
         if ($existingUser) {
             return redirect()->back()->withInput()->with('error', 'Email is already registered!');
@@ -49,9 +57,27 @@ class UserController extends CompanyController
             return redirect()->back()->withInput()->with('error', 'Password and Confirm Password are not same!');
         }
 
+        if ($request->filled('reff_code')) {
+
+            $rc = User::where('referral_id', $request->input('reff_code'))->where('dlt_status', 0)->first();
+            
+            if (!$rc) {
+                return redirect()->back()->withInput()->with('error', 'Referral code is invalid !');
+            }
+
+            $parent_id = $rc->user_id;
+
+            $cfg = Config::find(1);
+
+            $bonus=$cfg->reff_code_bonus; 
+
+            $rc->no_referral_user += 1;
+            $rc->update();
+
+        }
 
         $randomNumber = rand(100000, 999999); 
-
+        $referralCode = Str::random(16);
         $user = new User();
 
         $user->user_id = $randomNumber;
@@ -63,14 +89,28 @@ class UserController extends CompanyController
         $user->dob = $request->input('dob');
    
         $user->password = $request->input('password');
-        $user->status = 'not_approved';
+        $user->status = 'Active';
+        $user->referral_id = $referralCode;
+        $user->parent_id = $parent_id;
+        $user->balance += $bonus;
         $user->save();
+
+        $trx = new Transaction();
+
+        $trx->user_id = $randomNumber;
+        $trx->subject = 'Bonus';
+        $trx->name = 'Referral Code Reward';
+        $trx->amount = $bonus;
+        $trx->status = 'Credit';
+        $trx->save();
+
+
 
         // Redirect to a success page or return a response
         //EMAIL
         $subject = 'Your Registration Details'; // Define the subject variable
-        $username = 'User123'; // Replace 'User123' with the actual username
-        $password = 'Password123'; // Replace 'Password123' with the actual password
+        // $username = 'User123'; // Replace 'User123' with the actual username
+        // $password = 'Password123'; // Replace 'Password123' with the actual password
         $email = $request->input('email'); // Replace 'Password123' with the actual password
         
         Mail::send('emails.register', [
@@ -97,7 +137,7 @@ class UserController extends CompanyController
                
            ]);
 
-           $user = User::where(['email'=>$req->email])->first();
+           $user = User::where(['email'=>$req->email])->where(['dlt_status'=>0])->first();
          
            if (!$user || !($req->password==$user->password)) {
 
@@ -121,6 +161,20 @@ class UserController extends CompanyController
             $ip = response()->json(['ip_address' => $userIp]);
 
             $location = $ip->getData()->ip_address;
+
+            $response = Http::get('http://www.geoplugin.net/php.gp?ip='.$location);
+        
+            if ($response->ok()) {
+                $geolocation = unserialize($response->body());
+                $countryName = $geolocation['geoplugin_countryName'];
+                
+                $kyc = new Iplog();
+                $kyc->ip_address=$location;
+                $kyc->country=$countryName;
+                $kyc->save();
+            } 
+
+
         
             $email = $user->email; // Replace 'Password123' with the actual password
             
@@ -343,11 +397,15 @@ class UserController extends CompanyController
         // Check if the input matches an email format
         if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
             // Input is an email address
-            $user = User::where('email', $identifier)->first();
+            $user = User::where('email', $identifier)->where('dlt_status', 0)->first();
             
         } else {
             // Input is assumed to be a user ID
-            $user = User::where('user_id', $identifier)->first();
+            $user = User::where('user_id', $identifier)->where('dlt_status', 0)->first();
+        }
+
+        if (!$user) {
+            return redirect()->back()->withInput()->with('error', 'User not found. Please check the recipient details and try again.');
         }
 
         return view('user.receiver_details', compact('user'), compact('amount'));
@@ -658,9 +716,77 @@ class UserController extends CompanyController
 
     public function profile()
     {
+        //user details
         $userId = session('s_user')['user_id'];
         $data = User::where('user_id', $userId)->first();
-        return view('user.profile', compact('data'));
+        //email edit control
+        $access_c = Accesscontrol::where('id', 1)->first();
+        $m_email=$access_c->m_email;
+
+        $kyc = Kyc::where('user_id', $userId)->first();
+
+        return view('user.profile', compact('data','m_email','kyc'));
+    }
+
+    public function update_profile(Request $request)
+    {
+        $userId = session('s_user')['user_id'];
+        $user = User::where('user_id', $userId)->first();
+        $user->name =  $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->dob = $request->input('dob');
+        $user->country = $request->input('country');
+        $user->save();
+
+        return back()->with('success', 'Profile Updated Successfully.');
+    }
+
+    public function update_password(Request $request)
+    {
+        $userId = session('s_user')['user_id'];
+        $user = User::where('user_id', $userId)->first();
+
+        if ( $user->password ==  $request->input('old_pass')) 
+        {
+            if ( $request->input('n_pass') ==  $request->input('c_pass')) 
+            {
+                $user->password = $request->input('n_pass');
+                $user->update();
+                return back()->with('success', 'Password Updated Successfully');
+                
+            }
+            else
+            {
+                return back()->with('error', 'New Password and Current Password are not same !');
+            }
+        }
+        else
+        {
+            return back()->with('error', 'Incorrect Old Password !');
+        }
+
+    }
+
+    public function export_history()
+    {
+        $userId = session('s_user')['user_id'];
+    $data = Transaction::where('user_id', $userId)->get();
+
+    // Load the data into a Blade view
+    $pdf = PDF::loadView('pdf.transaction_history', compact('data'));
+
+    // Generate the PDF and return a download response
+    return $pdf->download('transaction_history.pdf');
+       
+    }
+
+
+    public function my_referrals()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = User::where('user_id', $userId)->first();
+        return view('user.my_referrals', compact('data'));
     }
 
 
@@ -701,25 +827,35 @@ class UserController extends CompanyController
 
 
  
-    public function test()
+    public function test(Request $request)
     {
-       
-        $subject = 'Your subject here'; // Define the subject variable
-        $username = 'User123'; // Replace 'User123' with the actual username
-        $password = 'Password123'; // Replace 'Password123' with the actual password
-        $email = 'aayushverma200@gmail.com'; // Replace 'Password123' with the actual password
+
         
-        Mail::send('emails.register', [
-            'subject' => $subject,
-            'email' => $email,
-            'username' => $username,
-            'password' => $password,
-        ], function ($message) use ($email, $subject) {
-            $message->to($email)->subject($subject);
-        });
-        
-            return 'Test email sent successfully!';
+        Log::info('Payment Response:', $request->all());
+
+        // Check if the response is empty
        
+        // Handle the payment response logic here
+        // For example, you can check the payment status and update your database accordingly
+
+        // Return a success response
+        return response()->json(['status' => 'success']);
+       
+        // $subject = 'Your subject here'; // Define the subject variable
+        // $username = 'User123'; // Replace 'User123' with the actual username
+        // $password = 'Password123'; // Replace 'Password123' with the actual password
+        // $email = 'aayushverma200@gmail.com'; // Replace 'Password123' with the actual password
+        
+        // Mail::send('emails.register', [
+        //     'subject' => $subject,
+        //     'email' => $email,
+        //     'username' => $username,
+        //     'password' => $password,
+        // ], function ($message) use ($email, $subject) {
+        //     $message->to($email)->subject($subject);
+        // });
+        
+        //     return 'Test email sent successfully!';  
 
     }
 

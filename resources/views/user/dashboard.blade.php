@@ -2,6 +2,10 @@
 @section('title', 'Dashboard')
 @section('main-container')
 
+
+@if (session('s_user')['status'] == 'Active')
+
+
 @if (session('error'))
 <div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-danger text-danger bg-danger-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
 	<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
@@ -17,13 +21,14 @@
 	{{ session('success') }}
 </div>
 @endif
-@if($u_info->kyc == 0)
+@if($u_info->add_status == 0 || $u_info->id_status== 0 || $u_info->id_status== 1 || $u_info->add_status== 1)
 
 <h1>Complete Your KYC</h1>
 <h5>You’re ready to start trading soon! Help us safeguard your account by verifying your personal information.</h5>
 <br>
 <br>
 
+@endif
 @if( $u_info->email_auth == 0)
 <div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
     <div class="card overflow-hidden">
@@ -66,6 +71,15 @@
 				 <br>
 				<h5 class="text-success">Thank you for submitting your proof of identity. Your request is now being reviewed by our team.</h5>
 				
+				@elseif( $u_info->id_status == 3)
+                         
+				<span class="text-sm  text-danger">Identity Verification is Rejected, Try again!</span>
+				<div class="mt-[18px]">
+                    <h1 class="text-danger">Rejected!</h1>
+                    <br>
+					
+                   <a href="/identity_form"> <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Try Again</button></a>
+                </div>
 
 				@endif
             </div>
@@ -95,6 +109,15 @@
 				 <br>
 				<h5 class="text-success">Thank you for submitting your proof of address. Your request is now being reviewed by our team.</h5>
 				
+				@elseif( $u_info->add_status == 3)
+                         
+				<span class="text-sm  text-danger">Address Proof Verification is Rejected, Try again!</span>
+				<div class="mt-[18px]">
+                    <h1 class="text-danger">Rejected!</h1>
+                    <br>
+					
+                   <a href="/address_form"> <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Try Again</button></a>
+                </div>
 
 				@endif
             </div>
@@ -144,117 +167,10 @@
 </div>
 
 
-{{-- <div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="secondmodal">
-   <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
-	   <div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
-		   <div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
-			   <h5 class="modal-title">Identity Verification</h5>
-			   <button type="button" class="btn-close p-4 text-xs">
-			   </button>
-		   </div>
-		   <div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
-			  <div class="basic-form">
-				<form action="/id_verification" method="post" enctype="multipart/form-data" id="myForm">
-					@csrf
-					<div class="mb-4">
-						<label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Upload Your ID</label>
-						<div class="flex items-stretch flex-wrap relative w-full">
-							<input type="file" class="" name="id_image" id="ID" required>
-						</div>
-					</div>
-				    
-					<label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Take a Selfie</label>
-					<br>
-					<button type="button" id="start-camera" class="tn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2	">Start Camera</button>
-					<video id="video" width="320" height="240" autoplay></video>
-					<br>
-					<button type="button" id="click-photo" class="tn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2">Click Photo</button>
-					<canvas id="canvas" width="240" height="240" style="border-radius: 50%; border: 2px solid #333; display: none;"></canvas>
-				
-					<input type="hidden" id="image-data" name="image_data" required>
-				   
-					<button type="submit" class="tn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2">Submit</button>
-				</form>
-            </div>
-			  
-			  
-		   </div>
-		 
-	   </div>
-   </div>
-</div> --}}
 
-<div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="thirdmodal">
-   <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
-	   <div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
-		   <div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
-			   <h5 class="modal-title">Address Verification</h5>
-			   <button type="button" class="btn-close p-4 text-xs">
-			   </button>
-		   </div>
-		   <div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
-			  <div class="basic-form">
-				  <form action="/add_verify" method="post" enctype="multipart/form-data" class="form-valide-with-icon needs-validation" >  
-					@csrf
-					  <div class="mb-4">
-						  <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Upload Your Address Proof</label>
-						  <div class="flex items-stretch flex-wrap relative w-full">
-							
-						   <input type="file" class="" name="address_proof" required>
 
-						  </div>
-					  </div>
 
-					  
-					 
-					  <button type="submit" class="btn mr-2 inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Submit</button>
-					 
-				  </form>
-			  </div>
-			  
-			  
-		   </div>
-		 
-	   </div>
-   </div>
-</div>
-{{-- modals code --}}
 
-{{-- selfie script --}}
-{{-- <script>
-	let camera_button = document.querySelector("#start-camera");
-	let video = document.querySelector("#video");
-	let click_button = document.querySelector("#click-photo");
-	let canvas = document.querySelector("#canvas");
-	let imageDataInput = document.querySelector("#image-data");
-
-	camera_button.addEventListener('click', async function() {
-		let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-		video.srcObject = stream;
-	});
-
-	click_button.addEventListener('click', function() {
-		video.style.display = 'none'; // Hide the video element
-		canvas.style.display = 'block'; // Show the canvas element
-		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-		let image_data_url = canvas.toDataURL('image/jpeg');
-
-		// Display clicked image on the circular canvas
-		let img = new Image();
-		img.onload = function() {
-			canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-		};
-		img.src = image_data_url;
-
-		// Save image data in the hidden input
-		imageDataInput.value = image_data_url;
-
-		// data url of the image
-		console.log(image_data_url);
-	});
-</script>
-selfie script --}}
-@endif
                             
 							<div class="w-full">
 								<div class="row">  
@@ -640,5 +556,13 @@ data.plans.forEach(plan => {
         .catch(error => console.error('Error fetching data:', error));
 </script>
 
-
+@else
+<div class="xl:w-1/2 w-full" style="margin: auto">
+	<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent text-danger bg-danger-light dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26] notification">
+		<p class="text-danger mb-2"><strong>Suspended! </strong></p>
+		<p class="mb-4 text-danger leading-[1.5]">Your account status has been suspended. Please contact our support team for further assistance.</p>
+	   
+	</div>
+</div>  
+@endif
 @endsection

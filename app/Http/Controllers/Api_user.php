@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\Withrawal;
 use Illuminate\Support\Facades\Session;
 use App\Models\Investment;
+use App\Models\Notification;
 use App\Models\Plan;
 use App\Models\Stock;
 use Illuminate\Support\Facades\Mail;
@@ -109,5 +110,12 @@ class Api_user extends CompanyController
 
 
 
+    }
+
+    public function api_header_notification()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Notification::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        return $data;
     }
 }

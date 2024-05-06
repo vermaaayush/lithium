@@ -19,6 +19,8 @@ use App\Models\Transfer;
 use App\Models\Transaction;
 use App\Models\Deposite;
 use App\Models\Bank;
+use App\Models\Accesscontrol;
+use App\Models\Config;
 use App\Rules\Captcha;
 use Illuminate\Support\Facades\Storage; 
 
@@ -76,6 +78,38 @@ class StockController extends Controller
             $trx->amount = $request->current_value - $data->amount;
             $trx->status = 'Credit';
             $trx->save();
+
+            
+
+            //reff
+            $ac = Accesscontrol::find(1);
+            if ($ac->referral==1)
+            {
+                $profit =$request->current_value - $data->amount;
+                $rf= User::where('user_id', $user_info->parent_id)->where('dlt_status', 0)->first();
+                if ($rf) {
+                    
+                    $cfg = Config::find(1);
+                    $percentage = $cfg->reff_trade_earning;
+                    $amt = number_format(($percentage / 100) * $profit, 2);
+    
+                    $rf->balance +=$amt;
+                    $rf->update();
+    
+                    $trx = new Transaction();
+                    $trx->user_id = $rf->user_id;
+                    $trx->subject = 'Commission';
+                    $trx->name = 'Trade Profit Commission';
+                    $trx->amount = $amt;
+                    $trx->status = 'Credit';
+                    $trx->save();
+    
+    
+                    
+                }
+            }
+
+
 
             //Email
             $plan = Plan::where(['plan_id'=>$data->plan_id])->first();

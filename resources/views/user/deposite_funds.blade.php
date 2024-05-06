@@ -49,7 +49,7 @@
                                     <div class="xl:w-2/3 col-xxl-8 w-full">
                                         <div class="row">
                                             <div class="md:w-1/2">
-                                               <a href="#">
+                                               <a href="/crypto_pay">
                                                 <div class="card">
                                                     <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
                                                         <div class="clearfix">

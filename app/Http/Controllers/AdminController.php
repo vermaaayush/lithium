@@ -19,8 +19,10 @@ use App\Models\Investment;
 use App\Models\Transaction;
 use App\Models\Bank;
 use App\Models\Config;
+use App\Models\Kyc;
 use App\Models\Notification;
 use App\Models\Accesscontrol;
+use App\Models\Iplog;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends CompanyController
@@ -82,7 +84,7 @@ class AdminController extends CompanyController
     }
     public function users()
     {
-        $users = User::orderBy('created_at', 'desc')->get();
+        $users = User::where('dlt_status', 0)->orderBy('created_at', 'desc')->get();
         return view('admin.all_users', compact('users'));
     }
 
@@ -101,7 +103,7 @@ class AdminController extends CompanyController
 
 
         $randomNumber = rand(100000, 999999); 
-
+        $referralCode = Str::random(16);
         $user = new User();
 
         $user->user_id = $randomNumber;
@@ -113,30 +115,13 @@ class AdminController extends CompanyController
         $user->dob = $request->input('dob');
 
         
-        // if ($request->hasFile('user_pic')) {
-        //     $uploadedFile = $request->file('user_pic');
-        
-        //     // Generate a unique file name
-        //     $fileName = uniqid('user_pic_') . '.' . $uploadedFile->getClientOriginalExtension();
-        
-        //     // Define the storage path relative to the public directory
-        //     $folderPath = 'upload/users';
-        
-        //     // Move the uploaded file to the storage path
-        //     $storedFilePath = $uploadedFile->move(public_path($folderPath), $fileName);
-        
-        //     if ($storedFilePath) {
-        //         // File moved successfully, update database or perform other operations
-        //         $user->image_data = $folderPath . '/' . $fileName;
-        //         // Save the $plan object or perform other operations as needed
-        //     }
-        // }
+       
 
         $user->password = $request->input('password');
         $user->status = $request->input('status');
         
         $user->admin_note = $request->input('admin_note');
-        
+        $user->referral_id = $referralCode;
 
         $user->id_status = 2;
         $user->add_status = 2;
@@ -144,6 +129,21 @@ class AdminController extends CompanyController
 
 
         $user->save();
+
+        //Email
+        $subject = 'Your Registration Details'; // Define the subject variable
+        $email = $request->input('email'); // Replace 'Password123' with the actual password
+        
+        Mail::send('emails.register', [
+            'subject' => $subject,
+            'email' => $request->input('email'),
+            'username' => $request->input('name'),
+            'password' => $request->input('password'),
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+
+
 
         // Redirect to a success page or return a response
         return redirect('users')->with('success', 'User created successfully');
@@ -153,7 +153,8 @@ class AdminController extends CompanyController
     public function veiw_user($id)
     {
         $u_info = User::find($id);
-        return view('admin.veiw_user', compact('u_info'));
+        $data = Kyc::where('user_id', $u_info->user_id)->first();
+        return view('admin.veiw_user', compact('u_info','data'));
     }
 
     public function funds($id)
@@ -257,6 +258,54 @@ class AdminController extends CompanyController
         $trx->amount = $amount;
         $trx->status = 'Credit';
         $trx->save();
+        
+        //refrall parent 
+
+        //user_dlt
+        $ac = Accesscontrol::find(1);
+        if ($ac->referral==1)
+        {
+            $rf= User::where('user_id', $u->parent_id)->where('dlt_status', 0)->first();
+            if ($rf) {
+                
+                $cfg = Config::find(1);
+                $percentage = $cfg->reff_depo_earning;
+                $amt = number_format(($percentage / 100) * $amount, 2);
+
+                $rf->balance +=$amt;
+                $rf->update();
+
+                $trx = new Transaction();
+                $trx->user_id = $rf->user_id;
+                $trx->subject = 'Commission';
+                $trx->name = 'Referral Deposite Bonus';
+                $trx->amount = $amt;
+                $trx->status = 'Credit';
+                $trx->save();
+
+
+                
+            }
+        }
+
+      
+
+
+        //Email
+        $subject = 'Deposit Confirmation: Amount Successfully Credited'; // Define the subject variable
+
+        $email = $u->email;
+        
+        Mail::send('emails.deposite', [
+            'subject' => $subject,
+            'name' => $u->name,
+            'email' => $u->email,
+            'amount' => $amount,
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+
+
         
         return redirect('deposits')->with('success', 'Deposit Approved successfully');
     }
@@ -416,6 +465,7 @@ class AdminController extends CompanyController
         $mTransfer = $request->has('m_transfer') ? 1 : 0;
         $extra1 = $request->has('extra1') ? 1 : 0;
         $extra2 = $request->has('extra2') ? 1 : 0;
+        $referral = $request->has('referral') ? 1 : 0;
     
         // Update the database in a single command
         Accesscontrol::where('id', 1)->update([
@@ -425,6 +475,7 @@ class AdminController extends CompanyController
             'm_transfer' => $mTransfer,
             'extra1' => $extra1,
             'extra2' => $extra2,
+            'referral' => $referral,
         ]);
 
     
@@ -437,8 +488,36 @@ class AdminController extends CompanyController
         $user = User::find($id);
         $user->status='Suspended';
         $user->save();
+
+        $subject = 'Urgent: Account Suspension Notification'; // Define the subject variable
+
+        $email = $user->email;
+        
+        Mail::send('emails.suspend', [
+            'subject' => $subject,
+            'name' => $user->name,
+            'email' => $user->email,
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+        
+
         return redirect('users');
 
+        
+
+        //Email
+
+    }
+
+    public function activate_user($id)
+    {
+        $user = User::find($id);
+        $user->status='Active';
+        $user->save();
+        return redirect('users');
+
+        //Email
     }
     
     public function blacklisted_user()
@@ -449,7 +528,7 @@ class AdminController extends CompanyController
 
     public function newsletter()
     {
-        $u_info = User::orderBy('created_at', 'desc')->get();
+        $u_info = User::orderBy('created_at', 'desc')->where('dlt_status', 0)->get();
         return view('admin.newsletter', compact('u_info'));
 
     }
@@ -501,6 +580,263 @@ class AdminController extends CompanyController
     
 
     }
+
+    public function add_bonus(Request $request)
+    {
+        $user_id= $request->user_id;
+
+        $b_amount= $request->bonus;
+        
+        $user = User::where('user_id', $user_id)->first();
+
+        if ($user) 
+        {
+            $user->balance += $b_amount; 
+            $user->save();
+
+            $trx = new Transaction();
+
+            $trx->user_id = $user_id;
+            $trx->subject = 'Investment Bonus';
+            $trx->name = $user->name;
+            $trx->amount = $b_amount;
+            $trx->status = 'Credit';
+            $trx->save();
+
+            $noti = new Notification();
+            $noti->user_id=$user_id;
+            $noti->message='Congratulations! You just received an investment bonus of $'.number_format($b_amount). ', Happy investing!';
+            $noti->save();
+
+        
+        $subject = 'Investment Bonus Received'; // Define the subject variable
+        
+        $email = $user->email;
+  
+        $amount =$b_amount;
+      
+        $user_x= $user->name;
+        $date= Carbon::now();
+        
+      
+
+        
+        Mail::send('emails.bonus', [
+            'subject' => $subject,
+            'email' => $email,
+            'user_x' =>$user_x,
+            'total_amount' => $amount,
+            'date' => $date,
+            
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+
+        return back()->with('success', 'Bonus Addess Successfully');
+           
+        }
+        else
+        {
+
+        return back()->with('Error', 'User Not Found !');
+
+        }
+        
+       
+    }
+
+
+    public function add_penalty(Request $request)
+    {
+        $user_id= $request->user_id;
+
+        $p_amount= $request->penalty;
+        
+        $user = User::where('user_id', $user_id)->first();
+
+        if ($user) 
+        {
+            $user->balance -= $p_amount; 
+            $user->save();
+
+            $trx = new Transaction();
+
+            $trx->user_id = $user_id;
+            $trx->subject = 'Penalty Deducted';
+            $trx->name = $user->name;
+            $trx->amount = $p_amount;
+            $trx->status = 'Debit';
+            $trx->save();
+
+            $noti = new Notification();
+            $noti->user_id=$user_id;
+            $noti->message='We regret to inform you that a penalty of $'.number_format($p_amount). ' has been deducted from your account';
+            $noti->save();
+
+        
+        $subject = 'Penalty Deducted'; // Define the subject variable
+        
+        $email = $user->email;
+  
+        $amount =$p_amount;
+      
+        $user_x= $user->name;
+        $date= Carbon::now();
+        
+      
+
+        
+        Mail::send('emails.penalty', [
+            'subject' => $subject,
+            'email' => $email,
+            'user_x' =>$user_x,
+            'total_amount' => $amount,
+            'date' => $date,
+            
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+
+        return back()->with('success', 'Penalty Deducted Successfully');
+           
+        }
+        else
+        {
+
+        return back()->with('Error', 'User Not Found !');
+
+        }
+        
+       
+    }
+
+    public function ip_logs()
+    {
+        $data = Iplog::orderBy('created_at', 'desc')->get();
+        return view('admin.iplogs', compact('data'));
+    }
+
+    public function referral()
+    {
+        $cfg = Config::find(1);
+        return view('admin.referral', compact('cfg'));
+    }
+
+    public function update_referral(Request $request)
+    {
+        $cfg = Config::find(1);
+
+    
+        $cfg->reff_code_bonus = $request->input('reff_code_bonus');
+        $cfg->reff_depo_earning = $request->input('reff_depo_earning');
+        $cfg->reff_trade_earning = $request->input('reff_trade_earning');
+        $cfg->update();
+
+        // Redirect to a success page or return a response
+        return back()->with('success', 'Information Updated Successfully');
+    }
+
+    public function bw_view($id)
+    {
+        $data = Deposite::find($id);
+       
+        return view('admin.bw_view', compact('data'));
+    }
+
+
+    public function bw_reject($id)
+    {
+        $depo = Deposite::find($id);
+        $user_id= $depo->user_id;
+        $amount = $depo->amount;
+
+        $u = User::where('user_id', $user_id)->first();
+
+        $depo->status = 3;
+        $depo->save();
+
+        
+        
+      
+
+
+        //Email
+        $subject = 'Deposit Request Rejected'; // Define the subject variable
+
+        $email = $u->email;
+        
+        Mail::send('emails.depo_reject', [
+            'subject' => $subject,
+            'name' => $u->name,
+            'email' => $u->email,
+            'amount' => $amount,
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+
+
+        
+        return redirect('deposits');
+    }
+
+
+    public function delete_user($id)
+    {
+        
+        $u = User::find($id);
+
+        $u->dlt_status =1; 
+        $u->update();
+       
+        return redirect()->back()->with('success', 'User deleted successfully');
+    
+    }
+
+
+    public function id_approve($id)
+    {
+        
+        $u = User::find($id);
+        $u->id_status =2; 
+        $u->update();
+        return redirect()->back()->with('success', 'Approved successfully');
+    
+    }
+
+
+    public function id_reject($id)
+    {
+        
+        $u = User::find($id);
+        $u->id_status =3; 
+        $u->update();
+        return redirect()->back();
+    
+    }
+
+    public function address_approve($id)
+    {
+        
+        $u = User::find($id);
+
+        $u->add_status =2; 
+        $u->update();
+        return redirect()->back()->with('success', 'Approved successfully');
+    
+    }
+
+    public function address_reject($id)
+    {
+        
+        $u = User::find($id);
+
+        $u->add_status =3; 
+        $u->update();
+        return redirect()->back();
+    
+    }
+
+    
 
     
 }

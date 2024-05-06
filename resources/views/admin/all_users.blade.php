@@ -52,7 +52,7 @@
                                   <th>Name</th>
                                   <th>Email</th>
                                   <th>Status</th>
-                                  <th>Funds</th>
+                                  <th>Balance</th>
                                   <th>Actions</th>
                               </tr>
                           </thead>
@@ -83,7 +83,7 @@
                                     @endif
                                     
 
-                                    @if ( $user->id_status == 0 )
+                                    @if ( $user->id_status == 0 || $user->id_status == 3 )
                                     <span style="color: red">Identity Verification Pending!</span>
                                     <br>
                                     @elseif( $user->id_status==1)
@@ -91,36 +91,41 @@
                                     <br>
                                     @endif
 
-                                    @if ( $user->id_status == 0 )
+                                    @if ( $user->add_status == 0 || $user->add_status == 3 )
                                     <span style="color: red">Address Verification Pending!</span>
                                     <br>
-                                    @elseif( $user->id_status==1)
+                                    @elseif( $user->add_status==1)
                                     <span style="color:#967adc">Check Address Proof</span>
                                     <br>
                                     @endif
 
                                   </td>
-                                  <td>    
+                                  {{-- <td>    
                                     Balance:   <span style="float:right">${{number_format($user->balance) }}</span><br>
                                     Invested:  <span style="float:right">${{number_format($user->funded) }}</span><br>
                                     Deposite:  <span style="float:right">${{number_format($user->deposite) }}</span><br>
                                     Withrawal: <span style="float:right">${{number_format($user->withraw) }}</span><br>
                                     Earning:   <span style="float:right">${{number_format($user->Earning) }}</span><br>
+                                </td> --}}
+                                <td>    
+                                   ${{number_format($user->balance) }}
+                                   
                                 </td>
                                   <td>
                                       <span class="dropdown">
                                           <button id="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
                                           <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                              <a href="/veiw_user/{{$user->id}}" class="dropdown-item"><i class="ft-edit-2 success"></i> Edit</a>
+                                              <a href="/veiw_user/{{$user->id}}" class="dropdown-item"><i class="ft-edit-2 success"></i> Manage</a>
                                               <a href="/funds/{{$user->id}}" class="dropdown-item"><i class="ft-plus-circle primary"></i> Funds</a>
                                               <a href="/invest_now/{{$user->id}}" class="dropdown-item"><i class="ft-plus-circle primary"></i> Invest Now</a>
                                               
-                                              @if ($user->status=='Active')
-                                              <a href="/block_suspend/{{$user->id}}" class="dropdown-item"><i class="ft-alert-octagon danger"></i> Block</a>
-                                              @else
+                                              @if ($user->status=='Suspended')
                                               <a href="/activate_user/{{$user->id}}" class="dropdown-item"><i class="ft-heart success"></i> Activate</a>
+                                            
+                                              @else
+                                              <a href="/block_suspend/{{$user->id}}" class="dropdown-item"><i class="ft-alert-octagon danger"></i> Block</a>
                                               @endif
-                                              <a href="#" class="dropdown-item"><i class="ft-trash-2 danger"></i> Delete</a>
+                                              <a href="/delete_user/{{$user->id}}" class="dropdown-item"><i class="ft-trash-2 danger"></i> Delete</a>
                                               
  
                                           </span>

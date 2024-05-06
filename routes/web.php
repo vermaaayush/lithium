@@ -31,6 +31,7 @@ Route::middleware([Admin_Auth::class])->group(function () {
     Route::post('/add_balance/{id}', [AdminController::class, 'add_balance']);
     Route::get('/deposits', [AdminController::class, 'deposits']);
     Route::get('/app_depo/{id}', [AdminController::class, 'app_depo']);
+    Route::get('/bw_view/{id}', [AdminController::class, 'bw_view']);
     Route::get('/all_investment', [AdminController::class, 'all_investment']);
     Route::get('/system_config', [AdminController::class, 'system_config']);
     Route::post('/system_config', [AdminController::class, 'update_system_config']);
@@ -50,6 +51,7 @@ Route::middleware([Admin_Auth::class])->group(function () {
     Route::get('/access_control', [AdminController::class, 'access_control']);
     Route::post('/access_control', [AdminController::class, 'update_access_control']);
     Route::get('/block_suspend/{id}', [AdminController::class, 'block_suspend']);
+    Route::get('/activate_user/{id}', [AdminController::class, 'activate_user']);
     Route::get('/blacklisted_user', [AdminController::class, 'blacklisted_user']);
     Route::get('/newsletter', [AdminController::class, 'newsletter']);
     Route::post('/send_newsletter', [AdminController::class, 'send_newsletter']);
@@ -63,10 +65,33 @@ Route::middleware([Admin_Auth::class])->group(function () {
     Route::get('/api_history', [Api_admin::class, 'api_history']);
 
     Route::get('/api_dashboard', [Api_admin::class, 'api_dashboard']);
+    
+    Route::post('/add_bonus', [AdminController::class, 'add_bonus']);
+    Route::get('/add_bonus', function () { return view('admin.add_bonus'); });
+
+    Route::post('/add_penalty', [AdminController::class, 'add_penalty']);
+    Route::get('/add_penalty', function () { return view('admin.add_penalty'); });
+    
+    Route::get('/ip_logs', [AdminController::class, 'ip_logs']);
+
+    Route::get('/referral', [AdminController::class, 'referral']);
+    Route::post('/update_referral', [AdminController::class, 'update_referral']);
+
+    Route::get('/delete_user/{id}', [AdminController::class, 'delete_user']);
+    Route::get('/bw_reject/{id}', [AdminController::class, 'bw_reject']);
+
+    Route::get('/id_approve/{id}', [AdminController::class, 'id_approve']);
+    Route::get('/id_reject/{id}', [AdminController::class, 'id_reject']);
+
+    Route::get('/address_approve/{id}', [AdminController::class, 'address_approve']);
+    Route::get('/address_reject/{id}', [AdminController::class, 'address_reject']);
+
 
     
+    
+    
  
-
+    
     
 
     
@@ -118,8 +143,24 @@ Route::middleware([User_Auth::class])->group(function () {
     Route::get('/all_transfer', [UserController::class, 'all_transfer']);
     Route::get('/portfolio', [UserController::class, 'portfolio']);
     Route::get('/profile', [UserController::class, 'profile']);
+    Route::post('/update_profile', [UserController::class, 'update_profile']);
+    Route::post('/update_password', [UserController::class, 'update_password']);
+    Route::get('/manage_password',function () { return view('user.manage_password'); });
     Route::get('/api_portfolio', [Api_user::class, 'api_portfolio']);
     Route::get('/api_dash', [Api_user::class, 'api_dash']);
+    Route::get('/api_header_notification', [Api_user::class, 'api_header_notification']);
+    Route::get('/export_history', [UserController::class, 'export_history']);
+    Route::get('/my_referrals', [UserController::class, 'my_referrals']);
+    Route::get('/contact_us',function () { return view('user.contact_us'); });
+    Route::get('/crypto_pay', function () { return view('user.crypto_pay'); });
+
+    
+
+    
+    
+    
+
+    
 
     
 
@@ -139,7 +180,7 @@ Route::middleware([User_Auth::class])->group(function () {
 
 
 // side extra routes
-Route::get('/test', [UserController::class, 'test']);
+Route::post('/test', [UserController::class, 'test']);
 Route::get('/run_invest_checker', [CronJobController::class, 'index']);
 Route::get('/run_botx', [BotxController::class, 'index']);
 Route::get('/dummy_cronjob', function () { return view('user.dummy_cronjob'); });

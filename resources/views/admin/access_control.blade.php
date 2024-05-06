@@ -69,6 +69,13 @@
                                       <input type="checkbox" id="switcheryColor" class="switchery" data-color="primary" name="extra2" {{ $data->extra2 == 1 ? 'checked' : '' }}/>
                                   </div>
                               </div>
+
+                              <div class="form-group row">
+                                <label class="col-md-9 label-control" for="projectinput1">Referral Program:</label>
+                                <div class="col-md-3">
+                                    <input type="checkbox" id="switcheryColor" class="switchery" data-color="primary" name="referral" {{ $data->referral == 1 ? 'checked' : '' }}/>
+                                </div>
+                            </div>
                     
                     
                     

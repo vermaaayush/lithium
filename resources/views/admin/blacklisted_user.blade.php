@@ -52,7 +52,7 @@
                                   <th>Name</th>
                                   <th>Email</th>
                                   <th>Status</th>
-                                  <th>Funds</th>
+                                  <th>Balance</th>
                                   <th>Actions</th>
                               </tr>
                           </thead>
@@ -101,12 +101,8 @@
 
                                   </td>
                                   <td>    
-                                    Balance:   <span style="float:right">${{number_format($user->balance) }}</span><br>
-                                    Invested:  <span style="float:right">${{number_format($user->funded) }}</span><br>
-                                    Deposite:  <span style="float:right">${{number_format($user->deposite) }}</span><br>
-                                    Withrawal: <span style="float:right">${{number_format($user->withraw) }}</span><br>
-                                    Earning:   <span style="float:right">${{number_format($user->Earning) }}</span><br>
-                                </td>
+                               ${{number_format($user->balance) }}
+                                    </td>
                                   <td>
                                       <span class="dropdown">
                                           <button id="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>

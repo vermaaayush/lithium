@@ -40,52 +40,25 @@
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                             {{ $data->created_at }}
                         </td>
+                        
                         @if ($data->status == 0)
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                             <span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-warning bg-warning-light">Pending</span>
                         </td>
+                        
                         @elseif ($data->status == 2)
 
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
                             <span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-warning bg-warning-light">Pending</span>
-                            {{-- <button type="button" class="btn btn-primary sm:py-[0.719rem] px-2 sm:px-[1rem] py-1.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Upload Proof</button> --}}
+                        
                         </td>
 
-                        <div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="firstmodal">
-                            <div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
-                                <div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
-                                    <div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
-                                        <h5 class="modal-title">Upload Payment Proof</h5>
-                                        <button type="button" class="btn-close p-4 text-xs">
-                                        </button>
-                                    </div>
-                                    <div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
-                                       <div class="basic-form">
-                                        <form action="/upload_bw_proof/{{ $data->transaction_id }}" method="post" id="uploadForm" enctype="multipart/form-data">
-                                            @csrf
-                                            <div>
-                                                
-                                                <input type="file" id="ID" name="img" required>
-                                            </div>
-                                            <div>
-                                                
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <button type="submit" class="btn btn-primary sm:py-[0.719rem] px-2 sm:px-[1.5rem] py-1.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2">Submit</button>
-                                            
-                                        </form>
-                                        
-                                        
-                                        
-                                       </div>
-                                       
-                                       
-                                    </div>
-                                  
-                                </div>
-                            </div>
-                        </div>
+                        @elseif ($data->status ==3 )
+
+                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
+                            <span class="text-xs py-[5px] px-3 rounded leading-[1.5] inline-block text-danger bg-danger-light">Rejected!</span>
+                        
+                        </td>
 
                         @else
                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">

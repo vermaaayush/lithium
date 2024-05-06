@@ -1,6 +1,8 @@
 @php
   use App\Models\Config;
+  use App\Models\Accesscontrol;
   $company = Config::first();
+  $ac = Accesscontrol::find(1);
   
 @endphp
 <!DOCTYPE html>
@@ -385,10 +387,22 @@
 											<input type="password" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Confirm your password" name="password_confirmation" required>
 										</div>
 
+                                        @if ($ac->referral==1)
+                                        <div class="mb-4">
+											<label class="mb-1 form-label text-dark">Referral Code</label>
+                                            <p>(Sign up today using a Referral Code and unlock an instant bonus in your wallet!)</p>
+											<input type="text" class="form-control relative text-[13px] text-body-color h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter Referral Code" name="reff_code" >
+										</div>
+                                            
+                                        @endif
+                                       
+
 									
 										<div class="text-center mt-6">
 											<button type="submit" class="block w-full rounded font-bold h-[3.125rem] text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Sign me up</button>
 										</div>
+
+                                        
 									</form>
 									<div class="new-account mt-4">
 										<p class="mb-4">Already have an account? <a class="text-primary" href="/login">Login</a></p>

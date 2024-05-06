@@ -30,12 +30,13 @@
                           <thead>
                               <tr>
                                  
-                                  <th>Name</th>
+                                  <th>Sender ID</th>
+                                  <th>Receiver ID</th>
+                                  <th>Receiver Email</th>
                                   <th>Amount</th>
-                                  <th>Mode</th>
-                                  <th>Tras.ID</th>
+                                  <th>Transaction</th>
                                   <th>Date/Time</th>
-                                  <th>Status</th>
+                                  
                               </tr>
                           </thead>
                           <tbody>
@@ -67,12 +68,12 @@
             data.forEach(transfer => {
                 const newRow = `
                     <tr>
-                        <td>${transfer.name}</td>
-                        <td>${transfer.amount}</td>
-                        <td>${transfer.mode}</td>
+                        <td>${transfer.user_id}</td>
+                        <td>${transfer.receiver_user_id}</td>
+                        <td>${transfer.receiver_email}</td>
+                        <td>$${transfer.amount}</td>
                         <td>${transfer.transaction_id}</td>
-                        <td>${transfer.datetime}</td>
-                        <td>${transfer.status}</td>
+                        <td>${new Date(transfer.created_at).toLocaleString()}</td>
                     </tr>
                 `;
                 tbody.insertAdjacentHTML('beforeend', newRow);
