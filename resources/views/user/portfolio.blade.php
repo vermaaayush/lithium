@@ -22,9 +22,13 @@
                         <tr></tr>
                     </tbody>
                 </table>
+
+                <script>
+                    const appUrl = '{{ env('APP_URL') }}';
+                </script>
                 <script>
                     document.addEventListener('DOMContentLoaded', async () => {
-    const apiUrl = 'http://127.0.0.1:8000/api_portfolio';
+    const apiUrl = appUrl+'/api_portfolio';
     const tbody = document.querySelector('#portfolio-table');
 
     // Define a function to fetch and update data

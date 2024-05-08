@@ -31,7 +31,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- FAVICONS ICON -->
-  <link rel="shortcut icon" type="image/png" href="{{ $company->favicon }}">
+  <link rel="shortcut icon" type="image/png" href="{{  asset($company->favicon) }}">
   <!-- ICONS -->
   <link rel="stylesheet" href="{{ asset('user_assets/assets/icons/fontawesome/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('user_assets/assets/icons/line-awesome/css/line-awesome.min.css') }}">
@@ -86,7 +86,7 @@
     <!-- Preloader start  -->
     <div id="preloader" class="bg-white dark:bg-[#182237] p-0 m-0 h-full fixed z-[99999] w-full flex items-center justify-center">
 		<div>
-			<img src="{{ $company->favicon}}" alt=""> 
+			<img src="{{ asset($company->favicon)}}" alt=""> 
 		</div>
     </div>
     <!-- Preloader end -->
@@ -96,7 +96,7 @@
         <!-- Nav header start -->
         <div class="nav-header">
             <a href="#" class="brand-logo">
-				<img src="{{$company->logo}}" alt="">
+				<img src="{{asset($company->logo)}}" alt="">
             </a>
             <div class="nav-control">
                 <div class="hamburger">

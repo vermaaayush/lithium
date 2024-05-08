@@ -58,8 +58,11 @@
 
 
   <script>
+    const appUrl = '{{ env('APP_URL') }}';
+</script>
+  <script>
     // Fetch data from API using fetch API
-    fetch('http://127.0.0.1:8000/api_history')
+    fetch(appUrl+'/api_history')
         .then(response => response.json())
         .then(data => {
             const tbody = document.querySelector('#users-contacts tbody');

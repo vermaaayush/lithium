@@ -18,6 +18,7 @@ use App\Models\Transfer;
 use App\Models\Transaction;
 use App\Models\Withrawal;
 use App\Models\Investment;
+use App\Models\Iplog;
 
     class Api_admin extends Controller
     {
@@ -40,13 +41,28 @@ use App\Models\Investment;
         public function api_history()
         {
             try {
-                $transfers = Transaction::orderBy('created_at', 'desc')->get();
+                $transfers = Transaction::orderBy('created_at', 'desc')->limit(10)->get();
     
                 if ($transfers->isEmpty()) {
                     return response()->json(['message' => 'No transfers found.'], Response::HTTP_NOT_FOUND);
                 }
     
                 return response()->json($transfers, Response::HTTP_OK);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'An error occurred.', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        public function api_ip_logs()
+        {
+            try {
+                $ip_logs = Iplog::orderBy('created_at', 'desc')->limit(10)->get();
+    
+                if ($ip_logs->isEmpty()) {
+                    return response()->json(['message' => 'No transfers found.'], Response::HTTP_NOT_FOUND);
+                }
+    
+                return response()->json($ip_logs, Response::HTTP_OK);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'An error occurred.', 'error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
@@ -71,10 +87,10 @@ use App\Models\Investment;
 
 
          
-            $top_depsoite = Deposite::orderBy('created_at', 'desc')->get();
+            $top_depsoite = Deposite::orderBy('created_at', 'desc')->limit(8)->get();
             //return  $top_depsoite;
 
-            $top_withraw = Withrawal::orderBy('created_at', 'desc')->get();
+            $top_withraw = Withrawal::orderBy('created_at', 'desc')->limit(8)->get();
             //return  $top_withraw;
 
 

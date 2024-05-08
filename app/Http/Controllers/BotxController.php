@@ -8,57 +8,95 @@ use Illuminate\Support\Facades\Storage;
 
 class BotxController extends Controller
 {
-    public function generateBotData($a,$b,$c)
+    public function generateBotData($a, $b, $c, $planId)
     {
-        $baseValue = $a; 
+        $baseValue = $a;
         $downLimit = $b;
         $upLimit = $c;
-        $downInterval = [-0.5, -1, -0.7, -0.4, -2];
-        $upInterval = [0.5, 1, 3, 3.5, 0.7, 0.4, 2, 7.5, 10.5,11.5, 12, 13, 14.5, 15, 16, 6, 11, 10.9];
     
-        $totalMovements = 0;
+        $lastValue = $this->getLastCSVRowValue($planId, $baseValue);
     
-        // Choose a random interval value from the respective arrays
-        $randomDownInterval = $downInterval[array_rand($downInterval)];
-        $randomUpInterval = $upInterval[array_rand($upInterval)];
+        // return  $lastValue;
+        $newValue = $this->calculateNewValue($lastValue,$upLimit);
     
-        // Determine whether the movement will be upward or downward based on frequency
-        $movement = 0;
-        if ($totalMovements >= 20 || mt_rand(1, 100) <= 5) {
-            $movement = $totalMovements < 20 ? $randomDownInterval * 10 : $randomUpInterval * 10;
-            $totalMovements = 0; // Reset totalMovements counter
-        } else {
-            $frequency = mt_rand(1, 100) / 100;
-            if ($frequency < 0.2) {
-                $movement = $randomDownInterval;
-            } else {
-                $movement = $randomUpInterval;
-            }
-            $totalMovements++; // Increment totalMovements counter
-        }
+        $open = $this->calculateOpen($newValue);
+        $high = $this->calculateHigh($newValue);
+        $low = $this->calculateLow($newValue);
+        $close = $newValue;
     
-        // Adjust the open, high, low, and close values based on the selected movement
-        $randomOpen = $baseValue + $movement;
-        $randomHigh = $randomOpen + 2;
-        $randomLow = $randomOpen - 2;
-        $randomClose = $randomOpen + $movement;
-    
-        // Ensure the values respect the limits
-        $randomOpen = max($downLimit, min($upLimit, $randomOpen));
-        $randomHigh = max($downLimit, min($upLimit, $randomHigh));
-        $randomLow = max($downLimit, min($upLimit, $randomLow));
-        $randomClose = max($downLimit, min($upLimit, $randomClose));
-    
-        // Format the date and time as required
-        $formattedDateTime = date('n/j/Y, h:i:s A'); // Change the format here
+        $formattedDateTime = date('n/j/Y, h:i:s A');
     
         return [
             'dateTime' => $formattedDateTime,
-            'open' => number_format($randomOpen, 2),
-            'high' => number_format($randomHigh, 2),
-            'low' => number_format($randomLow, 2),
-            'close' => number_format($randomClose, 2),
+            'open' => number_format($open, 2),
+            'high' => number_format($high, 2),
+            'low' => number_format($low, 2),
+            'close' => number_format($close, 2),
         ];
+    }
+    
+    private function calculateNewValue( $lastValue, $upLimit)
+    {
+        
+        $randomIncrement = mt_rand(1, 5);
+        $newValue = $lastValue + $randomIncrement;
+    
+        if ($newValue > $upLimit) {
+            $randomDown = mt_rand(8, 20);
+            $newValue -= $randomDown;
+        }
+    
+        return $newValue;
+    }
+    
+    private function calculateOpen(float $newValue)
+    {
+        return $newValue - 1;
+    }
+    
+    private function calculateHigh(float $newValue)
+    {
+        return $newValue + 2;
+    }
+    
+    private function calculateLow(float $newValue)
+    {
+        return $newValue - 2;
+    }
+
+    private function getLastCSVRowValue($planId, $baseValue)
+    {
+        // Get the path to your CSV file
+        $fileName = "$planId.csv";
+        $filePath = asset('storage/' . $planId.'.csv');
+        
+                if (Storage::disk('public')->exists($fileName)) {
+                    
+                    $lines = Storage::disk('public')->get($fileName);
+                    $rows = array_filter(array_map('trim', explode("\n", $lines)));
+                     
+                    if (count($rows) > 500) {
+                        // Remove the oldest rows (100 rows)
+                        $rows = array_slice($rows, -500);
+                        // Join the remaining rows back into a string
+                        $updatedContent = implode("\n", $rows);
+                        // Overwrite the file with the updated content
+                        Storage::disk('public')->put($fileName, $updatedContent);
+                    }
+
+
+                    $lastLine = end($rows);
+                    $lastRow = str_getcsv($lastLine);
+
+                    if (!empty($lastLine)) {
+                        return $lastRow[4];
+                    } else {
+                        return   $baseValue;
+                    }
+                } else {
+                    return   $baseValue;
+                }
+    
     }
     
     public function index()
@@ -73,11 +111,12 @@ class BotxController extends Controller
         $filePath = 'public/' . $fileName;
           
         // Generate bot data for this stock
-        $botData = $this->generateBotData($stock->base_value,$stock->down_limit,$stock->up_limit);
-
+        $botData = $this->generateBotData($stock->base_value,$stock->down_limit,$stock->up_limit,$planId);
+        
         // Format the data as CSV
         $csvData = "{$botData['dateTime']},{$botData['open']},{$botData['high']},{$botData['low']},{$botData['close']}";
 
+        
         // Check if the file already exists
         if (Storage::disk('public')->exists($fileName)) {
             // Append data to the existing CSV file with a newline character

@@ -141,98 +141,101 @@
 
     </div>
 </div>
+
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
+
+
 <script type="text/javascript">
-    let isCandleChart = true;
-    let chartType = 'candlestick';
+  let isCandleChart = true;
+  let chartType = 'candlestick';
 
-    const getData = async () => {
-        const timestamp = new Date().getTime(); 
-        const res = await fetch('{{ $filePath }}?_=' + timestamp);
-        const resp = await res.text();
-        const cdata = resp.split('\n').map((row) => {
-            const [time1, time2, open, high, low, close] = row.split(',');
-            return {
-                time: new Date(`${time1}, ${time2}`).getTime() / 1000,
-                open: open * 1,
-                high: high * 1,
-                low: low * 1,
-                close: close * 1,
-            };
-        });
-        console.log('hi');
-        console.log(cdata);
-        return cdata;
-    };
+  const getData = async () => {
+      const timestamp = new Date().getTime(); 
+      const res = await fetch('{{ $filePath }}?_=' + timestamp);
+      const resp = await res.text();
+      const cdata = resp.split('\n').map((row) => {
+          const [time1, time2, open, high, low, close] = row.split(',');
+          return {
+              time: new Date(`${time1}, ${time2}`).getTime() / 1000,
+              open: open * 1,
+              high: high * 1,
+              low: low * 1,
+              close: close * 1,
+          };
+      });
+      console.log('hi');
+      console.log(cdata);
+      return cdata;
+  };
 
-    const updateChart = async () => {
-        const klinedata = await getData();
-        candleseries.setData(klinedata);
-        if (!isCandleChart) {
-            // If line chart is active, set line series data using 'open' values
-            const lineData = klinedata.map(item => ({ time: item.time, value: item.open }));
-            lineSeries.setData(lineData);
-        }
-    };
+  const updateChart = async () => {
+      const klinedata = await getData();
+      candleseries.setData(klinedata);
+      if (!isCandleChart) {
+          // If line chart is active, set line series data using 'open' values
+          const lineData = klinedata.map(item => ({ time: item.time, value: item.open }));
+          lineSeries.setData(lineData);
+      }
+  };
 
-    const chartProperties = {
-        height: 380,
-        layout: {
-            backgroundColor: '#f7f9fc',
-            textColor: '#333',
-        },
-        grid: {
-            vertLines: {
-                color: '#e1e9f3',
-            },
-            horzLines: {
-                color: '#e1e9f3',
-            },
-        },
-        crosshair: {
-            mode: LightweightCharts.CrosshairMode.Normal,
-        },
-        priceScale: {
-            position: 'right',
-            scaleMargins: {
-                top: 0.1,
-                bottom: 0.1,
-            },
-            borderVisible: false,
-        },
-        timeScale: {
-            timeVisible: true,
-            secondsVisible: true,
-            borderVisible: false,
-        },
-    };
+  const chartProperties = {
+      height: 380,
+      layout: {
+          backgroundColor: '#f7f9fc',
+          textColor: '#333',
+      },
+      grid: {
+          vertLines: {
+              color: '#e1e9f3',
+          },
+          horzLines: {
+              color: '#e1e9f3',
+          },
+      },
+      crosshair: {
+          mode: LightweightCharts.CrosshairMode.Normal,
+      },
+      priceScale: {
+          position: 'right',
+          scaleMargins: {
+              top: 0.1,
+              bottom: 0.1,
+          },
+          borderVisible: false,
+      },
+      timeScale: {
+          timeVisible: true,
+          secondsVisible: true,
+          borderVisible: false,
+      },
+  };
 
-    const domElement = document.getElementById('tvchart');
-    const chart = LightweightCharts.createChart(domElement, chartProperties);
-    const candleseries = chart.addCandlestickSeries();
-    const lineSeries = chart.addLineSeries();
+  const domElement = document.getElementById('tvchart');
+  const chart = LightweightCharts.createChart(domElement, chartProperties);
+  const candleseries = chart.addCandlestickSeries();
+  const lineSeries = chart.addLineSeries();
 
-    const displayChart = async () => {
-        await updateChart();
-    };
+  const displayChart = async () => {
+      await updateChart();
+  };
 
-    // Call displayChart initially
-    displayChart();
+  // Call displayChart initially
+  displayChart();
 
-    // Call updateChart every second
-    setInterval(updateChart, 5000); // 1000 milliseconds = 1 second
+  // Call updateChart every second
+  setInterval(updateChart, 5000); // 1000 milliseconds = 1 second
 
-    function toggleChartType() {
-        isCandleChart = !isCandleChart;
-        if (isCandleChart) {
-            candleseries.applyOptions({ visible: true });
-            lineSeries.applyOptions({ visible: false });
-        } else {
-            candleseries.applyOptions({ visible: false });
-            lineSeries.applyOptions({ visible: true });
-        }
-    }
+  function toggleChartType() {
+      isCandleChart = !isCandleChart;
+      if (isCandleChart) {
+          candleseries.applyOptions({ visible: true });
+          lineSeries.applyOptions({ visible: false });
+      } else {
+          candleseries.applyOptions({ visible: false });
+          lineSeries.applyOptions({ visible: true });
+      }
+  }
 </script>
 
 

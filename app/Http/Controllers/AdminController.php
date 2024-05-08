@@ -836,6 +836,42 @@ class AdminController extends CompanyController
     
     }
 
+    public function c_password()
+    {
+        $data = Admin::find(1);
+        return view('admin.change_password', compact('data'));
+    }
+
+    public function u_password(Request $request)
+    {
+        $admin = Admin::find(1);
+
+        if ( $admin->password ==  $request->input('o_pass')) 
+        {
+            if ( $request->input('n_pass') ==  $request->input('c_pass')) 
+            {
+                $admin->password = $request->input('n_pass');
+                $admin->email = $request->input('email');
+                $admin->update();
+                return back()->with('success', 'Password Updated Successfully');
+                
+            }
+            else
+            {
+                return back()->with('error', 'New Password and Current Password are not same !');
+            }
+        }
+        else
+        {
+            return back()->with('error', 'Incorrect Old Password !');
+        }
+
+
+
+
+       // return view('admin.change_password', compact('data'));
+    }
+
     
 
     

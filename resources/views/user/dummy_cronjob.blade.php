@@ -10,10 +10,14 @@
     <h1>CRON JOB IS WORKING</h1>
 
     <script>
+        const appUrl = '{{ env('APP_URL') }}';
+    </script>
+    
+    <script>
         // Function to make AJAX request every 2 seconds
         function sendRequest() {
             var xhr = new XMLHttpRequest(); // Create a new XMLHttpRequest object
-            xhr.open('GET', 'http://127.0.0.1:8000/run_botx', true); // Set up the request
+            xhr.open('GET', appUrl+'/run_botx', true); // Set up the request
             xhr.send(); // Send the request asynchronously
 
             xhr.onload = function() {
@@ -30,7 +34,7 @@
         }
 
         // Call the sendRequest function every 2 seconds
-        setInterval(sendRequest, 2000); // 2000 milliseconds = 2 seconds
+        setInterval(sendRequest, 3000); // 2000 milliseconds = 2 seconds
     </script>
 </body>
 </html>

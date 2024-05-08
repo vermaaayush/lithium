@@ -506,7 +506,7 @@ class UserController extends CompanyController
 
        $planId = $data->plan_id;
    
-       $filePath = env('APP_URL').'/storage/app/public/'.$planId.'.csv';
+       $filePath = asset('storage/' . $planId.'.csv');
 
        $stock = Stock::where(['plan_id'=>$planId])->first();
        $s_value= $stock->base_value;

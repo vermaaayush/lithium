@@ -85,7 +85,7 @@
              
               <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><img src="{{ asset($company->favicon) }}" alt="avatar"><i></i></span><span class="user-name">{{ $company->name }}</span></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="#"><i class="ft-server"></i> Settings</a>
+                  <a class="dropdown-item" href="/c_password"><i class="ft-server"></i>Change Password</a>
                   <a class="dropdown-item" href="/system_config"><i class="ft-settings"></i>System Config</a>
                   <a class="dropdown-item" href="/bank_info"><i class="ft-file"></i>Bank Info</a>
                   {{-- <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a><a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a> --}}
@@ -183,9 +183,9 @@
           
           </li>
 
-          <li class=" nav-item"><a href="/system_config"><i class="ft-cpu"></i><span class="menu-title" data-i18n="nav.dash.main">Auto Withdrawals</span></a>
+          {{-- <li class=" nav-item"><a href="/system_config"><i class="ft-cpu"></i><span class="menu-title" data-i18n="nav.dash.main">Auto Withdrawals</span></a>
           
-          </li>
+          </li> --}}
           <li class=" nav-item"><a href="/ip_logs"><i class="ft-chrome"></i><span class="menu-title" data-i18n="nav.dash.main">IP Logs</span></a>
           
           </li>

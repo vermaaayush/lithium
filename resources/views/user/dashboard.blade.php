@@ -2,6 +2,56 @@
 @section('title', 'Dashboard')
 @section('main-container')
 
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+	<div class="tradingview-widget-container__widget"></div>
+	<div class="tradingview-widget-copyright"></div>
+	<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+	{
+	"symbols": [
+	  {
+		"proName": "FOREXCOM:SPXUSD",
+		"title": "S&P 500 Index"
+	  },
+	  {
+		"description": "LAAC",
+		"proName": "NYSE:LAAC"
+	  },
+	  {
+		"description": "LIT",
+		"proName": "AMEX:LIT"
+	  },
+	  {
+		"description": "LAC",
+		"proName": "NYSE:LAC"
+	  },
+	 
+	  {
+		"description": "ZA4",
+		"proName": "GETTEX:ZA4"
+	  },
+	  {
+		"description": "KC3",
+		"proName": "GETTEX:KC3"
+	  },
+	  {
+		"description": "IAH",
+		"proName": "FWB:IAH"
+	  },
+	  {
+		"description": "X1Q",
+		"proName": "BER:X1Q"
+	  }
+	],
+	"showSymbolLogo": true,
+	"isTransparent": false,
+	"displayMode": "adaptive",
+	"colorTheme": "light",
+	"locale": "en"
+  }
+	</script>
+  </div>
+  <!-- TradingView Widget END -->
 
 @if (session('s_user')['status'] == 'Active')
 
@@ -208,7 +258,7 @@
 															<div>
 																<h6 class="font-normal">Total Deposite</h6>
 																<h3 class="font-semibold leading-[1.346]" id="x_deposite">0</h3>
-																<a href="/deposite_funds"><p>Add now</p></a>
+															    &nbsp;
 															</div>
 															<div class="icon-box bg-primary text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
 																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -285,7 +335,7 @@
                                              
 											</div>
 											<br>
-                                                <p style="text-align: center"><button type="button" class="mr-1 mb-2 inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.563rem] py-2.5 px-4 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">View All</button></p>
+                                                <p style="text-align: center"><a href="/explore_plans"><button type="button" class="mr-1 mb-2 inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.563rem] py-2.5 px-4 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">View All</button></a></p>
 											 <br>
 											 <br>
 											 <hr>
@@ -415,10 +465,12 @@
 							</div>			
 					
 	
-
+							<script>
+								const appUrl = '{{ env('APP_URL') }}';
+							</script>
 							<script>
 								document.getElementById('send-otp-button').addEventListener('click', function() {
-									fetch('http://127.0.0.1:8000/api_send_otp')
+									fetch(appUrl+'/api_send_otp')
 										.then(response => {
 											if (response.ok) {
 												console.log('OTP request sent successfully.');
@@ -433,11 +485,13 @@
 							</script>
 
 
-
+<script>
+	const appUrl = '{{ env('APP_URL') }}';
+</script>
 
 <script>
     // Fetch data from API using fetch API
-    fetch('http://127.0.0.1:8000/api_dash')
+    fetch(appUrl+'/api_dash')
         .then(response => response.json())
         .then(data => {
           
@@ -456,7 +510,7 @@ data.plans.forEach(plan => {
             <div class="card sale-card">
                 <div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
                     <div>
-                        <img src="${plan.image}" width="100" alt="">
+						<a href="/v_plan/${plan.id}"> <img src="${plan.image}" width="100" alt=""> </a>
                         <span class="text-sm text-body-color">${plan.name}</span>
                         <h4 class="mb-2">Total Invested: $${plan.total_invested} <i class="fa-solid fa-arrow-trend-up ml-1"></i></h4>
                     </div>
@@ -466,9 +520,11 @@ data.plans.forEach(plan => {
                     <div id="totalSale"></div>
                 </div>
                 <div class="py-4 px-5">
+					<a href="/v_plan/${plan.id}">
                     <span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-primary">
                         <svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
                     </span>
+				    </a>
                 </div>
             </div>
         </div>
@@ -529,7 +585,7 @@ data.plans.forEach(plan => {
 
 <script>
     // Fetch data from API using fetch API
-    fetch('http://127.0.0.1:8000/api_dash')
+    fetch(appUrl+'/api_dash')
         .then(response => response.json())
         .then(data => {
            

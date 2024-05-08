@@ -65,6 +65,7 @@ Route::middleware([Admin_Auth::class])->group(function () {
     Route::get('/api_history', [Api_admin::class, 'api_history']);
 
     Route::get('/api_dashboard', [Api_admin::class, 'api_dashboard']);
+    Route::get('/api_ip_logs', [Api_admin::class, 'api_ip_logs']);
     
     Route::post('/add_bonus', [AdminController::class, 'add_bonus']);
     Route::get('/add_bonus', function () { return view('admin.add_bonus'); });
@@ -85,6 +86,12 @@ Route::middleware([Admin_Auth::class])->group(function () {
 
     Route::get('/address_approve/{id}', [AdminController::class, 'address_approve']);
     Route::get('/address_reject/{id}', [AdminController::class, 'address_reject']);
+
+    Route::get('/c_password', [AdminController::class, 'c_password']);
+    Route::post('/c_password', [AdminController::class, 'u_password']);
+    
+
+
 
 
     

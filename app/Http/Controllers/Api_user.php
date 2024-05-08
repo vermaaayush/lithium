@@ -90,7 +90,7 @@ class Api_user extends CompanyController
         $investment = Investment::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
         $transfer = Transfer::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
         $transaction = Transaction::where('user_id', $userId)->orderBy('created_at', 'desc')->take(8)->get();
-        $plans = Plan::orderBy('created_at', 'desc')->take(4)->get();
+        $plans = Plan::where('dlt_status', 0)->orderBy('created_at', 'desc')->take(4)->get();
        
 
 
