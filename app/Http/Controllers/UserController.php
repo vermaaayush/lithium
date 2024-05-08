@@ -162,17 +162,27 @@ class UserController extends CompanyController
 
             $location = $ip->getData()->ip_address;
 
-            $response = Http::get('http://www.geoplugin.net/php.gp?ip='.$location);
-        
-            if ($response->ok()) {
-                $geolocation = unserialize($response->body());
-                $countryName = $geolocation['geoplugin_countryName'];
-                
-                $kyc = new Iplog();
-                $kyc->ip_address=$location;
-                $kyc->country=$countryName;
-                $kyc->save();
-            } 
+            $context = stream_context_create([
+                'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                 ],
+                  ]);
+   
+                $response = file_get_contents('http://www.geoplugin.net/php.gp?ip='.$location, false, $context);
+   
+               if ($response) {
+                   $geolocation = unserialize($response);
+       
+       // Extract country name from the geolocation data
+       $countryName = $geolocation['geoplugin_countryName'];
+   
+       // Create a new instance of Iplog and save the data
+       $kyc = new Iplog();
+       $kyc->ip_address = $location;
+       $kyc->country = $countryName;
+       $kyc->save();
+               } 
 
 
         
@@ -506,7 +516,7 @@ class UserController extends CompanyController
 
        $planId = $data->plan_id;
    
-       $filePath = asset('storage/' . $planId.'.csv');
+       $filePath = env('APP_URL').'/storage/'. $planId.'.csv';
 
        $stock = Stock::where(['plan_id'=>$planId])->first();
        $s_value= $stock->base_value;

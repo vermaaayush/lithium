@@ -83,7 +83,7 @@ class InvestmentProgram extends Controller
         $p_info = Plan::find($id);
         $planId = $p_info->plan_id;
       
-        $filePath = asset('storage/' . $planId.'.csv');
+        $filePath = env('APP_URL').'/storage/'. $planId.'.csv';
         $stock = Stock::where(['plan_id'=>$planId])->first();
         $s_value= $stock->base_value;
         return view('admin.view_plan', compact('p_info', 'filePath', 's_value'));
@@ -331,9 +331,9 @@ public function showInvestSuccess(Request $request)
 
 public function delete_plan($id)
 {
-    
-    $plan = Plan::find($id)->first();
    
+    $plan = Plan::where('id',$id)->first();
+  
     $plan->dlt_status =1; 
     $plan->update();
 

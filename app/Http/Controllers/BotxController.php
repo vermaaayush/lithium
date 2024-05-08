@@ -68,7 +68,7 @@ class BotxController extends Controller
     {
         // Get the path to your CSV file
         $fileName = "$planId.csv";
-        $filePath = asset('storage/' . $planId.'.csv');
+         $filePath = env('APP_URL').'/storage/'. $planId.'.csv';
         
                 if (Storage::disk('public')->exists($fileName)) {
                     

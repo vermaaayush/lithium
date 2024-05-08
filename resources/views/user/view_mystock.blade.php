@@ -63,7 +63,8 @@
     let chartType = 'candlestick';
 
     const getData = async () => {
-        const res = await fetch('{{ $filePath }}');
+        const timestamp = new Date().getTime(); 
+      const res = await fetch('{{ $filePath }}?_=' + timestamp);
         const resp = await res.text();
         const cdata = resp.split('\n').map((row) => {
             const [time1, time2, open, high, low, close] = row.split(',');
@@ -169,8 +170,11 @@ const fetchCSVData = async (filePath) => {
 };
 
 const calculateInvestedMoneyValue = (data, investmentAmount, stock_value) => {
+    console.log(data);
     const currentPrice = data[data.length - 1].close;
+    console.log(currentPrice);
     const currentValue = (investmentAmount / stock_value) * currentPrice;
+    console.log(currentValue);
     return currentValue;
 };
 
@@ -188,7 +192,7 @@ const logInvestedMoneyValue = async () => {
 
     currentValueElement.innerHTML = '$' + currentValue.toFixed(2);
     currentValueInput.value = currentValue.toFixed(2);
-    console.log('green');
+    console.log('green1');
     // Check if current value is greater than initial investment amount
     if (currentValue > initialInvestmentAmount) {
         console.log('green');
@@ -199,7 +203,7 @@ const logInvestedMoneyValue = async () => {
 };
 
 // Log the invested money value every second
-setInterval(logInvestedMoneyValue, 1000); // 1000 milliseconds = 1 second
+setInterval(logInvestedMoneyValue, 5000); // 1000 milliseconds = 1 second
 
 
 </script>

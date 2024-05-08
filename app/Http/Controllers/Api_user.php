@@ -64,7 +64,7 @@ class Api_user extends CompanyController
  
         foreach ($data as $investment) {
             $p_data = Plan::where('plan_id', $investment->plan_id)->first();
-            $filePath = asset('storage/' . $investment->plan_id . '.csv');
+             $filePath = env('APP_URL').'/storage/'. $investment->plan_id.'.csv';
             $stock = Stock::where('plan_id', $investment->plan_id)->first();
             $stock_value = $stock->base_value;
         
