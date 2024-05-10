@@ -14,6 +14,7 @@ use App\Models\Investment;
 use App\Models\Notification;
 use App\Models\Plan;
 use App\Models\Stock;
+use App\Models\Graph;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -64,18 +65,68 @@ class Api_user extends CompanyController
  
         foreach ($data as $investment) {
             $p_data = Plan::where('plan_id', $investment->plan_id)->first();
-             $filePath = env('APP_URL').'/storage/'. $investment->plan_id.'.csv';
+            $latestRow = Graph::where('plan_id', $investment->plan_id)->latest('created_at')->first();
+            $points = $latestRow->points;
+            $values = explode(',', $points);
+            $closeValue = trim($values[count($values) - 1]);
+           
             $stock = Stock::where('plan_id', $investment->plan_id)->first();
             $stock_value = $stock->base_value;
+
+            $cp= ($investment->amount / $stock_value) * $closeValue;
+            $cp = round($cp);
+            
         
             $investments[] = [
-                'filePath' => $filePath,
+                
+                'cp_value' => $cp,
                 'stock_value' => $stock_value,
                 't_investment' => $investment->amount,
                 'plan_name' => $p_data->name,
                 'investment_id' => $investment->investment_id,
                 'img'=>$p_data->image,
             ];
+        }
+
+        return response()->json(['investments' => $investments]);
+       
+
+    }
+
+
+    public function api_port_cp()
+    {
+        $userId = session('s_user')['user_id'];
+        $data = Investment::where('user_id', $userId)
+        ->where('status', 0) 
+        ->orderBy('created_at', 'desc')
+        ->get();
+        // return $data;
+
+        $investments = [];
+ 
+        foreach ($data as $investment) {
+ 
+            $latestRow = Graph::where('plan_id', $investment->plan_id)->latest('created_at')->first();
+            $points = $latestRow->points;
+            $values = explode(',', $points);
+            $closeValue = trim($values[count($values) - 1]);
+           
+            $stock = Stock::where('plan_id', $investment->plan_id)->first();
+            $stock_value = $stock->base_value;
+
+            $cp= ($investment->amount / $stock_value) * $closeValue;
+            $cp = round($cp);
+
+            
+            $investments[] = [
+               
+
+                'cp_value' => $cp,
+                
+            ];
+            
+
         }
 
         return response()->json(['investments' => $investments]);

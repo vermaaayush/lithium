@@ -1,5 +1,5 @@
 @extends('admin.layout.main')
-@section('title', 'Client Status')
+@section('title', 'System Config')
 @section('main-container')
 
 <div class="app-content content">

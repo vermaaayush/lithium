@@ -36,22 +36,13 @@
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             tbody.innerHTML = '';
 
             data.investments.forEach(async (investment) => {
-                const { filePath, stock_value, t_investment, plan_name, investment_id, img } = investment;
+                const {cp_value, stock_value, t_investment, plan_name, investment_id, img } = investment;
 
-                // Fetch CSV data for each investment
-                const res = await fetch(filePath);
-                const csvData = await res.text();
-
-                // Process CSV data
-                const lines = csvData.split('\n');
-                const lastLine = lines[lines.length - 2]; // Get the last non-empty line
-                const [date, time, open, high, low, close] = lastLine.split(',');
-                const currentValue = (t_investment / stock_value) * parseFloat(close);
-                
+        
                 
                 // Create table row
                 let newRowHTML = `
@@ -65,19 +56,12 @@
                 </div>	
             </div>
         </td>
-        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
+        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[15px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
             <span style="float: right" class="text-[13px] font-normal text-body-color dark:text-white"><strong>Total Invested: </strong>$${t_investment}</span> <br>
+            <span id="xxx" style="float: right; color: green;" class="text-[15px] font-normal text-body-color dark:text-white"><strong style="color: green;">Current Price: $<span id="profit_amount">${cp_value}</span></strong></span>
 `;
 
-if (currentValue > t_investment) {
-    newRowHTML += `
-        <span id="xxx" style="float: right; color: green;" class="text-[13px] font-normal text-body-color dark:text-white"><strong style="color: green;">Profit: $${currentValue.toFixed(2)}</strong></span>
-    `;
-} else {
-    newRowHTML += `
-        <span id="xxx" style="float: right; color: red;" class="text-[13px] font-normal text-body-color dark:text-white"><strong style="color: red;">Loss: $${currentValue.toFixed(2)}</strong></span>
-    `;
-}
+
 
 newRowHTML += `
         </td>
@@ -96,10 +80,13 @@ newRowHTML += `
     fetchDataAndUpdate();
 
     // Call fetchDataAndUpdate every 2 seconds (2000 milliseconds)
-    setInterval(fetchDataAndUpdate, 4000);
+    setInterval(fetchDataAndUpdate, 3000);
 });
 
                 </script>
+
+
+
                 
             </div>
         </div>

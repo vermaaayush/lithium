@@ -1,5 +1,5 @@
 @extends('admin.layout.main')
-@section('title', 'All Investment Plans')
+@section('title', 'All Plans')
 @section('main-container')
 <div class="app-content content">
     <div class="content-wrapper">

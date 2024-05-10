@@ -19,6 +19,7 @@ use App\Models\Transaction;
 use App\Models\Withrawal;
 use App\Models\Investment;
 use App\Models\Iplog;
+use App\Models\Graph;
 
     class Api_admin extends Controller
     {
@@ -106,4 +107,22 @@ use App\Models\Iplog;
             ];
             return response()->json($data, Response::HTTP_OK);
         }
+
+
+        public function api_graphpoints($plan_id)
+        {
+            
+            $data = Graph::where('plan_id', $plan_id)->orderBy('created_at')->get();
+            $points = $data->pluck('points')->all();
+            return $points;
+        }
+
+        public function api_currentpoint($plan_id)
+        {
+            $latestRow = Graph::where('plan_id', $plan_id)->latest('created_at')->first();
+            $points = $latestRow->points;
+            return $points;
+        }
+
+        
     }

@@ -1,5 +1,5 @@
 @extends('admin.layout.main')
-@section('title', 'Users')
+@section('title', 'Suspended Users')
 @section('main-container')
 <div class="app-content content">
     <div class="content-wrapper">

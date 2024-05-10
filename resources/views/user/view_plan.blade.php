@@ -141,7 +141,7 @@
 
     </div>
 </div>
-{{ $filePath }}
+
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
 
@@ -149,35 +149,40 @@
 <script type="text/javascript">
   let isCandleChart = true;
   let chartType = 'candlestick';
-
+  const api_link = '{{ env("APP_URL") }}/api_graphpoints/{{ $data->plan_id }}';
   const getData = async () => {
-      const timestamp = new Date().getTime(); 
-      const res = await fetch('{{ $filePath }}?_=' + timestamp);
-      const resp = await res.text();
-      const cdata = resp.split('\n').map((row) => {
-          const [time1, time2, open, high, low, close] = row.split(',');
-          return {
-              time: new Date(`${time1}, ${time2}`).getTime() / 1000,
-              open: open * 1,
-              high: high * 1,
-              low: low * 1,
-              close: close * 1,
-          };
+  return fetch(api_link)
+    .then(response => response.json())
+    .then(data => {
+      const formattedData = data.map(row => {
+        const [date, time, open, high, low, close] = row.split(',');
+        return {
+          time: new Date(`${date} ${time}`).getTime() / 1000,
+          open: parseFloat(open.trim()),
+          high: parseFloat(high.trim()),
+          low: parseFloat(low.trim()),
+          close: parseFloat(close.trim()),
+        };
       });
-      console.log('hi');
-      console.log(cdata);
-      return cdata;
-  };
+      console.log(formattedData);
+      return formattedData;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+};
 
-  const updateChart = async () => {
-      const klinedata = await getData();
-      candleseries.setData(klinedata);
-      if (!isCandleChart) {
-          // If line chart is active, set line series data using 'open' values
-          const lineData = klinedata.map(item => ({ time: item.time, value: item.open }));
-          lineSeries.setData(lineData);
-      }
-  };
+
+
+const updateChart = async () => {
+  const klinedata = await getData();
+//   console.log(klinedata);
+//   console.log('hiih');
+  candleseries.setData(klinedata);
+  if (!isCandleChart) {
+      // If line chart is active, set line series data using 'open' values
+      const lineData = klinedata.map(item => ({ time: item.time, value: item.open }));
+      lineSeries.setData(lineData);
+  }
+};
 
   const chartProperties = {
       height: 380,
@@ -224,7 +229,7 @@
   displayChart();
 
   // Call updateChart every second
-  setInterval(updateChart, 5000); // 1000 milliseconds = 1 second
+  setInterval(updateChart, 4000); // 1000 milliseconds = 1 second
 
   function toggleChartType() {
       isCandleChart = !isCandleChart;
@@ -239,7 +244,7 @@
 </script>
 
 
-<script>
+ <script>
     document.addEventListener('DOMContentLoaded', function () {
         const amountInput = document.getElementById('amount');
 

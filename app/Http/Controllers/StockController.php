@@ -44,12 +44,12 @@ class StockController extends Controller
 
         
     
-        $filePath = env('APP_URL').'/storage/'. $x.'.csv';
+        
 
         $Stock =  Stock::where(['plan_id'=>$x])->first();
         $stock_value = $Stock->base_value;
       
-         return view('user.view_mystock',  compact('data', 'filePath', 'plan_info', 'stock_value'));
+         return view('user.view_mystock',  compact('data', 'plan_info', 'stock_value'));
     }
 
 

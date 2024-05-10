@@ -62,23 +62,38 @@
     let isCandleChart = true;
     let chartType = 'candlestick';
 
+    const api_link = '{{ env("APP_URL") }}/api_graphpoints/{{ $data->plan_id }}';
     const getData = async () => {
-        const timestamp = new Date().getTime(); 
-      const res = await fetch('{{ $filePath }}?_=' + timestamp);
-        const resp = await res.text();
-        const cdata = resp.split('\n').map((row) => {
-            const [time1, time2, open, high, low, close] = row.split(',');
-            return {
-                time: new Date(`${time1}, ${time2}`).getTime() / 1000,
-                open: open * 1,
-                high: high * 1,
-                low: low * 1,
-                close: close * 1,
-            };
-        });
-         
-        return cdata;
-    };
+  return fetch(api_link)
+    .then(response => response.json())
+    .then(data => {
+      const formattedData = data.map(row => {
+        const [date, time, open, high, low, close] = row.split(',');
+        return {
+          time: new Date(`${date} ${time}`).getTime() / 1000,
+          open: parseFloat(open.trim()),
+          high: parseFloat(high.trim()),
+          low: parseFloat(low.trim()),
+          close: parseFloat(close.trim()),
+        };
+      });
+
+      // Get the latest row from the formatted data
+      const latestRow = formattedData[formattedData.length - 1];
+
+      // Get the close value from the latest row
+      const latestClose = latestRow.close;
+      logInvestedMoneyValue(latestClose);
+
+      // Log the latest close value to the console
+    //   console.log(`Latest close value: ${latestClose}`);
+
+      return formattedData;
+     
+    //   console.log(formattedData);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+};
 
     const updateChart = async () => {
         const klinedata = await getData();
@@ -135,7 +150,7 @@
     displayChart();
 
     // Call updateChart every second
-    setInterval(updateChart, 1000); // 1000 milliseconds = 1 second
+    setInterval(updateChart, 3000); // 1000 milliseconds = 1 second
 
     function toggleChartType() {
         isCandleChart = !isCandleChart;
@@ -153,57 +168,44 @@
 
 <script>
 
-const fetchCSVData = async (filePath) => {
-    const res = await fetch(filePath);
-    const resp = await res.text();
-    const data = resp.split('\n').map((row) => {
-        const [date, time, open, high, low, close] = row.split(',');
-        return {
-            dateTime: new Date(`${date} ${time}`).getTime() / 1000,
-            open: parseFloat(open),
-            high: parseFloat(high),
-            low: parseFloat(low),
-            close: parseFloat(close),
-        };
-    });
-    return data;
-};
 
-const calculateInvestedMoneyValue = (data, investmentAmount, stock_value) => {
-    console.log(data);
-    const currentPrice = data[data.length - 1].close;
-    console.log(currentPrice);
-    const currentValue = (investmentAmount / stock_value) * currentPrice;
-    console.log(currentValue);
+
+
+
+const calculateInvestedMoneyValue = (c_value, investmentAmount, stock_value) => {
+ 
+
+    const currentValue = (investmentAmount / stock_value) * c_value;
+    // console.log(currentValue);
     return currentValue;
 };
 
-const filePath = '{{ $filePath }}'; // Replace '{{ $filePath }}' with the actual file path
+
 const initialInvestmentAmount = '{{$data->amount}}'; 
 const stock_value=  '{{$stock_value}}';
 
 
-const logInvestedMoneyValue = async () => {
-    const csvData = await fetchCSVData(filePath);
-    const currentValue = calculateInvestedMoneyValue(csvData, initialInvestmentAmount, stock_value);
+const logInvestedMoneyValue =  (c_value) => {
+    // console.log(c_value);
+    const currentValue = calculateInvestedMoneyValue(c_value, initialInvestmentAmount, stock_value);
    
     const currentValueElement = document.getElementById('current_value12');
     const currentValueInput = document.getElementById('current_value2');
 
     currentValueElement.innerHTML = '$' + currentValue.toFixed(2);
     currentValueInput.value = currentValue.toFixed(2);
-    console.log('green1');
+    // console.log('green1');
     // Check if current value is greater than initial investment amount
     if (currentValue > initialInvestmentAmount) {
-        console.log('green');
+        // console.log('green');
         currentValueElement.style.color = 'green'; // Change text color to red
     } else {
         currentValueElement.style.color = 'red'; // Change text color to green
     }
 };
 
-// Log the invested money value every second
-setInterval(logInvestedMoneyValue, 5000); // 1000 milliseconds = 1 second
+// // Log the invested money value every second
+// setInterval(logInvestedMoneyValue, 5000); // 1000 milliseconds = 1 second
 
 
 </script>

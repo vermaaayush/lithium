@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stock;
+use App\Models\Graph;
 use Illuminate\Support\Facades\Storage;
 
 class BotxController extends Controller
@@ -15,18 +16,17 @@ class BotxController extends Controller
         $upLimit = $c;
     
         $lastValue = $this->getLastCSVRowValue($planId, $baseValue);
-    
-        // return  $lastValue;
+
         $newValue = $this->calculateNewValue($lastValue,$upLimit);
     
-        $open = $this->calculateOpen($newValue);
-        $high = $this->calculateHigh($newValue);
-        $low = $this->calculateLow($newValue);
+        $open = $newValue - 1;
+        $high = $newValue + 2;
+        $low =  $newValue - 2;
         $close = $newValue;
     
         $formattedDateTime = date('n/j/Y, h:i:s A');
     
-        return [
+        return [    
             'dateTime' => $formattedDateTime,
             'open' => number_format($open, 2),
             'high' => number_format($high, 2),
@@ -49,53 +49,30 @@ class BotxController extends Controller
         return $newValue;
     }
     
-    private function calculateOpen(float $newValue)
-    {
-        return $newValue - 1;
-    }
-    
-    private function calculateHigh(float $newValue)
-    {
-        return $newValue + 2;
-    }
-    
-    private function calculateLow(float $newValue)
-    {
-        return $newValue - 2;
-    }
-
     private function getLastCSVRowValue($planId, $baseValue)
     {
-        // Get the path to your CSV file
-        $fileName = "$planId.csv";
-         $filePath = env('APP_URL').'/storage/'. $planId.'.csv';
-        
-                if (Storage::disk('public')->exists($fileName)) {
-                    
-                    $lines = Storage::disk('public')->get($fileName);
-                    $rows = array_filter(array_map('trim', explode("\n", $lines)));
-                     
-                    if (count($rows) > 500) {
-                        // Remove the oldest rows (100 rows)
-                        $rows = array_slice($rows, -500);
-                        // Join the remaining rows back into a string
-                        $updatedContent = implode("\n", $rows);
-                        // Overwrite the file with the updated content
-                        Storage::disk('public')->put($fileName, $updatedContent);
-                    }
+        $rowCount = Graph::where('plan_id', $planId)->count();
 
+        if ($rowCount > 400) {
+            $rowsToDelete = $rowCount - 400; // Calculate the excess rows
+            $query = Graph::where('plan_id', $planId)->orderBy('created_at')->limit($rowsToDelete);
+            $deletedRows = $query->delete();
+           
+            dd($deletedRows); // Check the number of rows deleted
+        }
+               
+                
+                $latestRow = Graph::where('plan_id', $planId)->latest()->first();
 
-                    $lastLine = end($rows);
-                    $lastRow = str_getcsv($lastLine);
-
-                    if (!empty($lastLine)) {
-                        return $lastRow[4];
-                    } else {
-                        return   $baseValue;
-                    }
+                if ($latestRow) {
+                    $points = $latestRow->points;
+                    $pointsArray = explode(',', $points);
+                    return $pointsArray[4];
                 } else {
                     return   $baseValue;
                 }
+
+               
     
     }
     
@@ -105,26 +82,15 @@ class BotxController extends Controller
     $stocks = Stock::where('status', 1)->get();
 
     foreach ($stocks as $stock) {
-        // Create CSV file for each stock if it doesn't exist
-        $planId = $stock->plan_id;
-        $fileName = "$planId.csv";
-        $filePath = 'public/' . $fileName;
-          
-        // Generate bot data for this stock
-        $botData = $this->generateBotData($stock->base_value,$stock->down_limit,$stock->up_limit,$planId);
-        
-        // Format the data as CSV
-        $csvData = "{$botData['dateTime']},{$botData['open']},{$botData['high']},{$botData['low']},{$botData['close']}";
 
-        
-        // Check if the file already exists
-        if (Storage::disk('public')->exists($fileName)) {
-            // Append data to the existing CSV file with a newline character
-            Storage::disk('public')->append($fileName, $csvData);
-        } else {
-            // Write data to a new CSV file without appending a newline character
-            Storage::disk('public')->put($fileName, $csvData);
-        }
+        $planId = $stock->plan_id;
+        $botData = $this->generateBotData($stock->base_value,$stock->down_limit,$stock->up_limit,$planId);
+    
+        $csvData = "{$botData['dateTime']},{$botData['open']},{$botData['high']},{$botData['low']},{$botData['close']}";
+        $graph = new Graph();
+        $graph->points = $csvData;
+        $graph->plan_id = $planId;
+        $graph->save();        
     }
 
     return response()->json(['message' => 'Data saved successfully'], 200);

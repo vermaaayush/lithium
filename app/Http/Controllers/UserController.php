@@ -515,13 +515,12 @@ class UserController extends CompanyController
         $data = Plan::find($id);
 
        $planId = $data->plan_id;
-   
-       $filePath = env('APP_URL').'/storage/'. $planId.'.csv';
+
 
        $stock = Stock::where(['plan_id'=>$planId])->first();
        $s_value= $stock->base_value;
      
-        return view('user.view_plan',  compact('data', 'filePath', 's_value','user'));
+        return view('user.view_plan',  compact('data', 's_value','user'));
     }
 
 
@@ -714,14 +713,14 @@ class UserController extends CompanyController
 
     public function portfolio()
     {
-        $userId = session('s_user')['user_id'];
-        $data = Investment::where('user_id', $userId)
-        ->where('status', 0) 
-        ->orderBy('created_at', 'desc')
-        ->get();
+        // $userId = session('s_user')['user_id'];
+        // $data = Investment::where('user_id', $userId)
+        // ->where('status', 0) 
+        // ->orderBy('created_at', 'desc')
+        // ->get();
 
 
-        return view('user.portfolio', compact('data'));
+        return view('user.portfolio');
     }
 
     public function profile()

@@ -241,24 +241,26 @@
     let isCandleChart = true;
     let chartType = 'candlestick';
 
-    const getData = async () => {
-        const timestamp = new Date().getTime(); 
-        const res = await fetch('{{ $filePath }}?_=' + timestamp);
-        const resp = await res.text();
-        const cdata = resp.split('\n').map((row) => {
-            const [time1, time2, open, high, low, close] = row.split(',');
-            return {
-                time: new Date(`${time1}, ${time2}`).getTime() / 1000,
-                open: open * 1,
-                high: high * 1,
-                low: low * 1,
-                close: close * 1,
-            };
-        });
-        console.log('hi');
-        console.log(cdata);
-        return cdata;
-    };
+    const api_link = '{{ env("APP_URL") }}/api_graphpoints/{{ $p_info->plan_id }}';
+  const getData = async () => {
+  return fetch(api_link)
+    .then(response => response.json())
+    .then(data => {
+      const formattedData = data.map(row => {
+        const [date, time, open, high, low, close] = row.split(',');
+        return {
+          time: new Date(`${date} ${time}`).getTime() / 1000,
+          open: parseFloat(open.trim()),
+          high: parseFloat(high.trim()),
+          low: parseFloat(low.trim()),
+          close: parseFloat(close.trim()),
+        };
+      });
+      console.log(formattedData);
+      return formattedData;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+};
 
     const updateChart = async () => {
         const klinedata = await getData();

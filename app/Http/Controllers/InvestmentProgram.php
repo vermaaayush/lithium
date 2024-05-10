@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\Stock;
+use App\Models\Graph;
 use App\Models\Investment;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Mail;
@@ -83,10 +84,10 @@ class InvestmentProgram extends Controller
         $p_info = Plan::find($id);
         $planId = $p_info->plan_id;
       
-        $filePath = env('APP_URL').'/storage/'. $planId.'.csv';
+        
         $stock = Stock::where(['plan_id'=>$planId])->first();
         $s_value= $stock->base_value;
-        return view('admin.view_plan', compact('p_info', 'filePath', 's_value'));
+        return view('admin.view_plan', compact('p_info', 's_value'));
     }
 
     public function edit_plan(Request $request,$id)
@@ -341,6 +342,8 @@ public function delete_plan($id)
    
     $stock->status =0; 
     $stock->update();
+
+    $point = Graph::where('plan_id', $plan->plan_id)->delete();
    
     return redirect()->back()->with('success', 'Investment Plan deleted successfully');
 }

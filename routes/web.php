@@ -89,6 +89,9 @@ Route::middleware([Admin_Auth::class])->group(function () {
 
     Route::get('/c_password', [AdminController::class, 'c_password']);
     Route::post('/c_password', [AdminController::class, 'u_password']);
+
+
+   
     
 
 
@@ -154,6 +157,7 @@ Route::middleware([User_Auth::class])->group(function () {
     Route::post('/update_password', [UserController::class, 'update_password']);
     Route::get('/manage_password',function () { return view('user.manage_password'); });
     Route::get('/api_portfolio', [Api_user::class, 'api_portfolio']);
+    Route::get('/api_port_cp', [Api_user::class, 'api_port_cp']);
     Route::get('/api_dash', [Api_user::class, 'api_dash']);
     Route::get('/api_header_notification', [Api_user::class, 'api_header_notification']);
     Route::get('/export_history', [UserController::class, 'export_history']);
@@ -194,6 +198,10 @@ Route::get('/dummy_cronjob', function () { return view('user.dummy_cronjob'); })
 
 Route::get('/someMethod', [AdminController::class, 'someMethod']);
 
+
+Route::get('/api_graphpoints/{plan_id}', [Api_admin::class, 'api_graphpoints']);
+
+Route::get('/api_currentpoint/{plan_id}', [Api_admin::class, 'api_currentpoint']);
 
 ?>
 

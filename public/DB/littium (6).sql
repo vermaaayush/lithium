@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 11:27 PM
+-- Generation Time: May 10, 2024 at 10:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,7 +75,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `role`, `status`, `address`, `phone`, `org_name`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Stock Exchange Company', 'admin@gmail.com', 'admin', 'admin', '1', 'address', '1111222333', 'WEB DEVELOPERS', '1111111111111111111111111111', NULL, NULL);
+(1, 'Stock Exchange Company', 'admin@gmail.com', 'admin', 'admin', '1', 'address', '1111222333', 'WEB DEVELOPERS', '1111111111111111111111111111', NULL, '2024-05-07 07:00:12');
 
 -- --------------------------------------------------------
 
@@ -154,7 +154,7 @@ CREATE TABLE `configs` (
 --
 
 INSERT INTO `configs` (`id`, `name`, `url`, `phone`, `address`, `email`, `licence_key`, `logo`, `favicon`, `created_at`, `updated_at`, `reff_code_bonus`, `reff_depo_earning`, `reff_trade_earning`) VALUES
-(1, 'asdsad', 'asdsad', 'asdasd', 'asdasd', 'sadas@gmail.com', '123213213', 'upload/logo/company_logo662b7b756cde1.png', 'upload/favicon/favicon662b7b756ef25.png', '2024-04-08 13:24:41', '2024-05-06 07:53:42', '100', '5', '5');
+(1, 'asdsad', 'http://127.0.0.1:8000/', 'asdasd', 'asdasd', 'sadas@gmail.com', '123213213', 'upload/logo/company_logo662b7b756cde1.png', 'upload/favicon/favicon662b7b756ef25.png', '2024-04-08 13:24:41', '2024-05-08 04:36:29', '100', '5', '5');
 
 -- --------------------------------------------------------
 
@@ -216,6 +216,20 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `graphs`
+--
+
+CREATE TABLE `graphs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `plan_id` varchar(255) DEFAULT NULL,
+  `points` longtext DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `investments`
 --
 
@@ -246,9 +260,9 @@ INSERT INTO `investments` (`id`, `investment_id`, `name`, `plan_id`, `user_id`, 
 (72, '950721', 'Avi', '861008', '871985', '50000', NULL, '2024-04-28 07:45:30', '2024-05-19 07:45:30', '2024-04-28 02:15:30', '2024-04-28 02:15:30', 0),
 (73, '757250', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:58:02', '2024-05-19 07:58:02', '2024-04-28 02:28:02', '2024-04-28 02:28:02', 0),
 (74, '135021', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:58:30', '2024-05-19 07:58:30', '2024-04-28 02:28:30', '2024-04-28 02:28:30', 0),
-(75, '414980', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:59:00', '2024-05-19 07:59:00', '2024-04-28 02:29:00', '2024-04-28 02:29:00', 0),
-(76, '549357', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:59:13', '2024-05-19 07:59:13', '2024-04-28 02:29:13', '2024-04-28 02:29:13', 0),
-(77, '375524', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:59:48', '2024-05-19 07:59:48', '2024-04-28 02:29:48', '2024-04-28 02:29:48', 0),
+(75, '414980', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:59:00', '2024-05-19 07:59:00', '2024-04-28 02:29:00', '2024-04-28 02:29:00', 1),
+(76, '549357', 'Avi', '861008', '871985', '200000', NULL, '2024-04-28 07:59:13', '2024-05-19 07:59:13', '2024-04-28 02:29:13', '2024-04-28 02:29:13', 1),
+(77, '375524', 'Avi', '861008', '871985', '200000', 260000, '2024-04-28 07:59:48', '2024-05-19 07:59:48', '2024-04-28 02:29:48', '2024-05-07 16:02:38', 1),
 (78, '519809', 'Avi', '861008', '871985', '200000', 229067, '2024-04-28 08:00:13', '2024-05-19 08:00:13', '2024-04-28 02:30:13', '2024-04-28 16:24:09', 1),
 (79, '704006', 'Avi', '861008', '871985', '200000', 198667, '2024-04-28 08:00:44', '2024-05-19 08:00:44', '2024-04-28 02:30:44', '2024-04-28 16:17:50', 1),
 (80, '713134', 'Avi', '861008', '871985', '200000', 201067, '2024-04-28 08:00:54', '2024-05-19 08:00:54', '2024-04-28 02:30:54', '2024-04-28 10:11:15', 1),
@@ -256,7 +270,9 @@ INSERT INTO `investments` (`id`, `investment_id`, `name`, `plan_id`, `user_id`, 
 (82, '983191', 'Avi', '861008', '871985', '20000', 24267, '2024-04-28 08:03:09', '2024-05-19 08:03:09', '2024-04-28 02:33:09', '2024-04-28 09:48:37', 1),
 (83, '642484', 'Aayush Verma', '129149', '871985', '20000', 20080, '2024-05-04 16:04:48', '2024-05-24 16:04:48', '2024-05-04 10:34:48', '2024-05-04 10:37:37', 1),
 (84, '231531', 'asbdksbdkjasd', '129149', '212130', '20000', 20080, '2024-05-06 14:55:48', '2024-05-26 14:55:48', '2024-05-06 09:25:48', '2024-05-06 09:32:51', 1),
-(85, '684730', 'asbdksbdkjasd', '861008', '212130', '20000', 20533, '2024-05-06 15:05:30', '2024-05-27 15:05:30', '2024-05-06 09:35:30', '2024-05-06 09:35:53', 1);
+(85, '684730', 'asbdksbdkjasd', '861008', '212130', '20000', 20533, '2024-05-06 15:05:30', '2024-05-27 15:05:30', '2024-05-06 09:35:30', '2024-05-06 09:35:53', 1),
+(86, '328264', 'Aayush Verma', '861008', '871985', '50000', 83000, '2024-05-08 17:56:25', '2024-05-29 17:56:25', '2024-05-08 12:26:25', '2024-05-09 14:42:42', 1),
+(87, '346487', 'Aayush Verma', '861008', '871985', '100000', NULL, '2024-05-09 20:14:56', '2024-05-30 20:14:56', '2024-05-09 14:44:56', '2024-05-09 14:44:56', 0);
 
 -- --------------------------------------------------------
 
@@ -291,7 +307,17 @@ INSERT INTO `iplogs` (`id`, `ip_address`, `country`, `created_at`, `updated_at`)
 (12, '127.0.0.1', NULL, '2024-05-06 11:02:08', '2024-05-06 11:02:08'),
 (13, '127.0.0.1', NULL, '2024-05-06 11:16:15', '2024-05-06 11:16:15'),
 (14, '127.0.0.1', NULL, '2024-05-06 11:35:15', '2024-05-06 11:35:15'),
-(15, '127.0.0.1', NULL, '2024-05-06 13:40:10', '2024-05-06 13:40:10');
+(15, '127.0.0.1', NULL, '2024-05-06 13:40:10', '2024-05-06 13:40:10'),
+(16, '127.0.0.1', NULL, '2024-05-07 03:18:59', '2024-05-07 03:18:59'),
+(17, '127.0.0.1', NULL, '2024-05-07 06:46:29', '2024-05-07 06:46:29'),
+(18, '127.0.0.1', NULL, '2024-05-08 03:13:16', '2024-05-08 03:13:16'),
+(19, '127.0.0.1', NULL, '2024-05-08 04:41:10', '2024-05-08 04:41:10'),
+(20, '127.0.0.1', NULL, '2024-05-08 05:41:52', '2024-05-08 05:41:52'),
+(21, '127.0.0.1', NULL, '2024-05-08 12:19:09', '2024-05-08 12:19:09'),
+(22, '127.0.0.1', NULL, '2024-05-08 12:38:38', '2024-05-08 12:38:38'),
+(23, '127.0.0.1', NULL, '2024-05-09 03:32:07', '2024-05-09 03:32:07'),
+(24, '127.0.0.1', NULL, '2024-05-09 13:34:48', '2024-05-09 13:34:48'),
+(25, '127.0.0.1', NULL, '2024-05-10 01:47:45', '2024-05-10 01:47:45');
 
 -- --------------------------------------------------------
 
@@ -393,7 +419,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2024_04_18_210445_create_withrawals', 14),
 (17, '2024_04_24_131113_create_configs', 15),
 (18, '2024_04_24_155649_create_access_control', 16),
-(19, '2024_05_04_194146_create_iplogs', 17);
+(19, '2024_05_04_194146_create_iplogs', 17),
+(20, '2024_05_08_201815_create_graphs', 18);
 
 -- --------------------------------------------------------
 
@@ -422,7 +449,9 @@ INSERT INTO `notifications` (`id`, `user_id`, `message`, `updated_at`, `created_
 (40, '871985', 'Congratulations! You just received an investment bonus of $3, Happy investing!', '2024-05-04 12:46:17', '2024-05-04 12:46:17'),
 (41, '871985', 'We regret to inform you that a penalty of $460 has been deducted from your account', '2024-05-04 13:04:54', '2024-05-04 13:04:54'),
 (42, '871985', 'Congratulations! You just received an investment bonus of $1, Happy investing!', '2024-05-04 13:07:23', '2024-05-04 13:07:23'),
-(43, '871985', 'We regret to inform you that a penalty of $1 has been deducted from your account', '2024-05-04 13:07:47', '2024-05-04 13:07:47');
+(43, '871985', 'We regret to inform you that a penalty of $1 has been deducted from your account', '2024-05-04 13:07:47', '2024-05-04 13:07:47'),
+(44, '871985', 'We regret to inform you that a penalty of $100 has been deducted from your account', '2024-05-08 04:44:00', '2024-05-08 04:44:00'),
+(45, '871985', 'Congratulations! You just received an investment bonus of $500, Happy investing!', '2024-05-08 04:44:33', '2024-05-08 04:44:33');
 
 -- --------------------------------------------------------
 
@@ -471,8 +500,8 @@ CREATE TABLE `plans` (
 
 INSERT INTO `plans` (`id`, `plan_id`, `name`, `status`, `minimum_amount`, `period`, `duration`, `roi`, `risk`, `description`, `compounding`, `compound_perc`, `principal_release`, `release_fee`, `total_invested`, `image`, `no_of_users`, `created_at`, `updated_at`, `dlt_status`) VALUES
 (10, '337694', 'asdsad', 'Active', '21213213', 'Daily', '12213', '1', '1.99', 'asddasdasdasd', 'Disabled', NULL, 'Suspended', '1231', '20000', 'upload/plans/plan_image_6622acd139094.png', 1, '2024-04-19 12:11:37', '2024-04-28 02:47:27', 1),
-(11, '861008', 'TESTING #!@@#@$@#$@', 'Active', '20000', 'Daily', '21', '40', '20', 'Testing 1234 tewrwe1212', 'Disabled', 20, 'Enabled', '2', '3782421', 'upload/plans/plan_image_6622d200b5ecb.png', 15, '2024-04-19 14:50:16', '2024-05-06 09:35:30', 0),
-(12, '129149', 'Alpha asklcjklb akldmsakf AS', 'Active', '20000', 'Daily', '20', '30', '20', 'lkasnkld as,dasfasd asf asd as fsdf as dasf', 'Disabled', 2, 'Enabled', '20', '240000', 'upload/plans/plan_image_662f69e48922b.png', 2, '2024-04-29 04:02:29', '2024-05-06 09:25:48', 0);
+(11, '861008', 'TESTING #!@@#@$@#$@', 'Active', '20000', 'Daily', '21', '40', '20', 'Testing 1234 tewrwe1212', 'Disabled', 20, 'Enabled', '2', '3932421', 'upload/plans/plan_image_6622d200b5ecb.png', 17, '2024-04-19 14:50:16', '2024-05-10 03:23:20', 1),
+(12, '129149', 'Alpha asklcjklb akldmsakf AS', 'Active', '20000', 'Daily', '20', '30', '20', 'lkasnkld as,dasfasd asf asd as fsdf as dasf', 'Disabled', 2, 'Enabled', '20', '240000', 'upload/plans/plan_image_662f69e48922b.png', 2, '2024-04-29 04:02:29', '2024-05-08 09:35:38', 1);
 
 -- --------------------------------------------------------
 
@@ -494,8 +523,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('G2vIdcePiCPfA1RkgxAGcD1tOn5V5TE8X7iLP1hR', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoia0dhNXh3WXRpWkVRVGp2M2E4eVdqc0ZmR2Z3Rk5QNnVXNDVjYm9vciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGlfZGFzaCI7fXM6MTk6ImludmVzdF9zdWNjZXNzX2RhdGEiO2E6NTp7czo3OiJtZXNzYWdlIjtzOjIyOiJJbnZlc3RtZW50IHN1Y2Nlc3NmdWwhIjtzOjY6ImFtb3VudCI7aToxMDAwO3M6OToicGxhbl9uYW1lIjtzOjE5OiJURVNUSU5HICMhQEAjQCRAIyRAIjtzOjk6InVzZXJfbmFtZSI7czoxMzoiYXNiZGtzYmRramFzZCI7czoxMzoiaW52ZXN0bWVudF9pZCI7aTo2ODQ3MzA7fXM6Njoic191c2VyIjtPOjE1OiJBcHBcTW9kZWxzXFVzZXIiOjMwOntzOjEzOiIAKgBjb25uZWN0aW9uIjtzOjU6Im15c3FsIjtzOjg6IgAqAHRhYmxlIjtzOjU6InVzZXJzIjtzOjEzOiIAKgBwcmltYXJ5S2V5IjtzOjI6ImlkIjtzOjEwOiIAKgBrZXlUeXBlIjtzOjM6ImludCI7czoxMjoiaW5jcmVtZW50aW5nIjtiOjE7czo3OiIAKgB3aXRoIjthOjA6e31zOjEyOiIAKgB3aXRoQ291bnQiO2E6MDp7fXM6MTk6InByZXZlbnRzTGF6eUxvYWRpbmciO2I6MDtzOjEwOiIAKgBwZXJQYWdlIjtpOjE1O3M6NjoiZXhpc3RzIjtiOjE7czoxODoid2FzUmVjZW50bHlDcmVhdGVkIjtiOjA7czoyODoiACoAZXNjYXBlV2hlbkNhc3RpbmdUb1N0cmluZyI7YjowO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MzQ6e3M6MjoiaWQiO2k6MjU7czo3OiJ1c2VyX2lkIjtzOjY6Ijg3MTk4NSI7czo0OiJuYW1lIjtzOjEyOiJBYXl1c2ggVmVybWEiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czoxMDoiMTIzNDU2Nzg5MCI7czozOiJkb2IiO3M6MTA6IjE5OTktMDQtMTIiO3M6NzoiY291bnRyeSI7czo5OiJTaW5nYXBvcmUiO3M6MTA6ImltYWdlX2RhdGEiO3M6MzQ6InVwbG9hZC9zZWxmaWUvSUQ2NjJkNTRhMTg2M2ViLmpwZWciO3M6ODoiaWRfcHJvb2YiO3M6NDE6InVwbG9hZC9pZF9pbWFnZS9pZF9pbWFnZTY2MmQ1NGExODY4NGYucG5nIjtzOjEzOiJhZGRyZXNzX3Byb29mIjtzOjUxOiJ1cGxvYWQvYWRkcmVzc19wcm9vZi9hZGRyZXNzX3Byb29mNjYyZDU4MDFkZWQ0Ni5wbmciO3M6ODoicGFzc3dvcmQiO3M6NToiMTIzNDUiO3M6Njoic3RhdHVzIjtzOjY6IkFjdGl2ZSI7czoxMzoiYXV0b193aXRoZHJhdyI7TjtzOjE2OiJwYXlfZWFybmluZ19hdXRvIjtOO3M6MTI6Im1heF93aXRoZHJhdyI7TjtzOjEyOiJkZW1vX2FjY291bnQiO047czo5OiJibGFja2xpc3QiO047czoxMDoiYWRtaW5fbm90ZSI7TjtzOjEwOiJjcmVhdGVkX2F0IjtzOjE5OiIyMDI0LTA0LTI3IDE3OjQ4OjQxIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjE5OiIyMDI0LTA1LTA2IDE5OjA3OjMzIjtzOjc6ImJhbGFuY2UiO2k6MzU1NTk0Mjc0O3M6NjoiZnVuZGVkIjtpOjM3MjI0MjE7czo3OiJ3aXRocmF3IjtpOjIwNTAwO3M6ODoiZGVwb3NpdGUiO2k6MzQ5NzE5ODcwO3M6MTc6InJlZmVycmFsc19lYXJuaW5nIjtpOjA7czo2OiJhc3NldHMiO2k6MDtzOjc6IkVhcm5pbmciO2k6ODQ3NDQ5O3M6MTE6InJlZmVycmFsX2lkIjtzOjEzOiJzZGZhc3ZkYWZhc3ZhIjtzOjE2OiJub19yZWZlcnJhbF91c2VyIjtpOjE7czo5OiJpZF9zdGF0dXMiO2k6MjtzOjEwOiJhZGRfc3RhdHVzIjtpOjI7czoxMDoiZW1haWxfYXV0aCI7aToxO3M6OToicGFyZW50X2lkIjtOO3M6MTA6ImRsdF9zdGF0dXMiO2k6MDt9czoxMToiACoAb3JpZ2luYWwiO2E6MzQ6e3M6MjoiaWQiO2k6MjU7czo3OiJ1c2VyX2lkIjtzOjY6Ijg3MTk4NSI7czo0OiJuYW1lIjtzOjEyOiJBYXl1c2ggVmVybWEiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czoxMDoiMTIzNDU2Nzg5MCI7czozOiJkb2IiO3M6MTA6IjE5OTktMDQtMTIiO3M6NzoiY291bnRyeSI7czo5OiJTaW5nYXBvcmUiO3M6MTA6ImltYWdlX2RhdGEiO3M6MzQ6InVwbG9hZC9zZWxmaWUvSUQ2NjJkNTRhMTg2M2ViLmpwZWciO3M6ODoiaWRfcHJvb2YiO3M6NDE6InVwbG9hZC9pZF9pbWFnZS9pZF9pbWFnZTY2MmQ1NGExODY4NGYucG5nIjtzOjEzOiJhZGRyZXNzX3Byb29mIjtzOjUxOiJ1cGxvYWQvYWRkcmVzc19wcm9vZi9hZGRyZXNzX3Byb29mNjYyZDU4MDFkZWQ0Ni5wbmciO3M6ODoicGFzc3dvcmQiO3M6NToiMTIzNDUiO3M6Njoic3RhdHVzIjtzOjY6IkFjdGl2ZSI7czoxMzoiYXV0b193aXRoZHJhdyI7TjtzOjE2OiJwYXlfZWFybmluZ19hdXRvIjtOO3M6MTI6Im1heF93aXRoZHJhdyI7TjtzOjEyOiJkZW1vX2FjY291bnQiO047czo5OiJibGFja2xpc3QiO047czoxMDoiYWRtaW5fbm90ZSI7TjtzOjEwOiJjcmVhdGVkX2F0IjtzOjE5OiIyMDI0LTA0LTI3IDE3OjQ4OjQxIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjE5OiIyMDI0LTA1LTA2IDE5OjA3OjMzIjtzOjc6ImJhbGFuY2UiO2k6MzU1NTk0Mjc0O3M6NjoiZnVuZGVkIjtpOjM3MjI0MjE7czo3OiJ3aXRocmF3IjtpOjIwNTAwO3M6ODoiZGVwb3NpdGUiO2k6MzQ5NzE5ODcwO3M6MTc6InJlZmVycmFsc19lYXJuaW5nIjtpOjA7czo2OiJhc3NldHMiO2k6MDtzOjc6IkVhcm5pbmciO2k6ODQ3NDQ5O3M6MTE6InJlZmVycmFsX2lkIjtzOjEzOiJzZGZhc3ZkYWZhc3ZhIjtzOjE2OiJub19yZWZlcnJhbF91c2VyIjtpOjE7czo5OiJpZF9zdGF0dXMiO2k6MjtzOjEwOiJhZGRfc3RhdHVzIjtpOjI7czoxMDoiZW1haWxfYXV0aCI7aToxO3M6OToicGFyZW50X2lkIjtOO3M6MTA6ImRsdF9zdGF0dXMiO2k6MDt9czoxMDoiACoAY2hhbmdlcyI7YTowOnt9czo4OiIAKgBjYXN0cyI7YTowOnt9czoxNzoiACoAY2xhc3NDYXN0Q2FjaGUiO2E6MDp7fXM6MjE6IgAqAGF0dHJpYnV0ZUNhc3RDYWNoZSI7YTowOnt9czoxMzoiACoAZGF0ZUZvcm1hdCI7TjtzOjEwOiIAKgBhcHBlbmRzIjthOjA6e31zOjE5OiIAKgBkaXNwYXRjaGVzRXZlbnRzIjthOjA6e31zOjE0OiIAKgBvYnNlcnZhYmxlcyI7YTowOnt9czoxMjoiACoAcmVsYXRpb25zIjthOjA6e31zOjEwOiIAKgB0b3VjaGVzIjthOjA6e31zOjEwOiJ0aW1lc3RhbXBzIjtiOjE7czoxMzoidXNlc1VuaXF1ZUlkcyI7YjowO3M6OToiACoAaGlkZGVuIjthOjA6e31zOjEwOiIAKgB2aXNpYmxlIjthOjA6e31zOjExOiIAKgBmaWxsYWJsZSI7YTowOnt9czoxMDoiACoAZ3VhcmRlZCI7YToxOntpOjA7czoxOiIqIjt9fX0=', 1715030757),
-('JsFx4OoCg5ryVsUJiOUHGXgDLQzgA6xDJNRItNii', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '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', 1715030754);
+('aRIYCUPjUJ2M255Dg1eMToJtueLLNcKcvD38Jjs4', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', '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', 1715331201),
+('EitZpzxl3Krd0CDYaJH2ZWlwm5KNzOCHghQCmOyo', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiN3VuMzhtb3VxZkduV0RHTHI3aDhvY1dsUW84YnNBVEY3QWk0Y29vbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGlfZGFzaCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6Njoic191c2VyIjtPOjE1OiJBcHBcTW9kZWxzXFVzZXIiOjMwOntzOjEzOiIAKgBjb25uZWN0aW9uIjtzOjU6Im15c3FsIjtzOjg6IgAqAHRhYmxlIjtzOjU6InVzZXJzIjtzOjEzOiIAKgBwcmltYXJ5S2V5IjtzOjI6ImlkIjtzOjEwOiIAKgBrZXlUeXBlIjtzOjM6ImludCI7czoxMjoiaW5jcmVtZW50aW5nIjtiOjE7czo3OiIAKgB3aXRoIjthOjA6e31zOjEyOiIAKgB3aXRoQ291bnQiO2E6MDp7fXM6MTk6InByZXZlbnRzTGF6eUxvYWRpbmciO2I6MDtzOjEwOiIAKgBwZXJQYWdlIjtpOjE1O3M6NjoiZXhpc3RzIjtiOjE7czoxODoid2FzUmVjZW50bHlDcmVhdGVkIjtiOjA7czoyODoiACoAZXNjYXBlV2hlbkNhc3RpbmdUb1N0cmluZyI7YjowO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MzQ6e3M6MjoiaWQiO2k6MjU7czo3OiJ1c2VyX2lkIjtzOjY6Ijg3MTk4NSI7czo0OiJuYW1lIjtzOjEyOiJBYXl1c2ggVmVybWEiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czoxMDoiMTIzNDU2Nzg5MCI7czozOiJkb2IiO3M6MTA6IjE5OTktMDQtMTIiO3M6NzoiY291bnRyeSI7czo5OiJTaW5nYXBvcmUiO3M6MTA6ImltYWdlX2RhdGEiO3M6MzQ6InVwbG9hZC9zZWxmaWUvSUQ2NjJkNTRhMTg2M2ViLmpwZWciO3M6ODoiaWRfcHJvb2YiO3M6NDE6InVwbG9hZC9pZF9pbWFnZS9pZF9pbWFnZTY2MmQ1NGExODY4NGYucG5nIjtzOjEzOiJhZGRyZXNzX3Byb29mIjtzOjUxOiJ1cGxvYWQvYWRkcmVzc19wcm9vZi9hZGRyZXNzX3Byb29mNjYzOTRhZDViNmRlNi5wbmciO3M6ODoicGFzc3dvcmQiO3M6NToiMTIzNDUiO3M6Njoic3RhdHVzIjtzOjY6IkFjdGl2ZSI7czoxMzoiYXV0b193aXRoZHJhdyI7TjtzOjE2OiJwYXlfZWFybmluZ19hdXRvIjtOO3M6MTI6Im1heF93aXRoZHJhdyI7TjtzOjEyOiJkZW1vX2FjY291bnQiO047czo5OiJibGFja2xpc3QiO047czoxMDoiYWRtaW5fbm90ZSI7TjtzOjEwOiJjcmVhdGVkX2F0IjtzOjE5OiIyMDI0LTA0LTI3IDE3OjQ4OjQxIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjE5OiIyMDI0LTA1LTA5IDIwOjE0OjU2IjtzOjc6ImJhbGFuY2UiO2k6MzU1Nzg3Njc0O3M6NjoiZnVuZGVkIjtpOjM4NzI0MjE7czo3OiJ3aXRocmF3IjtpOjIwNTAwO3M6ODoiZGVwb3NpdGUiO2k6MzQ5NzE5ODcwO3M6MTc6InJlZmVycmFsc19lYXJuaW5nIjtpOjA7czo2OiJhc3NldHMiO2k6MDtzOjc6IkVhcm5pbmciO2k6OTQwNDQ5O3M6MTE6InJlZmVycmFsX2lkIjtzOjEzOiJzZGZhc3ZkYWZhc3ZhIjtzOjE2OiJub19yZWZlcnJhbF91c2VyIjtpOjE7czo5OiJpZF9zdGF0dXMiO2k6MjtzOjEwOiJhZGRfc3RhdHVzIjtpOjI7czoxMDoiZW1haWxfYXV0aCI7aTowO3M6OToicGFyZW50X2lkIjtOO3M6MTA6ImRsdF9zdGF0dXMiO2k6MDt9czoxMToiACoAb3JpZ2luYWwiO2E6MzQ6e3M6MjoiaWQiO2k6MjU7czo3OiJ1c2VyX2lkIjtzOjY6Ijg3MTk4NSI7czo0OiJuYW1lIjtzOjEyOiJBYXl1c2ggVmVybWEiO3M6NToiZW1haWwiO3M6MjQ6ImFheXVzaHZlcm1hMjAwQGdtYWlsLmNvbSI7czo1OiJwaG9uZSI7czoxMDoiMTIzNDU2Nzg5MCI7czozOiJkb2IiO3M6MTA6IjE5OTktMDQtMTIiO3M6NzoiY291bnRyeSI7czo5OiJTaW5nYXBvcmUiO3M6MTA6ImltYWdlX2RhdGEiO3M6MzQ6InVwbG9hZC9zZWxmaWUvSUQ2NjJkNTRhMTg2M2ViLmpwZWciO3M6ODoiaWRfcHJvb2YiO3M6NDE6InVwbG9hZC9pZF9pbWFnZS9pZF9pbWFnZTY2MmQ1NGExODY4NGYucG5nIjtzOjEzOiJhZGRyZXNzX3Byb29mIjtzOjUxOiJ1cGxvYWQvYWRkcmVzc19wcm9vZi9hZGRyZXNzX3Byb29mNjYzOTRhZDViNmRlNi5wbmciO3M6ODoicGFzc3dvcmQiO3M6NToiMTIzNDUiO3M6Njoic3RhdHVzIjtzOjY6IkFjdGl2ZSI7czoxMzoiYXV0b193aXRoZHJhdyI7TjtzOjE2OiJwYXlfZWFybmluZ19hdXRvIjtOO3M6MTI6Im1heF93aXRoZHJhdyI7TjtzOjEyOiJkZW1vX2FjY291bnQiO047czo5OiJibGFja2xpc3QiO047czoxMDoiYWRtaW5fbm90ZSI7TjtzOjEwOiJjcmVhdGVkX2F0IjtzOjE5OiIyMDI0LTA0LTI3IDE3OjQ4OjQxIjtzOjEwOiJ1cGRhdGVkX2F0IjtzOjE5OiIyMDI0LTA1LTA5IDIwOjE0OjU2IjtzOjc6ImJhbGFuY2UiO2k6MzU1Nzg3Njc0O3M6NjoiZnVuZGVkIjtpOjM4NzI0MjE7czo3OiJ3aXRocmF3IjtpOjIwNTAwO3M6ODoiZGVwb3NpdGUiO2k6MzQ5NzE5ODcwO3M6MTc6InJlZmVycmFsc19lYXJuaW5nIjtpOjA7czo2OiJhc3NldHMiO2k6MDtzOjc6IkVhcm5pbmciO2k6OTQwNDQ5O3M6MTE6InJlZmVycmFsX2lkIjtzOjEzOiJzZGZhc3ZkYWZhc3ZhIjtzOjE2OiJub19yZWZlcnJhbF91c2VyIjtpOjE7czo5OiJpZF9zdGF0dXMiO2k6MjtzOjEwOiJhZGRfc3RhdHVzIjtpOjI7czoxMDoiZW1haWxfYXV0aCI7aTowO3M6OToicGFyZW50X2lkIjtOO3M6MTA6ImRsdF9zdGF0dXMiO2k6MDt9czoxMDoiACoAY2hhbmdlcyI7YTowOnt9czo4OiIAKgBjYXN0cyI7YTowOnt9czoxNzoiACoAY2xhc3NDYXN0Q2FjaGUiO2E6MDp7fXM6MjE6IgAqAGF0dHJpYnV0ZUNhc3RDYWNoZSI7YTowOnt9czoxMzoiACoAZGF0ZUZvcm1hdCI7TjtzOjEwOiIAKgBhcHBlbmRzIjthOjA6e31zOjE5OiIAKgBkaXNwYXRjaGVzRXZlbnRzIjthOjA6e31zOjE0OiIAKgBvYnNlcnZhYmxlcyI7YTowOnt9czoxMjoiACoAcmVsYXRpb25zIjthOjA6e31zOjEwOiIAKgB0b3VjaGVzIjthOjA6e31zOjEwOiJ0aW1lc3RhbXBzIjtiOjE7czoxMzoidXNlc1VuaXF1ZUlkcyI7YjowO3M6OToiACoAaGlkZGVuIjthOjA6e31zOjEwOiIAKgB2aXNpYmxlIjthOjA6e31zOjExOiIAKgBmaWxsYWJsZSI7YTowOnt9czoxMDoiACoAZ3VhcmRlZCI7YToxOntpOjA7czoxOiIqIjt9fX0=', 1715330490);
 
 -- --------------------------------------------------------
 
@@ -521,8 +550,8 @@ CREATE TABLE `stocks` (
 
 INSERT INTO `stocks` (`id`, `plan_id`, `base_value`, `down_limit`, `up_limit`, `status`, `extra`, `created_at`, `updated_at`) VALUES
 (3, '337694', '100', '50', '150', '0', NULL, '2024-04-19 12:11:37', '2024-04-28 02:47:27'),
-(4, '861008', '150', '120', '200', '1', NULL, '2024-04-19 14:50:16', '2024-04-28 03:18:26'),
-(5, '129149', '200', '190', '300', '1', NULL, '2024-04-29 04:02:29', '2024-04-29 04:02:29');
+(4, '861008', '150', '120', '250', '0', NULL, '2024-04-19 14:50:16', '2024-05-10 03:23:21'),
+(5, '129149', '200', '190', '300', '0', NULL, '2024-04-29 04:02:29', '2024-05-08 09:35:38');
 
 -- --------------------------------------------------------
 
@@ -608,7 +637,13 @@ INSERT INTO `transactions` (`id`, `user_id`, `subject`, `name`, `amount`, `balan
 (197, '871985', 'Fund Deposite', 'Aayush Verma', '20000', NULL, 'Credit', '2024-05-06 11:39:30', '2024-05-06 11:39:30'),
 (198, '871985', 'Fund Deposite', 'Aayush Verma', '324234324', NULL, 'Credit', '2024-05-06 12:21:38', '2024-05-06 12:21:38'),
 (199, '871985', 'Fund Deposite', 'Aayush Verma', '2342423', NULL, 'Credit', '2024-05-06 12:25:41', '2024-05-06 12:25:41'),
-(200, '871985', 'Fund Withdrawal', 'Aayush Verma', '500', NULL, 'Debit', '2024-05-06 13:11:00', '2024-05-06 13:11:00');
+(200, '871985', 'Fund Withdrawal', 'Aayush Verma', '500', NULL, 'Debit', '2024-05-06 13:11:00', '2024-05-06 13:11:00'),
+(201, '871985', 'Profit In Investment', 'Aayush Verma', '60000', NULL, 'Credit', '2024-05-07 16:02:38', '2024-05-07 16:02:38'),
+(202, '871985', 'Penalty Deducted', 'Aayush Verma', '100', NULL, 'Debit', '2024-05-08 04:44:00', '2024-05-08 04:44:00'),
+(203, '871985', 'Investment Bonus', 'Aayush Verma', '500', NULL, 'Credit', '2024-05-08 04:44:33', '2024-05-08 04:44:33'),
+(204, '871985', 'Investment', 'TESTING #!@@#@$@#$@', '50000', NULL, 'Debit', '2024-05-08 12:26:25', '2024-05-08 12:26:25'),
+(205, '871985', 'Profit In Investment', 'Aayush Verma', '33000', NULL, 'Credit', '2024-05-09 14:42:42', '2024-05-09 14:42:42'),
+(206, '871985', 'Investment', 'TESTING #!@@#@$@#$@', '100000', NULL, 'Debit', '2024-05-09 14:44:56', '2024-05-09 14:44:56');
 
 -- --------------------------------------------------------
 
@@ -695,7 +730,7 @@ INSERT INTO `users` (`id`, `user_id`, `name`, `email`, `phone`, `dob`, `country`
 (21, '609355', 'asdasd', 'asdasd@gmail.com', 'asdasdSAD', '2024-04-29', 'Antarctica', NULL, NULL, NULL, '12345', 'Suspended', NULL, NULL, NULL, NULL, NULL, '31213ASDSADAS', '2024-04-24 11:53:29', '2024-04-24 13:50:07', 0, 20000, 0, 0, 0, 0, 0, NULL, 0, 2, 2, 2, NULL, 0),
 (22, '992901', '123', 'alpha@gmail.com', '21213', '2024-05-03', 'Azerbaijan', NULL, NULL, NULL, 'testing', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 10:05:43', '2024-04-27 10:05:43', 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 0),
 (23, '692438', 'sdasd', 'alpha1@gmail.com', '123213', '2024-05-09', 'Australia', NULL, NULL, NULL, '12345', 'not_approved', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 10:07:03', '2024-04-27 10:07:03', 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, NULL, 0),
-(25, '871985', 'Aayush Verma', 'aayushverma200@gmail.com', '1234567890', '1999-04-12', 'Singapore', 'upload/selfie/ID662d54a1863eb.jpeg', 'upload/id_image/id_image662d54a18684f.png', 'upload/address_proof/address_proof66394ad5b6de6.png', '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 12:18:41', '2024-05-06 15:55:53', 355594274, 3722421, 20500, 349719870, 0, 0, 847449, 'sdfasvdafasva', 1, 2, 2, 1, NULL, 0),
+(25, '871985', 'Aayush Verma', 'aayushverma200@gmail.com', '1234567890', '1999-04-12', 'Singapore', 'upload/selfie/ID662d54a1863eb.jpeg', 'upload/id_image/id_image662d54a18684f.png', 'upload/address_proof/address_proof66394ad5b6de6.png', '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-27 12:18:41', '2024-05-09 14:44:56', 355787674, 3872421, 20500, 349719870, 0, 0, 940449, 'sdfasvdafasva', 1, 2, 2, 0, NULL, 0),
 (27, '974234', 'astwersdagafas', 'sdbsdvascklmk@gmail.com', '21414124', '2024-05-09', 'Australia', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-06 08:46:05', '2024-05-06 08:46:05', 100, 0, 0, 0, 0, 0, 0, 'nvpdRtCjtOHHAx5G', 0, 0, 0, 0, '871985', 0),
 (28, '212130', 'asbdksbdkjasd', 'aasadsadsadsad@gmail.com', '1221242', '2024-05-14', 'Armenia', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-06 08:50:33', '2024-05-06 09:35:53', 20713, 40000, 0, 20000, 0, 0, 613, 'bLHyLYa5jGdg4RkT', 0, 1, 1, 0, '871985', 0),
 (29, '530913', 'testtemp', 'pedecoy626@ociun.com', '1232131', '2024-05-21', 'Bahrain', NULL, NULL, NULL, '12345', 'Active', NULL, NULL, NULL, NULL, NULL, 'hello', '2024-05-06 11:05:42', '2024-05-06 11:05:42', 0, 0, 0, 0, 0, 0, 0, 'whAIefseA1GbPHJf', 0, 2, 2, 2, NULL, 0),
@@ -782,6 +817,12 @@ ALTER TABLE `deposite`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `graphs`
+--
+ALTER TABLE `graphs`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `investments`
@@ -917,16 +958,22 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `graphs`
+--
+ALTER TABLE `graphs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1668;
+
+--
 -- AUTO_INCREMENT for table `investments`
 --
 ALTER TABLE `investments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `iplogs`
 --
 ALTER TABLE `iplogs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -944,13 +991,13 @@ ALTER TABLE `kyc`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `plans`
@@ -968,7 +1015,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 
 --
 -- AUTO_INCREMENT for table `transfers`

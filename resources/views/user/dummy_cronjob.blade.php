@@ -34,7 +34,7 @@
         }
 
         // Call the sendRequest function every 2 seconds
-        setInterval(sendRequest, 3000); // 2000 milliseconds = 2 seconds
+        setInterval(sendRequest, 2000); // 2000 milliseconds = 2 seconds
     </script>
 </body>
 </html>
