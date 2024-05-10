@@ -15,9 +15,10 @@
                         <form method="POST" action="https://mainnet.demo.btcpayserver.org/api/v1/invoices" class="btcpay-form btcpay-form--block">
                             <input type="hidden" name="storeId" value="6HhP9n62Z11HVszAwPA3catP2Rh7qnjbD23jCnw6xS5j" />
                             <input type="hidden" name="jsonResponse" value="true" />
-                            <input type="hidden" name="serverIpn" value="http://127.0.0.1:8000/test" />
-                            <input type="hidden" name="browserRedirect" value="http://127.0.0.1:8000/test" />
-                            <input type="hidden" name="notifyEmail" value="sambodans989@gmail.com" />
+                            <input type="hidden" name="serverIpn" value="{{ env('APP_URL') }}/api_btcpay.php?user_id={{session('s_user')['user_id']}}" />
+                            <input type="hidden" name="browserRedirect" value="{{ env('APP_URL') }}/dashboard" />
+                          
+                          
                             <div class="btcpay-custom-container">
                               <div class="btcpay-custom">
                                 <input class="btcpay-input-price" type="number" name="price" min="1" max="20000" step="1" value="1" data-price="1" style="width:15em;border:1px solid black" />

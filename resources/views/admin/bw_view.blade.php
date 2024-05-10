@@ -19,7 +19,7 @@
         </div>
         @endif
 <section id="basic-form-layouts">
-<form action="/send_newsletter" method="post" >
+<form  method="post" >
   <div class="row match-height">
 
 

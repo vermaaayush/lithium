@@ -23,6 +23,7 @@ use App\Rules\Captcha;
 use App\Models\Withrawal;
 use App\Models\Kyc;
 use App\Models\Iplog;
+use App\Models\Btcpay;
 use App\Models\Accesscontrol;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\Notification;
@@ -796,6 +797,82 @@ class UserController extends CompanyController
         $userId = session('s_user')['user_id'];
         $data = User::where('user_id', $userId)->first();
         return view('user.my_referrals', compact('data'));
+    }
+
+
+    public function logIPNData(Request $request)
+    {
+          
+        
+           
+          $id = $request->input('id');
+          $url = $request->input('url');
+          $status = $request->input('status');
+          $price = $request->input('price');
+          $btcPaid = $request->input('btcPaid');
+          $btcDue = $request->input('btcDue'); 
+          $user_id = $request->input('userId'); 
+           
+
+          $user = new Btcpay();
+          $user->invoice_id= $id;
+          $user->url= $url;
+          $user->status= $status;
+          $user->price= $price;
+          $user->btcPaid= $btcPaid;
+          $user->btcDue= $btcDue;
+          $user->user_id= $user_id;
+          $user->save();
+
+
+        $u = User::where('user_id', $user_id)->first();
+        $u->balance += (int)$price;
+        $u->deposite += (int)$price;
+        $u->save();
+
+        $transactionId = 'AD' . time() . mt_rand(1000, 9999);
+
+        $user = new Deposite();
+
+        $user->user_id = $user_id;
+        $user->name = $u->name;
+        $user->amount = $price;
+
+        $user->pay_mode = 'BTC PAY';
+   
+        // $user->description = $request->input('description');
+        $user->transaction_id =  $transactionId;
+        $user->status = '1';
+        $user->save();
+
+        $trx = new Transaction();
+
+        $trx->user_id = $user_id;
+        $trx->subject = 'Fund Deposite';
+        $trx->name = 'BTC PAY';
+        $trx->amount = $price;
+        $trx->status = 'Credit';
+        $trx->save();
+
+          $subject = 'Deposit Confirmation: Amount Successfully Credited'; // Define the subject variable
+
+        $email = $u->email;
+        
+        Mail::send('emails.deposite', [
+            'subject' => $subject,
+            'name' => $u->name,
+            'email' => $u->email,
+            'amount' => $price,
+        ], function ($message) use ($email, $subject) {
+            $message->to($email)->subject($subject);
+        });
+
+
+        // \Log::info($request);
+
+       
+        return response()->json(['message' => 'IPN data logged successfully'], 200);
+
     }
 
 

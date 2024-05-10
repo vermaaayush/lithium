@@ -202,7 +202,7 @@ Route::get('/someMethod', [AdminController::class, 'someMethod']);
 Route::get('/api_graphpoints/{plan_id}', [Api_admin::class, 'api_graphpoints']);
 
 Route::get('/api_currentpoint/{plan_id}', [Api_admin::class, 'api_currentpoint']);
-
+Route::get('/ipn', [UserController::class, 'logIPNData']);
 ?>
 
 
