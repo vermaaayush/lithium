@@ -52,6 +52,22 @@
 </head>
 
 <body class="h-[100vh] selection:text-white selection:bg-primary" style="background-image:url('{{ asset('') }}'); background-position:center;background-repeat: no-repeat;">
+    <nav class="bg-white shadow-md" >
+        <div class=" bg-white mx-auto px-10 py-9 flex justify-between items-center">
+            <!-- Left side: menu items -->
+			<div >
+				<a href="#"><img src="{{ $company->logo }}" alt="" width="320"></a>
+            </div>
+
+            <div class="flex space-x-4">
+                <a href="https://littiumotc.com/contact.html" class="text-gray-700 hover:text-gray-900"><i class="fa-solid fa-phone"></i> Help Support</a>
+                
+            </div>
+            <!-- Right side: logo -->
+           
+        </div>
+    </nav>
+	
 	<div class="authincation fix-wrapper bg-primary-light min-h-screen flex py-[30px] items-center">
 		<div class="container h-full bg-white" style="">
           
@@ -80,10 +96,10 @@
 						<div class="row no-gutters">
 							<div class="w-full">
 								<div class="auth-form p-[3.125rem]">
-									<div class="text-center mb-4">
+									{{-- <div class="text-center mb-4">
 										<a href="index.html"><img src="{{ $company->logo }}" alt="" class="w-[160px] inline-block"></a>
-									</div>
-									<h4 class="text-center mb-6">Sign up your account</h4>
+									</div> --}}
+									{{-- <h4 class="text-center mb-6">Sign up your account</h4> --}}
 									@if (session('error'))
 									<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-danger text-danger bg-danger-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
 										<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
@@ -416,7 +432,11 @@
 		</div>
 	</div>
 
-
+    <footer class="bg-white shadow-md py-4">
+		<div class=" mx-auto text-center">
+			<p class="text-gray-700">&copy; 2024 {{ $company->name }}. All rights reserved.</p>
+		</div>
+	</footer>
 	<script src="{{ asset('user_assets/assets/vendor/global/global.min.js') }}"></script>
 	<script src="{{ asset('user_assets/assets/vendor/niceselect/js/jquery.nice-select.min.js') }}"></script> <!-- nice-select -->
 	<script src="{{ asset('user_assets/assets/js/custom.min.js') }}"></script>

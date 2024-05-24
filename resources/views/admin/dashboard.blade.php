@@ -92,7 +92,7 @@
                                                         id="total_deposite" style="font-size: 12px">0</span>
                                                 </div>
                                                 <div class="clearfix">
-                                                    <span class="text-muted">Total Deposite</span>
+                                                    <span class="text-muted">Total Deposit</span>
 
                                                 </div>
                                             </div>
@@ -109,7 +109,7 @@
                                                         id="today_deposite">0</span>
                                                 </div>
                                                 <div class="clearfix">
-                                                    <span class="text-muted">Today Deposite</span>
+                                                    <span class="text-muted">Today Deposit</span>
 
                                                 </div>
                                             </div>
@@ -296,7 +296,7 @@
                                                         <th>User Id</th>
                                                         <th>Name</th>
                                                         <th>Email</th>
-                                                        <th>Total Deposite</th>
+                                                        <th>Total Deposit</th>
                                                         <th>Total Invested</th>
                                                     </tr>
                                                 </thead>

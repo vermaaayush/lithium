@@ -628,7 +628,7 @@ INSERT INTO `transactions` (`id`, `user_id`, `subject`, `name`, `amount`, `balan
 (188, '974234', 'Bonus', 'Referral Code Reward', '100', NULL, 'Credit', '2024-05-06 08:46:05', '2024-05-06 08:46:05'),
 (189, '212130', 'Bonus', 'Referral Code Reward', '100', NULL, 'Credit', '2024-05-06 08:50:33', '2024-05-06 08:50:33'),
 (190, '212130', 'Fund Deposite', 'asbdksbdkjasd', '20000', NULL, 'Credit', '2024-05-06 09:07:07', '2024-05-06 09:07:07'),
-(191, '871985', 'Commission', 'Referral Deposite Bonus', '1000', NULL, 'Credit', '2024-05-06 09:07:07', '2024-05-06 09:07:07'),
+(191, '871985', 'Commission', 'Referral Deposit Bonus', '1000', NULL, 'Credit', '2024-05-06 09:07:07', '2024-05-06 09:07:07'),
 (192, '212130', 'Investment', 'Alpha asklcjklb akldmsakf AS', '20000', NULL, 'Debit', '2024-05-06 09:25:48', '2024-05-06 09:25:48'),
 (193, '212130', 'Profit In Investment', 'asbdksbdkjasd', '80', NULL, 'Credit', '2024-05-06 09:32:51', '2024-05-06 09:32:51'),
 (194, '212130', 'Investment', 'TESTING #!@@#@$@#$@', '20000', NULL, 'Debit', '2024-05-06 09:35:30', '2024-05-06 09:35:30'),

@@ -155,6 +155,9 @@
 
 		var chartBar1 = new ApexCharts(document.querySelector("#NewExperience"), options);
 		chartBar1.render();
+
+		var chartBar2 = new ApexCharts(document.querySelector("#NewExperience2"), options);
+		chartBar2.render();
 	 
 	}
 	var AllProject = function(){

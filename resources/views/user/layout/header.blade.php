@@ -278,14 +278,16 @@
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
 		
-					{{-- <li><a href="/user_kyc" class="" aria-expanded="false">
-						<i class="fa-brands fa-keycdn"></i>
-							<span class="nav-text">Authentication</span>
-						</a>
-					</li> --}}
+					
 					<li><a href="/dashboard" class="" aria-expanded="false">
 						<i class="fas fa-house"></i>
 							<span class="nav-text">Dashboard</span>
+						</a>
+					</li>
+
+					<li><a href="/authentication" class="" aria-expanded="false">
+						<i class="fa-brands fa-keycdn"></i>
+							<span class="nav-text">Authentication</span>
 						</a>
 					</li>
 
@@ -315,7 +317,7 @@
 						<ul aria-expanded="false">
 							
 							<li><a href="/deposite_funds">Deposite Funds</a></li>
-							<li><a href="/all_deposite">All Deposites</a></li>
+							<li><a href="/all_deposite">All Deposits</a></li>
 							<li><a href="/withraw_funds">Withrawal Funds</a></li>
 							<li><a href="/all_withrawal">All Withrawals</a></li>
 							

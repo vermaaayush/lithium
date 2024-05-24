@@ -1,5 +1,5 @@
 @extends('admin.layout.main')
-@section('title', 'Bank Wire Deposite Request')
+@section('title', 'Bank Wire Deposit Request')
 @section('main-container')
 
 
@@ -7,7 +7,7 @@
     <div class="content-wrapper">
       <div class="content-header row">
         <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
-          <h3 class="content-header-title mb-0 d-inline-block">Bank Wire Deposite Request</h3>
+          <h3 class="content-header-title mb-0 d-inline-block">Bank Wire Deposit Request</h3>
           
         </div>
         

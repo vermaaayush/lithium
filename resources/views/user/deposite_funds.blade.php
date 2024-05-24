@@ -39,9 +39,9 @@
                             <li class="nav-item">
                                 <a href="javascript:void(0);" data-tab="navpills-4" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn" data-bs-toggle="tab" aria-expanded="true">BANK WIRE TRANSFER</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="javascript:void(0);" data-tab="navpills-5" class="nav-link py-[15px] px-3 block rounded duration-500 text-[15px] dark:text-primary tab-btn active" data-bs-toggle="tab" aria-expanded="true">BY ADMIN</a>
-                            </li>
+                            </li> --}}
                         </ul>
                         <div class="tab-content-area">
                             <div id="navpills-1" class="tab-content  ">
@@ -136,7 +136,7 @@
                                     </div> 
                                 </div>
                             </div>
-                            <div id="navpills-4" class="tab-content">
+                            <div id="navpills-4" class="tab-content show active">
                                 <div class="row">
                                     <div class="xl:w-2/3 col-xxl-8 w-full">
                                         <div class="row">
@@ -167,7 +167,7 @@
                                     </div> 
                                 </div>
                             </div>
-                            <div id="navpills-5" class="tab-content show active">
+                            {{-- <div id="navpills-5" class="tab-content show ">
                                 <div class="row">
                                     <div class="xl:w-2/3 col-xxl-8 w-full">
                                         <div class="row">
@@ -197,7 +197,7 @@
                                         </div>
                                     </div> 
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

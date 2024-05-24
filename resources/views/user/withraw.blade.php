@@ -23,7 +23,7 @@
                             <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Available Wallet Balance <span class="required text-danger">*</span></label>
                             <div class="flex items-stretch flex-wrap relative w-full">
                               
-                                <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="${{ number_format($user->balance) }}"style="background-color: green;color:white" name="balance" readonly>
+                                <input type="text" class="form-control" value="${{ number_format($user->balance) }}"style="font-weight:bold;font-size:20px;border:0px" name="balance" readonly>
                                
                             </div>
                         </div>
@@ -56,8 +56,8 @@
 
                        
                         
-                        <button type="submit" class="btn mr-2 inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Create a request</button>
-                       
+                       <p style="text-align: center"> <button type="submit" class="btn mr-2 inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Continue</button>
+                       </p>
                     </form>
                 </div>
             </div>

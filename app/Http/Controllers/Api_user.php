@@ -59,6 +59,7 @@ class Api_user extends CompanyController
         ->where('status', 0) 
         ->orderBy('created_at', 'desc')
         ->get();
+        
         // return $data;
 
         $investments = [];
@@ -66,6 +67,7 @@ class Api_user extends CompanyController
         foreach ($data as $investment) {
             $p_data = Plan::where('plan_id', $investment->plan_id)->first();
             $latestRow = Graph::where('plan_id', $investment->plan_id)->latest('created_at')->first();
+            // return $latestRow;
             $points = $latestRow->points;
             $values = explode(',', $points);
             $closeValue = trim($values[count($values) - 1]);
@@ -140,8 +142,8 @@ class Api_user extends CompanyController
         $user = User::where('user_id', $userId)->first();
         $investment = Investment::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
         $transfer = Transfer::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
-        $transaction = Transaction::where('user_id', $userId)->orderBy('created_at', 'desc')->take(8)->get();
-        $plans = Plan::where('dlt_status', 0)->orderBy('created_at', 'desc')->take(4)->get();
+        $transaction = Transaction::where('user_id', $userId)->orderBy('created_at', 'desc')->take(10)->get();
+        $plans = Plan::where('dlt_status', 0)->orderBy('created_at', 'desc')->take(5)->get();
        
 
 

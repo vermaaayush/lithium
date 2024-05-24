@@ -103,7 +103,7 @@
                                   {{-- <td>    
                                     Balance:   <span style="float:right">${{number_format($user->balance) }}</span><br>
                                     Invested:  <span style="float:right">${{number_format($user->funded) }}</span><br>
-                                    Deposite:  <span style="float:right">${{number_format($user->deposite) }}</span><br>
+                                    Deposit:  <span style="float:right">${{number_format($user->deposite) }}</span><br>
                                     Withrawal: <span style="float:right">${{number_format($user->withraw) }}</span><br>
                                     Earning:   <span style="float:right">${{number_format($user->Earning) }}</span><br>
                                 </td> --}}

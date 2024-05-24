@@ -7,12 +7,19 @@
         <div class="w-full lg:w-1/2 " style="margin:auto">
             <div class="card">
                 <div class="card-header flex flex-wrap justify-between items-center sm:p-5 sm:pt-6 p-4 pt-5 max-sm:pb-5 relative z-[2] border-b border-[#E6E6E6] dark:border-[#ffffff1a]">
-                    <h4 class="card-title text-base capitalize">Deposite Funds</h4>
+                    <h3 class="card-title text-base capitalize text-primary"><strong>CRYPTOCURRENCY DEPOSIT</strong>                    </h3>
                 </div>
-                <div class="sm:p-5 p-4">
-                    <div class="basic-form" style="margin: auto">
+                <div class="sm:p-5 p-4" >
+                    <h4>Deposit Instruction</h4>
+                    <p>1. Complete the form below and press ‘Submit’</p>
+                    <p>2. You will then be directed to a new window displaying a BTC wallet address</p>
+                    <p>3. Copy the BTC wallet address and then log in to your personal BTC wallet and transfer your desired amount to the BTC address.</p>
+                    <h4>Deposit Note</h4>
+                    <p>1. Please note that we are unable to deposit or withdraw via BUSD, please ensure the address and Cryptocurrency match the chain and currency we accept or you may loss the fund. We shall not be liable for any loss incurred by the errors.</p>
+                    <br>
+                    <div>
                              
-                        <form method="POST" action="https://mainnet.demo.btcpayserver.org/api/v1/invoices" class="btcpay-form btcpay-form--block">
+                        <form  style="width:100%" method="POST" action="https://mainnet.demo.btcpayserver.org/api/v1/invoices" class="btcpay-form btcpay-form--block">
                             <input type="hidden" name="storeId" value="6HhP9n62Z11HVszAwPA3catP2Rh7qnjbD23jCnw6xS5j" />
                             <input type="hidden" name="jsonResponse" value="true" />
                             <input type="hidden" name="serverIpn" value="{{ env('APP_URL') }}/api_btcpay.php?user_id={{session('s_user')['user_id']}}" />
@@ -25,9 +32,7 @@
                               </div>
                               <select name="currency">
                                 <option value="USD" selected>USD</option>
-                                {{-- <option value="GBP">GBP</option>
-                                <option value="EUR">EUR</option>
-                                <option value="BTC">BTC</option> --}}
+                                
                               </select>
                             </div>
                             <input type="image" class="submit" name="submit" src="https://mainnet.demo.btcpayserver.org/img/paybutton/pay.svg" style="width:209px" alt="Pay with BTCPay Server, a Self-Hosted Bitcoin Payment Processor">

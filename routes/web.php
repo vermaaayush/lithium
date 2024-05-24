@@ -118,6 +118,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::middleware([User_Auth::class])->group(function () {
 
     Route::get('/dashboard', [UserController::class, 'dashboard']);
+    Route::get('/authentication', [UserController::class, 'authentication']);
     Route::get('/auth', [UserController::class, 'user_kyc']);
     Route::post('/id_verification', [UserController::class, 'id_verification']);
     Route::post('/add_verify', [UserController::class, 'add_verify']);
@@ -164,6 +165,8 @@ Route::middleware([User_Auth::class])->group(function () {
     Route::get('/my_referrals', [UserController::class, 'my_referrals']);
     Route::get('/contact_us',function () { return view('user.contact_us'); });
     Route::get('/crypto_pay', function () { return view('user.crypto_pay'); });
+    Route::post('/contact_Send', [UserController::class, 'contact_Send']);
+    
 
     
 

@@ -208,7 +208,7 @@ class AdminController extends CompanyController
         $user->save();
 
  
-        // adding balance in deposite table
+        // adding balance in Deposit table
         
         $u_info = User::find($id);
         $transactionId = 'TX' . time() . mt_rand(1000, 9999);
@@ -278,7 +278,7 @@ class AdminController extends CompanyController
                 $trx = new Transaction();
                 $trx->user_id = $rf->user_id;
                 $trx->subject = 'Commission';
-                $trx->name = 'Referral Deposite Bonus';
+                $trx->name = 'Referral Deposit Bonus';
                 $trx->amount = $amt;
                 $trx->status = 'Credit';
                 $trx->save();

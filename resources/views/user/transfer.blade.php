@@ -36,7 +36,7 @@
                         <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Available Balance <span class="required text-danger">*</span></label>
                         <div class="flex items-stretch flex-wrap relative w-full">
                           
-                            <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" value="$ {{  number_format($u_info->balance) }}" style="background-color: green;color:white" readonly>
+                            <input type="text" class="form-control" value="$ {{  number_format($u_info->balance) }}" style="font-weight:bold;font-size:20px;border:0px" readonly>
                             <input type="text" value="{{ ($u_info->balance) }}" name="avl_balance" hidden>
                            
                         </div>

@@ -214,6 +214,14 @@ class UserController extends CompanyController
 
     }
 
+    public function authentication()
+    {
+        $id = session('s_user')['id'];
+        $u_info = User::find($id);
+        return view('user.authentication', compact('u_info'));
+
+    }
+
     public function id_verification(Request $request)
     {
         //0 for pending, 1 for admin confirmatin, 2 for approved
@@ -354,7 +362,7 @@ class UserController extends CompanyController
         $user->status = '0';
         $user->save();
 
-        return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');
+        return redirect('all_deposite')->with('success', 'New Deposit requested has been generated');
 
     }
     public function all_deposite()
@@ -579,7 +587,7 @@ class UserController extends CompanyController
 
         $depo->save();
 
-        return redirect('all_deposite')->with('success', 'New Deposite requested has been generated');
+        return redirect('all_deposite')->with('success', 'New Deposit requested has been generated');
 
     }
 
@@ -673,13 +681,13 @@ class UserController extends CompanyController
             $user->email_auth=1;
             $user->update();
             Session::forget('otp_code');
-            return redirect('/dashboard')->with('success', 'Email Verification Done');
+            return redirect('/authentication')->with('success', 'Email Verification Done');
     
         }
         else
         {
             Session::forget('otp_code');
-            return redirect('/dashboard')->with('error', 'Incorrect OTP retry again!');
+            return redirect('/authentication')->with('error', 'Incorrect OTP retry again!');
         }
         
     }
@@ -824,7 +832,10 @@ class UserController extends CompanyController
           $user->user_id= $user_id;
           $user->save();
 
-
+        if ($status == 'complete') 
+    {
+           
+       
         $u = User::where('user_id', $user_id)->first();
         $u->balance += (int)$price;
         $u->deposite += (int)$price;
@@ -866,12 +877,40 @@ class UserController extends CompanyController
         ], function ($message) use ($email, $subject) {
             $message->to($email)->subject($subject);
         });
-
+    }
 
         // \Log::info($request);
 
        
         return response()->json(['message' => 'IPN data logged successfully'], 200);
+
+    }
+
+    public function contact_Send(Request $request)
+    {
+        $company = Config::first();
+
+        $subject = 'Message from Client Portal Form'; // Define the subject variable
+       
+         // Replace 'Password123' with the actual password
+        
+        $name = $request->input('name');
+        $c_email = $request->input('email');
+        $phone = $request->input('phone');
+        $subject = $request->input('subject');
+        $msg = $request->input('message');
+        $email= $company->email;
+       
+        $content = "Name: $name\nEmail: $c_email\nPhone: $phone\nSubject: $subject \nMessage:\n$msg";
+
+        Mail::raw($content, function ($message) use ($email, $subject) {
+            $message->to($email) // Replace with the recipient's email address
+                    ->subject($subject)
+                    ->replyTo($email);
+        });
+        
+        
+        return back()->with('success', 'Email Sent Successfully'); 
 
     }
 

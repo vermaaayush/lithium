@@ -1,5 +1,5 @@
 @extends('user.layout.main')
-@section('title', 'All Deposites')
+@section('title', 'All Deposits')
 @section('main-container')
 
 @if (session('success'))
@@ -11,7 +11,7 @@
 
 @endif
 
-<h1>All Deposites</h1>
+<h1>All Deposite</h1>
 <div class="card">
     <div class="card-body p-0">
         <div class="overflow-x-auto active-projects task-table dz-scroll">

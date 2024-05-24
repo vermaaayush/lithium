@@ -24,7 +24,44 @@
                                         funds to be credited to your
                                         account.</p>
                             </div>
-							<ul class="list-group flex flex-col list-group-flush">
+
+                            <div style="width:70%;margin:auto">
+                                <div class="card text-white bg-primary">
+                                    <ul class="list-group flex flex-col list-group-flush">
+                                        
+                                         
+                                        @if(!empty($bank->name))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">Bank Name :</span><strong>{{ $bank->name }} </strong></li>
+                                        @endif
+
+                                        @if(!empty($bank->account_number))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">Account Number :</span> <strong class="">{{ $bank->account_number }}</strong></li>
+                                        @endif
+
+                                        @if(!empty($bank->address))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">Bank Address :</span><strong>{{ $bank->address }} </strong></li>
+                                        @endif
+
+                                        @if(!empty($bank->swift_code))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">Swift Code :</span> <strong class="">{{ $bank->swift_code }}</strong></li>
+                                        @endif
+
+                                        @if(!empty($bank->ibank_number))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">IBAN number :</span><strong>{{ $bank->ibank_number }} </strong></li>
+                                        @endif
+
+                                        @if(!empty($bank->rounting_number))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">Rounting Number :</span> <strong class="">{{ $bank->rounting_number }}</strong></li>
+                                        @endif
+
+                                        @if(!empty($bank->description))
+                                        <li class="list-group-item flex justify-between p-4 text-sm"><span class="mb-0">Description :</span> <strong class="">{{ $bank->description }}</strong></li>
+                                        @endif
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+							{{-- <ul class="list-group flex flex-col list-group-flush">
                                 @if(!empty($bank->name))
 								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Bank Name</span> <strong class="">{{ $bank->name }}	</strong></li>
                                 @endif
@@ -52,7 +89,7 @@
                                 @if(!empty($bank->description))
 								<li class="list-group-item flex p-4 text-body-color dark:text-white  text-base justify-between"><span class="mb-0">Description</span> <strong class="">{{ $bank->description }}	</strong></li>
                                 @endif
-							</ul>
+							</ul> --}}
                           
                         </div>
 					</div>
@@ -72,20 +109,20 @@
                     <div class="basic-form">
                         <form action="/wire_deposite" method="post" class="form-valide-with-icon needs-validation"  enctype="multipart/form-data" > 
                             @csrf 
-                            <div class="mb-4">
+                            {{-- <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Bank Name <span class="required text-danger">*</span></label>
                                 <div class="flex items-stretch flex-wrap relative w-full">
                                   
                                     <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Enter bank name" name="bank_name" required>
                                    
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Account Number <span class="required text-danger">*</span></label>
                                 <div class="flex items-stretch flex-wrap relative w-full">
                                   
-                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Enter account number" name="acc_no" required>
+                                    <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Enter account number" value="{{$bank->account_number}}" name="acc_no" required>
                                    
                                 </div>
                             </div>
@@ -99,14 +136,14 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4">
+                            {{-- <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Transaction ID <span class="required text-danger">*</span></label>
                                 <div class="flex items-stretch flex-wrap relative w-full">
                                   
                                     <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Transaction ID" name="tranx_id" required>
                                    
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4">
                                 <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Notes <span class="required text-danger">*</span></label>

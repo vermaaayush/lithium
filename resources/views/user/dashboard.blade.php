@@ -1,8 +1,12 @@
+@php
+    
+    use App\Models\Config;
+    $company = Config::where('id', 1)->first(); 
+   
+@endphp
 @extends('user.layout.main')
 @section('title', 'Dashboard')
 @section('main-container')
-
-<!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
 	<div class="tradingview-widget-container__widget"></div>
 	<div class="tradingview-widget-copyright"></div>
@@ -51,574 +55,434 @@
   }
 	</script>
   </div>
-  <!-- TradingView Widget END -->
 
-@if (session('s_user')['status'] == 'Active')
-
-
-@if (session('error'))
-<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-danger text-danger bg-danger-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
-	<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
-	</button>
-	{{ session('error') }}
-</div>
-@endif
-
-@if (session('success'))
-<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-success text-success bg-success-light alert-alt">
-	<button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
-	</button>
-	{{ session('success') }}
-</div>
-@endif
 @if($u_info->add_status == 0 || $u_info->id_status== 0 || $u_info->id_status== 1 || $u_info->add_status== 1)
-
-<h1>Complete Your KYC</h1>
-<h5>You’re ready to start trading soon! Help us safeguard your account by verifying your personal information.</h5>
-<br>
-<br>
-
-@endif
-@if( $u_info->email_auth == 0)
-<div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
-    <div class="card overflow-hidden">
-        <div class="sm:p-5 p-4">
-            <div class="c-con">
-                <h4><strong>Verify Email</strong></h4>
-				
-                <span class="text-sm text-body-color">Secure Authentication App</span>
-				<div class="mt-[18px]">
-                    <h1 style="color:#f8b940">Pending!</h1>
-                    <br>
-                    <button type="button" id="send-otp-button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="firstmodal">Start</button>
-					
-                </div>
-
-            </div>
-           
-        </div>
-    </div>
+<div style="width:98%;margin:auto" class="alert py-3 px-5 mb-4 lg:text-lg text-lg rounded-md relative border border-transparent text-primary bg-primary-light">
+	<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+	<strong>KYC!</strong> You’re ready to start trading soon! Help us safeguard your account by verifying your personal information.
+	<a href="/authentication"><button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-primary"><span><i class="fa-solid fa-arrow-right"></i></span>
+	</button></a>
 </div>
 @endif
 
-
-@if( $u_info->id_status != 2)
-<div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
-    <div class="card overflow-hidden">
-        <div class="sm:p-5 p-4">
-            <div class="c-con">
-                <h4><strong>Identity Verification</strong></h4>
-				@if( $u_info->id_status == 0)
-                <span class="text-sm text-body-color">Submit and verify your proof of identity to start trading.</span>
-				<div class="mt-[18px]">
-                    <h1 style="color:#f8b940">Pending!</h1>
-                    <br>
-                    <a href="/identity_form"><button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" >Start</button></a>
-                </div>
-				@elseif( $u_info->id_status == 1)
-
-                 <br>
-				 <br>
-				<h5 class="text-success">Thank you for submitting your proof of identity. Your request is now being reviewed by our team.</h5>
-				
-				@elseif( $u_info->id_status == 3)
-                         
-				<span class="text-sm  text-danger">Identity Verification is Rejected, Try again!</span>
-				<div class="mt-[18px]">
-                    <h1 class="text-danger">Rejected!</h1>
-                    <br>
-					
-                   <a href="/identity_form"> <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Try Again</button></a>
-                </div>
-
-				@endif
-            </div>
-          
-        </div>
-    </div>
-</div>
-@endif
-
-
-@if( $u_info->add_status != 2)
-<div class="xl:w-1/3 col-xxl-4 sm:w-1/2">
-    <div class="card overflow-hidden">
-        <div class="sm:p-5 p-4">
-            <div class="c-con">
-                <h4><strong>Address Verification</strong></h4>
-				@if( $u_info->add_status == 0)
-                <span class="text-sm text-body-color">POA needs to be verified before you can make a withdrawal.</span>
-				<div class="mt-[18px]">
-                    <h1 style="color:#f8b940">Pending!</h1>
-                    <br>
-					
-                   <a href="/address_form"> <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Start</button></a>
-                </div>
-				@elseif( $u_info->add_status == 1)
-				<br>
-				 <br>
-				<h5 class="text-success">Thank you for submitting your proof of address. Your request is now being reviewed by our team.</h5>
-				
-				@elseif( $u_info->add_status == 3)
-                         
-				<span class="text-sm  text-danger">Address Proof Verification is Rejected, Try again!</span>
-				<div class="mt-[18px]">
-                    <h1 class="text-danger">Rejected!</h1>
-                    <br>
-					
-                   <a href="/address_form"> <button type="button" class="btn btn-primary sm:py-[0.719rem] px-4 sm:px-[1.563rem] py-2.5 sm:text-[15px] text-xs font-medium rounded text-white bg-primary leading-5 inline-block border border-primary duration-500 hover:bg-hover-primary hover:border-hover-primary dz-modal-btn mb-2" data-dz-modal="thirdmodal">Try Again</button></a>
-                </div>
-
-				@endif
-            </div>
-            
-        </div>
-    </div>
-</div>	
-@endif
-{{-- modals code --}}
- 
-<div class="modal fade fixed top-0 right-0 overflow-y-auto overflow-x-hidden dz-scroll w-full h-full z-[1055]  dz-modal-box model-close" id="firstmodal">
-	<div class="modal-dialog modal-dialog-centered h-full flex items-center py-5" role="document">
-		<div class="modal-content flex flex-col relative rounded-md bg-white dark:bg-[#182237] w-full pointer-events-auto">
-			<div class="modal-header flex justify-between items-center flex-wrap py-4 px-[1.875rem] relative z-[2] border-b border-b-color">
-				<h5 class="modal-title">Security Authentication</h5>
-				<button type="button" class="btn-close p-4 text-xs">
-				</button>
-			</div>
-			<div class="modal-body relative p-[1.875rem] text-body-color sm:text-sm text-xs">
-			   <div class="basic-form">
-				<form action="/validate_email_otp" method="post" id="uploadForm" enctype="multipart/form-data">
-					@csrf
-					<div class="">
-						<div class="mb-4">
-							<label class="text-body-color dark:text-white">Enter Validation Code<span class="required text-danger">*</span></label>
-							<input type="text" maxlength="6" name="otp" class="relative text-[13px] h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500  outline-none w-full" id="inputGroupPrepend2" aria-describedby="inputGroupPrepend2" placeholder="" required>
-						</div>
-					</div>
-					<p>Code sent to {{session('s_user')['email']}}</p>
-
-						<br>
-						<br>
-					</div>
-					<button type="submit" class="block  rounded font-bold h-[3.125rem] text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Submit</button>
-									
-				</form>
-				
-				
-				
-			   </div>
-			   
-			   
-			</div>
-		  
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-                            
-							<div class="w-full">
-								<div class="row">  
-									<div class="">
-										<div class="row">
-											
-											<div class="sm:w-1/4">
-												<div class="card">
-													<div class="card-body depostit-card p-5">
-														<div class="depostit-card-media flex justify-between relative z-[2]">
-															<div>
-																<h6 class="font-normal">Wallet Balance</h6>
-																<h3 class="font-semibold leading-[1.346]" id="x_balance">0</h3>
-																<a href="/deposite_funds"><p>Add now</p></a>
-															</div>
-															<div class="icon-box bg-warning text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
-																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z" fill="#fff"/>
-																</svg>
-															</div>
-														</div>
-														<br>
-														<div class="progress-box mt-0">
-															<div class="progress h-[5px] flex overflow-hidden rounded-md">
-																<div class="progress-bar bg-secondary" style="width:100%; height:5px; border-radius:4px;" role="progressbar"></div>
-															</div>
-														</div>
-													</div>
-												</div>	
-											</div>
-											<div class="sm:w-1/4">
-												<div class="card">
-													<div class="card-body depostit-card p-5">
-														<div class="depostit-card-media flex justify-between relative z-[2]">
-															<div>
-																<h6 class="font-normal">Total Deposite</h6>
-																<h3 class="font-semibold leading-[1.346]" id="x_deposite">0</h3>
-															    &nbsp;
-															</div>
-															<div class="icon-box bg-primary text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
-																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z" fill="#fff"/>
-																</svg>
-															</div>
-														</div>
-														<br>
-														<div class="progress-box mt-0">
-															<div class="progress h-[5px] flex overflow-hidden rounded-md">
-																<div class="progress-bar bg-primary" style="width:100%; height:5px; border-radius:4px;" role="progressbar"></div>
-															</div>
-														</div>
-													</div>
-												</div>	
-											</div>
-
-											<div class="sm:w-1/4">
-												<div class="card">
-													<div class="card-body depostit-card p-5">
-														<div class="depostit-card-media flex justify-between relative z-[2]">
-															<div>
-																<h6 class="font-normal">Total Investment</h6>
-																<h3 class="font-semibold leading-[1.346]" id="x_funded">0</h3>
-																&nbsp;
-																
-															</div>
-															<div class="icon-box bg-danger text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
-																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z" fill="#fff"/>
-																</svg>
-															</div>
-														</div>
-														<br>
-														<div class="progress-box mt-0">
-															<div class="progress h-[5px] flex overflow-hidden rounded-md">
-																<div class="progress-bar bg-danger" style="width:100%; height:5px; border-radius:4px;" role="progressbar"></div>
-															</div>
-														</div>
-													</div>
-												</div>	
-											</div>
-
-											<div class="sm:w-1/4">
-												<div class="card">
-													<div class="card-body depostit-card p-5">
-														<div class="depostit-card-media flex justify-between relative z-[2]">
-															<div>
-																<h6 class="font-normal">Total Earning</h6>
-																<h3 class="font-semibold leading-[1.346]" id="x_earning">0</h3>
-																&nbsp;
-															
-															</div>
-															<div class="icon-box bg-success text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
-																<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z" fill="#fff"/>
-																</svg>
-															</div>
-														</div>
-														<br>
-														<div class="progress-box mt-0">
-															<div class="progress h-[5px] flex overflow-hidden rounded-md">
-																<div class="progress-bar bg-success" style="width:100%; height:5px; border-radius:4px;" role="progressbar"></div>
-															</div>
-														</div>
-													</div>
-												</div>	
-											</div>
-                                             
-											<h1 style="text-align: center;padding:1%" >Top Performer Plans</h1>
-
-											<div id="quick_plan" class="flex flex-wrap" style="padding:1%">
-
-                                             
-											</div>
-											<br>
-                                                <p style="text-align: center"><a href="/explore_plans"><button type="button" class="mr-1 mb-2 inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.563rem] py-2.5 px-4 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">View All</button></a></p>
-											 <br>
-											 <br>
-											 <hr>
-
-											<div class="md:w-1/2">
-												
-												<div class="card">
-													<div class="flex items-center justify-between" style="padding: 3%">
-														<h2 class="p-1">My Investments</h2>
-													    <a href="/my_investments" class="text-primary">View All</a>
-
-													</div>
-													
-												
-													<div class="overflow-x-auto table-scroll">
-														<table class="table mb-4 min-w-[36rem] w-full" id="x_investment">
-															<thead>
-																<tr>
-
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Name</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Investment Id</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Amount</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Created At</strong></th>
-																	</tr>
-															</thead>
-															<tbody>
-																
-															
-															</tbody>
-															
-														</table>
-														
-													</div>
-													
-												</div>
-												
-													{{-- <a href="/my_investments"><button type="button" style="width:100%" class="mr-1 mb-2 inline-block rounded  font-semibold text-[15px] leading-5 py-[0.438rem] px-4 text-xs border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs">View All Investments</button></a> --}}
-
-											</div>
-
-											<div class="md:w-1/2">
-												
-												<div class="card">
-													<div class="flex items-center justify-between" style="padding: 3%">
-														<h2 class="p-1">Transfers</h2>
-													    <a href="/all_transfer" class="text-primary">View All</a>
-
-													</div>
-													<div class="overflow-x-auto table-scroll">
-														<table class="table mb-4 min-w-[36rem] w-full" id="x_transfer">
-															<thead>
-																<tr>
-
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Sent To</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Email</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Amount</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Transaction Id</strong></th>
-                                                              	</tr>
-															</thead>
-															<tbody>
-															
-															
-															</tbody>
-															
-														</table>
-														
-													</div>
-
-												</div>
-												{{-- <a href="/all_transfer"><button type="button" style="width:100%" class="mr-1 mb-2 inline-block rounded  font-semibold text-[15px] leading-5 py-[0.438rem] px-4 text-xs border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs">View All Investments</button></a> --}}
-
-											</div>
-											
-
-											<div class="" style="padding-top: 5%">
-												
-												<div class="card">
-													<div class="flex items-center justify-between" style="padding: 3%">
-														<h2 class="p-1">Transaction History</h2>
-													    <a href="/history" class="text-primary">View All</a>
-
-													</div>
-													<div class="overflow-x-auto table-scroll">
-														<table class="table mb-4 min-w-[36rem] w-full" id="x_hist">
-															<thead>
-																<tr>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">ID</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Name</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Subject</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Amount</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Status</strong></th>
-																	<th class="dark:bg-transparent py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-base text-sm font-normal text-left text-black"><strong class="font-medium text-[15px]">Date/Time</strong></th>
+<div class="row">
 	
-																</tr>
-															</thead>
-															<tbody>
-														
-															</tbody>
-														</table>
-													</div>
-
-												</div>
+	<div class="xl:w-3/4 col-xxl-12">
+		<div class="row">
+			<div class="w-full">
+				<div class="row">  
+					<div class="xl:w-1/2">
+						<div class="row">
+							<div class="sm:w-1/2">
+								<div class="card bg-primary text-white">
+									<div class="card-header flex justify-between sm:pt-6 py-5 sm:p-5 px-4 items-center relative flex-wrap">
+										<div class="revenue-date">
+											<span class="text-sm">Total Balance</span>
+											<h4 class="text-white text-2xl font-semibold" id="x_balance"></h4>
+										</div>
+										<div class="avatar-list avatar-list-stacked me-2">
+											<span class="bg-white text-black justify-center text-xs inline-flex leading-[1.975rem] w-[2.375rem] h-[2.375rem] me-[-13px] rounded-full border-2 border-white dark:border-[#182237] relative object-cover duration-300 hover:z-[1]">
+												<a href="/deposite_funds">
+													<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M5.83333 6.27083V1.60417C5.83333 0.959834 6.35567 0.4375 7 0.4375C7.64433 0.4375 8.16667 0.959834 8.16667 1.60417V6.27083H12.8333C13.4777 6.27083 14 6.79317 14 7.4375C14 8.08183 13.4777 8.60417 12.8333 8.60417H8.16667V13.2708C8.16667 13.9152 7.64433 14.4375 7 14.4375C6.35567 14.4375 5.83333 13.9152 5.83333 13.2708V8.60417H1.16667C0.522334 8.60417 0 8.08183 0 7.4375C0 6.79317 0.522334 6.27083 1.16667 6.27083H5.83333Z" fill="#222B40"/>
+													</svg>
+												</a>
+											</span>
+										</div>
+										
+									</div>
+									<div class="card-body sm:p-5 p-4 sm:pb-0 pb-0 flex flex-auto items-center custome-tooltip">
+										
+										<div>
+											<img src="{{ asset('user_assets/g1.png') }}" width="200" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="sm:w-1/2">
+								<div class="card bg-secondary text-white">
+									<div class="card-header flex justify-between sm:pt-6 py-5 sm:p-5 px-4 items-center relative flex-wrap">
+										<div class="revenue-date">
+											<span class="text-sm text-dark">Total Deposit</span>
+											<h4 class="text-dark text-2xl font-semibold" id="x_deposite"></h4>
+										</div>
+										<div class="avatar-list avatar-list-stacked me-2">
+											{{-- <span class="bg-white text-black justify-center text-xs inline-flex leading-[1.975rem] w-[2.375rem] h-[2.375rem] me-[-13px] rounded-full border-2 border-white dark:border-[#182237] relative object-cover duration-300 hover:z-[1]">
+												<a href="#">
+													<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M5.83333 6.27083V1.60417C5.83333 0.959834 6.35567 0.4375 7 0.4375C7.64433 0.4375 8.16667 0.959834 8.16667 1.60417V6.27083H12.8333C13.4777 6.27083 14 6.79317 14 7.4375C14 8.08183 13.4777 8.60417 12.8333 8.60417H8.16667V13.2708C8.16667 13.9152 7.64433 14.4375 7 14.4375C6.35567 14.4375 5.83333 13.9152 5.83333 13.2708V8.60417H1.16667C0.522334 8.60417 0 8.08183 0 7.4375C0 6.79317 0.522334 6.27083 1.16667 6.27083H5.83333Z" fill="#222B40"/>
+													</svg>
+												</a>
+											</span> --}}
+										</div>
+										
+									</div>
+									<div class="card-body sm:p-5 p-4 sm:pb-0 pb-0 flex flex-auto items-center custome-tooltip">
+										<div>
+											<img src="{{ asset('user_assets/g2.png') }}" width="200" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+						     
+							<div class="sm:w-1/2">
+								<div class="card chart-grd same-card overflow-hidden relative">
+									<div class="card-body depostit-card p-0">
+										<div class="depostit-card-media flex justify-between px-5 pt-[18px] relative z-[1]">
+											<div>
+												<h6 class="font-normal">Total Investment</h6>
+												<h3 class="font-semibold leading-[1.346]" id="x_funded"></h3>
 											</div>
+											<div class="icon-box bg-primary text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
+												<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z" fill="#fff"/>
+												</svg>
+											</div>
+										</div>
+										<div id="NewExperience2"></div>
+									</div>
+								</div>
+							</div>
+							<div class="sm:w-1/2">
+								<div class="card chart-grd same-card overflow-hidden relative">
+									<div class="card-body depostit-card p-0">
+										<div class="depostit-card-media flex justify-between px-5 pt-[18px] relative z-[1]">
+											<div>
+												<h6 class="font-normal">Total Earning</h6>
+												<h3 class="font-semibold leading-[1.346]" id="x_earning"></h3>
+											</div>
+											<div class="icon-box bg-primary text-white h-[2.5rem] w-[2.5rem] relative flex items-center justify-center rounded-md">
+												<svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z" fill="#fff"/>
+												</svg>
+											</div>
+										</div>
+										<div id="NewExperience"></div>
+									</div>
+								</div>
+							</div>
 
-											<br>
-											<br>
-											<br>
-											<br>
+							
 
+							
+						</div>	
+					</div>
+					<div class="xl:w-1/4 sm:w-1/2 w-full">
+						<div class="card bg-success rainbow-box relative z-[1] flex flex-col" style="background-image: url({{ asset('user_assets/assets/images/rainbow.gif') }});background-size: cover;background-blend-mode: luminosity;">
+							<div class="card-header flex justify-between sm:pt-6 py-5 sm:p-5 px-4 items-center relative flex-wrap">
+								<img src="{{ asset('user_assets/13.png') }}" width="80" alt="">
+							</div>
+							<div class="sm:p-5 p-4 sm:pt-0 pt-0 flex-auto">
+								<div class="finance"> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-									
+									<h4 class="text-white max-xl:text-xl text-2xl mb-2 leading-[1.5]">Begin Your Journey To A Funded Account</h4>
+									<p class="text-white mb-4">
+										Trade with our company's capital and get 80% of the profits.
+									</p>
+								</div>
+								<div class="flex pt-4"> 
 									
 								</div>
-							</div>			
-					
+							</div>
+						</div>
+					</div>
+					<div class="xl:w-1/4 sm:w-1/2 w-full">
+						<div class="card">
+							<div class="sm:p-5 p-4">
+								<div class="relative">
+									<div id="redial">
+									</div>
+									<span class="right-sign absolute bottom-[-40px] left-[50%] translate-x-[-50%] z-[1]"> 
+										<svg width="93" height="93" viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<g filter="url(#filter0_d_3_700)">
+											<circle cx="46.5" cy="31.5" r="16.5" fill="#F8B940"/>
+											</g>
+											<g clip-path="url(#clip0_3_700)">
+											<path d="M52.738 25.3524C53.0957 24.9315 53.7268 24.8804 54.1476 25.2381C54.5684 25.5957 54.6196 26.2268 54.2619 26.6476L45.7619 36.6476C45.3986 37.0751 44.7549 37.1201 44.3356 36.7474L39.8356 32.7474C39.4228 32.3805 39.3857 31.7484 39.7526 31.3356C40.1195 30.9229 40.7516 30.8857 41.1643 31.2526L44.9002 34.5733L52.738 25.3524Z" fill="#222B40"/>
+											</g>
+											<defs>
+											<filter id="filter0_d_3_700" x="0" y="0" width="93" height="93" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+											<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+											<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+											<feOffset dy="15"/>
+											<feGaussianBlur stdDeviation="15"/>
+											<feComposite in2="hardAlpha" operator="out"/>
+											<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
+											<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3_700"/>
+											<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_700" result="shape"/>
+											</filter>
+											<clipPath id="clip0_3_700">
+											<rect width="24" height="24" fill="white" transform="translate(35 19)"/>
+											</clipPath>
+											</defs>
+										</svg>
+									</span>
+								</div>
+								<div class="redia-date text-center mt-[15px]">
+									<h4 class="text-xl font-semibold mb-2">My Progress</h4>
+									<p class="mb-4">
+										Return On Total Investment
+									</p>
+									<a href="#" class="inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.375rem] py-2.5 px-4 border border-secondary text-dark bg-secondary">200%</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="xl:w-2/3 w-full">
+						<div class="card">
+							<div class="card-body p-0">
+								<div class="overflow-x-auto active-projects task-table">
+									<div class="flex justify-between sm:pt-6 py-5 sm:p-5 px-4 items-center relative flex-wrap">
+										<h4 class="text-base">Top Performer</h4>
+									</div>
+									<table  class="table mb-4 w-full market-update" id="x_plans">
+										<thead>
+											<tr>
+												<th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Program Name</th>
+											
+												<th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">ROI</th>
+												<th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Minimum</th>
+												<th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Total Invested</th>
+
+												<th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+										  
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="xl:w-1/3 w-full">
+						<div class="card">
+							<div class="card-header flex justify-between sm:pt-6 pb-4 py-5 sm:px-5 px-4 items-center relative flex-wrap">
+								<div>
+									<h4 class="text-base">Portfolio</h4>
+									<span class="text-sm text-body-color">My Investments</span>
+								</div>	
+							</div>
+							<div class="pb-4">
+								<ul class="overflow-y-scroll overflow-x-hidden h-[325px] dz-scroll" id="my_invest">
+									
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="xl:w-1/2 col-xxl-12">
+						<div class="card">
+							<div class="card-body p-0">
+								<div class="overflow-x-auto active-projects">
+									<div class="sm:p-5 p-4">
+										<h4 class="text-base" style="float: left">Last 10 Transaction</h4>
+
+										<a href="/history" style="float: right" ><button type="button" class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-sm">View All</button></a>
+
+									</div>
+									<table id="projects-tbl" class="table">
+										<thead>
+											<tr>
+												<th class="bg-primary-light text-[13px] py-2.5 px-5 text-primary capitalize font-medium bg-none whitespace-nowrap text-left">TXID</th>
+												<th class="bg-primary-light text-[13px] py-2.5 px-5 text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Subject</th>
+												<th class="bg-primary-light text-[13px] py-2.5 px-5 text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Description</th>
+												<th class="bg-primary-light text-[13px] py-2.5 px-5 text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Amount</th>
+												<th class="bg-primary-light text-[13px] py-2.5 px-5 text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Status</th>
+												<th class="bg-primary-light text-[13px] py-2.5 px-5 text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Date / Time</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+											
+										</tbody>
+										
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
 	
-							<script>
-								const appUrl = '{{ env('APP_URL') }}';
-							</script>
-							<script>
-								document.getElementById('send-otp-button').addEventListener('click', function() {
-									fetch(appUrl+'/api_send_otp')
-										.then(response => {
-											if (response.ok) {
-												console.log('OTP request sent successfully.');
-											} else {
-												console.error('Error sending OTP. Status:', response.status);
-											}
-										})
-										.catch(error => {
-											console.error('Error sending OTP:', error);
-										});
-								});
-							</script>
+	
+</div>
+<script src="{{ asset('user_assets/assets/vendor/jquery/jquery.min.js') }}"></script>
 
+<script src="{{ asset('user_assets/assets/vendor/global/global.min.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/chart.js/chart.bundle.min.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/apexchart/apexchart.js') }}"></script>
+
+
+<script src="{{ asset('user_assets/assets/js/dashboard/dashboard-1.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/draggable/draggable.js') }}"></script>
+<script src="{{ asset('user_assets/assets/vendor/swiper/js/swiper-bundle.min.js') }}"></script>
+
+
+
+
+	<script>
+		const appUrl = '{{ env('APP_URL') }}';
+
+		const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+	</script>
+	
+	<script>
+		// Fetch data from API using fetch API
+		fetch(appUrl+'/api_dash')
+			.then(response => response.json())
+			.then(data => {
+			  
+					document.getElementById('x_balance').innerHTML = `$${data.balance.toLocaleString()}`;
+					document.getElementById('x_deposite').innerHTML = `$${data.deposite.toLocaleString()}`;
+					document.getElementById('x_funded').innerHTML = `$${data.invested.toLocaleString()}`;
+					document.getElementById('x_earning').innerHTML = `$${data.earning.toLocaleString()}`;
+	
+					const x_pansdiv = document.getElementById('x_plans');
+					const x_panswithBody = x_pansdiv.getElementsByTagName('tbody')[0];
+	                x_panswithBody.innerHTML = ''; 
+					data.plans.forEach(plan => {
+					const newRow = `
+					
+
+					                <tr>
+                                        
+                                        <td class="border-b border-b-color dark:border-[#ffffff1a] py-2.5 pl-4 whitespace-nowrap text-left">
+                                            <div class="flex items-center">
+                                                <img src="${plan.image}" class="inline-block w-9 min-w-[36px] h-9 rounded-md relative object-cover" alt="">
+                                                <div class="ml-2 dr-data">
+                                                    <h6 class="text-sm">${plan.plan_id}</h6>
+                                                    <span class="text-body-color dark:text-white text-[13px]">ID: ${plan.id}</span>
+                                                </div>  
+                                            </div>
+                                        </td>
+
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-success"><i class="fa-solid fa-arrow-trend-up me-1"></i> ${plan.roi}%</td>
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">${formatter.format(plan.minimum_amount)}</td>
+  
+                                      
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] py-2.5 px-5 whitespace-nowrap"><span class="text-xs py-[5px] px-3 rounded leading-[1.5] text-success bg-success-light dark:text-white dark:bg-[#3a9b941a]">Active</span></td>
+                                       
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color"><a class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-secondary text-white bg-secondary hover:bg-hover-secondary hover:border-hover-secondary duration-300 btn-sm" href="/v_plan/${plan.id}">View</a>
+                                       
+                                        <a class="mr-1 mb-2 inline-block rounded font-medium py-[5px] px-[15px] text-[13px] border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-sm" href="/trade_now/${plan.id}">Invest Now</a>
+                                   
+                                        </td>
+
+                                    </tr>
+					`;
+					x_panswithBody.insertAdjacentHTML('beforeend', newRow);
+				});
+	
+	
+
+				const topinvestor = document.getElementById('projects-tbl');
+				const topinvestorBody = topinvestor.getElementsByTagName('tbody')[0];
+				topinvestorBody.innerHTML = ''; // Clear existing table rows
+	
+				data.transaction.forEach(transaction => {
+					const newRow = `
+					
+					<tr>
+												<td class="border-b border-b-color text-[13px] font-normal py-2.5 pl-4 pr-0 whitespace-nowrap">#${transaction.id}</td>
+												<td class="border-b border-b-color text-[13px] font-normal py-2.5 px-5 whitespace-nowrap text-body-color">
+													<div class="flex items-center">
+														
+														<p class="ml-2 dark:text-white text-[13px]">${transaction.subject}</p>	
+													</div>
+												</td>
+												<td class="border-b border-b-color text-[13px] py-2.5 pl-4 pr-0 font-normal">
+													<div class="flex items-center">
+														<p class="ml-2 dark:text-white text-[13px]">${transaction.name}</p>
+													</div>
+												</td>
+												<td class="border-b border-b-color text-[13px] py-2.5 pl-4 pr-0 font-normal">
+													<p class="ml-2 dark:text-white text-[13px]">${formatter.format(transaction.amount)}</p>
+												</td>
+												<td class="border-b border-b-color text-[13px] py-2.5 pl-4 pr-0 font-normal">
+													${transaction.status == 'Credit' ? 
+                               ' <span class="bg-success-light text-success text-xs py-[5px] px-3 rounded leading-[1.5]">Credit</span> '
+                                : 
+                                '<span class="bg-danger-light text-danger text-xs py-[5px] px-3 rounded leading-[1.5]">Debit</span>'
+                            }
+	
+												</td>
+												<td class="border-b border-b-color text-[13px] font-normal py-2.5 px-5 whitespace-nowrap text-body-color">
+													<p class="ml-2 dark:text-white text-[13px]">${new Date(transaction.created_at).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</p>
+												</td>
+											</tr>
+											
+					`;
+					topinvestorBody.insertAdjacentHTML('beforeend', newRow);
+				});
+				
+	
+		
+			})
+	
+			
+			.catch(error => console.error('Error fetching data:', error));
+	</script>
 
 <script>
-	const appUrl = '{{ env('APP_URL') }}';
-</script>
+document.addEventListener('DOMContentLoaded', async () => {
+const apiUrl = appUrl+'/api_portfolio';
+const tbody = document.querySelector('#my_invest');
 
-<script>
-    // Fetch data from API using fetch API
-    fetch(appUrl+'/api_dash')
-        .then(response => response.json())
-        .then(data => {
-          
-                document.getElementById('x_balance').innerHTML = `$${data.balance.toLocaleString()}`;
-                document.getElementById('x_deposite').innerHTML = `$${data.deposite.toLocaleString()}`;
-                document.getElementById('x_funded').innerHTML = `$${data.invested.toLocaleString()}`;
-                document.getElementById('x_earning').innerHTML = `$${data.earning.toLocaleString()}`;
+// Define a function to fetch and update data
+const fetchDataAndUpdate = async () => {
+try {
+const response = await fetch(apiUrl);
+const data = await response.json();
+// console.log(data);
+tbody.innerHTML = '';
 
-				const quickPlanDiv = document.getElementById('quick_plan');
-quickPlanDiv.innerHTML = ''; // Clear existing content
+data.investments.forEach(async (investment) => {
+const {cp_value, stock_value, t_investment, plan_name, investment_id, img } = investment;
 
 
-data.plans.forEach(plan => {
-    const newCard = `
-        <div class="md:w-1/4" style="padding:0.5%">
-            <div class="card sale-card">
-                <div class="card-header flex justify-between sm:pt-6 pb-0 py-5 sm:px-5 px-4 relative flex-wrap items-baseline">
-                    <div>
-						<a href="/v_plan/${plan.id}"> <img src="${plan.image}" width="100" alt=""> </a>
-                        <span class="text-sm text-body-color">${plan.name}</span>
-                        <h4 class="mb-2">Total Invested: $${plan.total_invested} <i class="fa-solid fa-arrow-trend-up ml-1"></i></h4>
-                    </div>
-                    <span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-primary">${plan.roi}<i class="fa-solid fa-caret-up ml-1"></i></span>
-                </div>
-                <div class="custome-tooltip">
-                    <div id="totalSale"></div>
-                </div>
-                <div class="py-4 px-5">
-					<a href="/v_plan/${plan.id}">
-                    <span class="rounded-ee-[20px] rounded-ss-[80px] bottom-0 cursor-pointer h-10 absolute right-0 w-10 bg-primary">
-                        <svg class="text-white h-[22px] left-0 mx-auto absolute right-0 top-[11px] w-[22px]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-                    </span>
-				    </a>
-                </div>
-            </div>
-        </div>
-    `;
-    quickPlanDiv.insertAdjacentHTML('beforeend', newCard);
+
+// Create table row
+let newRowHTML = `
+<li class="flex px-5 mb-3">
+										<div class="country-flag">
+										  <img src="${img}" alt="" class="inline-block w-10">
+										</div>
+										<div class="flex flex-wrap items-center justify-between w-full">
+										  <div class="ml-2">
+											<h6 class="mb-0">${plan_name}</h6>
+											<small class="text-body-color">${formatter.format(t_investment)}</small>
+										  </div>
+											<span class="inline-block font-medium leading-[1.5] rounded text-xs py-[5px] px-3 text-white bg-success ml-2">${formatter.format(cp_value)}<i class="fa-solid fa-chevron-up ml-2 text-white"></i></span>
+										</div>
+									</li>
+`;
+
+
+
+
+// Append row to table
+tbody.insertAdjacentHTML('beforeend', newRowHTML);
+});
+} catch (error) {
+console.error('Error fetching or updating data:', error);
+}
+};
+
+// Call fetchDataAndUpdate initially
+fetchDataAndUpdate();
+
+// Call fetchDataAndUpdate every 2 seconds (2000 milliseconds)
+setInterval(fetchDataAndUpdate, 3000);
 });
 
-
-
-
-
-            const topwithTable = document.getElementById('x_investment');
-            const topwithBody = topwithTable.getElementsByTagName('tbody')[0];
-            topwithBody.innerHTML = ''; // Clear existing table rows
-
-            data.investment.forEach(investment => {
-                const newRow = `
-				<tr>
-				
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${investment.name}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${investment.investment_id}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$${investment.amount}</td>
-
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${investment.created_at}</td>
-																
-																</tr>
-                `;
-                topwithBody.insertAdjacentHTML('beforeend', newRow);
-            });
-
-            const topinvestor = document.getElementById('x_transfer');
-            const topinvestorBody = topinvestor.getElementsByTagName('tbody')[0];
-            topinvestorBody.innerHTML = ''; // Clear existing table rows
-
-            data.transfer.forEach(transfer => {
-                const newRow = `
-				<tr>
-				
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transfer.receiver_name}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transfer.receiver_email}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$${transfer.amount}</td>
-
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transfer.transaction_id}</td>
-																
-																</tr>
-                `;
-                topinvestorBody.insertAdjacentHTML('beforeend', newRow);
-            });
-			
-
-    
-        })
-
-		
-        .catch(error => console.error('Error fetching data:', error));
 </script>
-
-
-<script>
-    // Fetch data from API using fetch API
-    fetch(appUrl+'/api_dash')
-        .then(response => response.json())
-        .then(data => {
-           
-			 			const topwithTable = document.getElementById('x_hist');
-            const topwithBody = topwithTable.getElementsByTagName('tbody')[0];
-            topwithBody.innerHTML = ''; // Clear existing table rows
-
-            data.transaction.forEach(transaction => {
-                const newRow = `
-				<tr>
-				
-					<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">#${transaction.id}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.name}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.subject}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">$${transaction.amount}</td>
-                                                                    <td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.status}</td>
-																	<td class="py-[0.9375rem] px-2.5 capitalize whitespace-nowrap sm:text-sm text-xs font-normal border-t border-[#E6E6E6] dark:border-[#ffffff1a] text-left text-body-color">${transaction.created_at}</td>
-																
-																</tr>
-                `;
-                topwithBody.insertAdjacentHTML('beforeend', newRow);
-            });
-        })
-        .catch(error => console.error('Error fetching data:', error));
-</script>
-
-@else
-<div class="xl:w-1/2 w-full" style="margin: auto">
-	<div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent text-danger bg-danger-light dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26] notification">
-		<p class="text-danger mb-2"><strong>Suspended! </strong></p>
-		<p class="mb-4 text-danger leading-[1.5]">Your account status has been suspended. Please contact our support team for further assistance.</p>
-	   
-	</div>
-</div>  
-@endif
 @endsection
