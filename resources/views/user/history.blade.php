@@ -10,13 +10,16 @@
 </div>
 
 @endif
-<h1>Transaction History</h1>
+
 <div class="card">
+    <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
+        <h3 class="card-title  capitalize">Transaction History</h3>
+    </div> 
     <div class="card-body p-0">
         <div class="overflow-x-auto active-projects task-table dz-scroll">
             <div class="sm:p-5 p-4 flex justify-end">
                 {{-- <h4 class="text-base">Best Seller</h4> --}}
-                <a href="/export_history"><button type="button" class="mr-1 mb-2 inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.563rem] py-2.5 px-4 border border-primary-light text-primary bg-primary-light hover:text-white hover:bg-primary duration-300"><i class="fa-solid fa-file-excel"></i> Export History</button></a>
+                {{-- <a href="/export_history"><button type="button" class="mr-1 mb-2 inline-block rounded font-medium xl:text-[15px] text-xs leading-5 xl:py-[0.719rem] xl:px-[1.563rem] py-2.5 px-4 border border-primary-light text-primary bg-primary-light hover:text-white hover:bg-primary duration-300"><i class="fa-solid fa-file-excel"></i> Export History</button></a> --}}
             </div>
             <table class="table mb-4 min-w-[36rem] w-full">
                 <thead>

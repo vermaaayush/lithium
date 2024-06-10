@@ -1,5 +1,9 @@
 @php
     use App\Models\User;
+    
+                            $u_info = User::find(session('s_user')['id']);
+                            
+
 @endphp
 @extends('user.layout.main')
 @section('title', 'Fund Transfer')
@@ -11,63 +15,61 @@
 </h4>
 <br>
 <br>
-<div class="w-full lg:w-1/2 " style="margin:auto">
-    <div class="card">
-        <div class="card-header flex flex-wrap justify-between items-center sm:p-5 sm:pt-6 p-4 pt-5 max-sm:pb-5 relative z-[2] border-b border-[#E6E6E6] dark:border-[#ffffff1a]">
-            <h4 class="card-title text-base capitalize">Transfer Funds To Other User Account:</h4>
-        </div>
-        @if (session('error'))
-        <div class="alert py-3 px-4 mb-4 sm:text-sm text-xs rounded-md relative border border-transparent border-l-4 border-l-danger text-danger bg-danger-light alert-alt dark:bg-[#ff5e5e26] dark:border-[#ff5e5e26]">
-            <button type="button" class="remove-btn absolute right-0 py-5 px-4 top-[-5px] opacity-50 z-[2] dark:text-white"><span><i class="fa-solid fa-xmark scale-[0.9]"></i></span>
-            </button>
-            {{ session('error') }}
-        </div>
-        @endif
-        <div class="sm:p-5 p-4">
-            <div class="basic-form">
-                <form action="/transfer" method="post" class="form-valide-with-icon needs-validation" > 
-                    @csrf 
-                    <div class="mb-4">
-                        @php
-                            $u_info = User::find(session('s_user')['id']);
-                            
-
-                        @endphp
-                        <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Available Balance <span class="required text-danger">*</span></label>
-                        <div class="flex items-stretch flex-wrap relative w-full">
-                          
-                            <input type="text" class="form-control" value="$ {{  number_format($u_info->balance) }}" style="font-weight:bold;font-size:20px;border:0px" readonly>
-                            <input type="text" value="{{ ($u_info->balance) }}" name="avl_balance" hidden>
-                           
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Receiver Email / User ID <span class="required text-danger">*</span></label>
-                        <div class="flex items-stretch flex-wrap relative w-full">
-                          
-                            <input type="text" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500  outline-none ml-[-1px]" placeholder="Enter receiver detail" name="receiver" required>
-                           
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="text-label form-label text-dark dark:text-white" for="validationCustomUsername">Amount <span class="required text-danger">*</span></label>
-                        <div class="flex items-stretch flex-wrap relative w-full">
-                          
-                            <input id="amountInput" class="form-control rounded-s-md relative flex-1 w-[1%] text-[13px] h-[2.813rem] border border-b-color block rounded-e-md py-1.5 px-3 duration-500 outline-none ml-[-1px]" placeholder="Enter the amount" name="amount" required>
-
-                        </div>
-                    </div>
-
-                   
+<div class="row">
+    <div class="w-full col-xxl-12">
+        <div class="card">
+            <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-4">
+                <h3 class="card-title  capitalize">Withdrawal Funds</h3>
+            </div>
+            <div class="sm:p-5 p-4">
+                <div id="smartwizard" class="form-wizard order-create border-0">
                     
-                    <button type="submit" class="btn mr-2 inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Continue</button>
+                    <div class="tab-content">
+                        <form action="/transfer" method="POST">
+                            @csrf 
+                            <div id="wizard_Service" class="tab-pane active show" role="tabpanel">
+                                <div class="row">
+                                    <div class="lg:w-1/2 mb-2">
+                                        <div class="mb-4">
+                                            <label class="text-body-color dark:text-white">Available Wallet Balance</label>
+                                            <input type="text" class="relative text-[13px] h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" value="${{ number_format($u_info->balance) }}" style="color:green;font-weight:bold" name="balance" readonly>
+                                            <input type="text" value="{{ ($u_info->balance) }}" name="avl_balance" hidden>
+                                        </div>
+                                    </div>
+                                    <div class="lg:w-1/2 mb-2">
+                                        <div class="mb-4">
+                                            <label class="text-body-color dark:text-white">Receiver Email / User ID</label>
+                                            <input type="email" class="relative text-[13px] h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter receiver detail" name="receiver" required>
+                                        </div>
+                                    </div>
+                                    <div class="w-full mb-4">
+                                        <div class="mb-4">
+                                            <label class="text-body-color dark:text-white">Amount<span class="required text-danger">*</span></label>
+                                            <input type="text" id="amountInput" class="relative text-[13px] h-[2.813rem] border border-b-color block rounded-md py-1.5 px-3 duration-500 outline-none w-full" placeholder="Enter the amount" name="amount" required>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="w-full mb-4">
+                                        <div class="mb-4">
+                                            <button type="submit" class="btn mr-2 w-full inline-block rounded font-medium text-[15px] max-xl:text-xs leading-5 py-[0.719rem] max-xl:px-4 px-[1.563rem] max-xl:py-2.5 border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+
+
                     
-                </form>
+                        
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <script>

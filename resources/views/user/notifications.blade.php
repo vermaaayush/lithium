@@ -5,7 +5,7 @@
 <div style="padding: 0% 8% 0% 8%">
     <div class="card">
         <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
-            <h4 class="card-title text-base capitalize">NewsLetters</h4>
+            <h3 class="card-title capitalize">NewsLetters</h3>
         </div> 
         <div class="p-0">
             <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll overflow-y-scroll overflow-x-hidden h-[23.125rem] my-6 px-6">

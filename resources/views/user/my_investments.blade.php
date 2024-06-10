@@ -9,11 +9,12 @@
 
 <div class="w-full">
     <div class="card">
+        <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-4">
+            <h3 class="card-title  capitalize">Task</h3>
+        </div> 
         <div class="card-body p-0">
             <div class="overflow-x-auto active-projects task-table dz-scroll">
-                <div class="p-5">
-                    <h4 class="text-base">Task</h4>
-                </div>
+                
                 <table  class="table mb-4 min-w-[36rem] w-full">
                     <thead>
                         

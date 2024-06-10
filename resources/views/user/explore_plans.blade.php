@@ -5,17 +5,20 @@
     <div class="row">
         <div class="w-full">
             <div class="card">
+                <div class="card-header flex justify-between px-5 pt-6 mb-4 relative z-[2] pb-0">
+                    <h3 class="card-title  capitalize">All Investment Plans</h3>
+                </div> 
                 <div class="card-body p-0">
                     <div class="overflow-x-auto active-projects task-table">
-                        <div class="flex justify-between sm:pt-6 py-5 sm:p-5 px-4 items-center relative flex-wrap">
-                            <h4 class="text-base">All Investment Plans</h4>
-                        </div>
+                       
                         <table  class="table mb-4 w-full market-update">
                             <thead>
                                 <tr>
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Program Name</th>
-                                    {{-- <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Duration</th> --}}
-                                    <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Return on Investment</th>
+
+                                    <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">ROI</th>
+                                    <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Timeline</th>
+
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Budget (Minimum)</th>
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Total Invested</th>
                                     <th class="text-[13px] py-2.5 px-4 bg-primary-light text-primary capitalize font-medium bg-none whitespace-nowrap text-left">Status</th>
@@ -36,8 +39,9 @@
                                                 </div>  
                                             </div>
                                         </td>
-                                        {{-- <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">{{ $data->duration }} Days</td> --}}
+                                        
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-success"><i class="fa-solid fa-arrow-trend-up me-1"></i> {{ $data->roi }}%</td>
+                                        <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">{{ $data->duration }} Days</td>
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">${{ number_format($data->minimum_amount) }}</td>
                                         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-2.5 px-5 font-normal whitespace-nowrap text-body-color">${{ number_format($data->total_invested) }}
                                            

@@ -640,8 +640,14 @@ class UserController extends CompanyController
 
     public function add_withrawal(Request $request)
     {
+
+       
         $id = session('s_user')['id'];
         $u_info = User::find($id);
+
+        if ($request->input('amount') > $u_info->balance) {
+            return back()->with('error', 'Insuffient Balance');
+        }
 
         
         $transactionId = 'AD' . time() . mt_rand(1000, 9999);

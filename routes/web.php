@@ -15,7 +15,8 @@ use App\Http\Middleware\User_Auth;
 
 
 // Admin routes
-Route::get('/', [AdminController::class, 'index']);
+
+Route::get('/', function () { return view('user.login'); });
 Route::get('/admin', [AdminController::class, 'index']);
 Route::post('/admin_login',[AdminController::class,'login']);
 

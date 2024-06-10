@@ -49,7 +49,7 @@
     <tr id="row-${investment_id}">
         <td class="border-b border-[#E6E6E6] dark:border-[#ffffff1a] text-[13px] py-[0.625rem] px-5 font-normal whitespace-nowrap">
             <div class="flex">
-                <img src="${img}" class="inline-block w-9 min-w-[40px] h-9 rounded-md relative object-cover" alt="">
+                <img src="${img}" class="inline-block w-9 mr-4 min-w-[40px] h-9 rounded-md relative object-cover" alt="">
                 <div>
                     <h6 class="text-base">${plan_name}</h6>
                     <span class="text-[13px] font-normal text-body-color dark:text-white">ID-${investment_id}</span>

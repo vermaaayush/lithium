@@ -11,8 +11,10 @@
 
 @endif
 
-<h1>All Deposite</h1>
 <div class="card">
+    <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-4">
+        <h3 class="card-title  capitalize">All Withrawals</h3>
+    </div> 
     <div class="card-body p-0">
         <div class="overflow-x-auto active-projects task-table dz-scroll">
             <table class="table mb-4 min-w-[36rem] w-full">

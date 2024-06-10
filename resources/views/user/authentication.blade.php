@@ -20,7 +20,7 @@
 
 @if($u_info->add_status == 0 || $u_info->id_status== 0 || $u_info->id_status== 1 || $u_info->add_status== 1)
 
-<h1>Complete Your KYC</h1>
+<h2>Complete Your KYC</h2>
 <h5>You’re ready to start trading soon! Help us safeguard your account by verifying your personal information.</h5>
 <br>
 <br>
@@ -41,13 +41,16 @@
 
     <div class="xl:w-1/3 col-xxl-4 w-full">
         <div class="card">
-            <div class="sm:p-5 p-4 text-center ai-icon  text-primary">
-                <i style="font-size: 7rem" class="fa-solid fa-square-envelope"></i>
-                <h2 class="my-2">Verify Email</h2>
+            <div class="sm:p-5 p-4  ai-icon  text-primary">
+                <div class="flex items-center">
+                    <i style="font-size: 4rem" class="fa-solid fa-square-envelope mr-4"></i>
+                    <h5 class="mb-2 text-2xl mt-1">Verify Email</h5>
+                </div>
                 @if( $u_info->email_auth == 0)
-                <p>Secure Authentication App</p>
+                <p class="text-lg mt-4">Secure Authentication App</p>
                 <p>&nbsp;</p>
-                <button type="button" id="send-otp-button" class="btn my-2 inline-block rounded font-medium xl:py-4 xl:px-6 py-3 px-5 xl:text-lg text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-lg dz-modal-btn" data-dz-modal="firstmodal"><i class="fa-solid fa-arrow-right"></i> Start</button>
+                <button type="button" id="send-otp-button" class="mt-6 btn my-2 inline-block rounded font-medium xl:py-1 xl:px-3 py-2 px-5 xl:text-sm text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs dz-modal-btn" data-dz-modal="firstmodal"><i class="fa-solid fa-arrow-right"></i> Start</button>
+                
                 @else
                 <p class="text-success text-xl"><i class="fa-solid fa-circle-check"></i> Verified</p>
                 @endif
@@ -60,26 +63,28 @@
  
     <div class="xl:w-1/3 col-xxl-4 w-full">
         <div class="card">
-            <div class="sm:p-5 p-4 text-center ai-icon  text-primary">
-                <i style="font-size: 7rem" class="fa-regular fa-id-card"></i>
-                <h2 class="my-2">Identity Verification</h2>
+            <div class="sm:p-5 p-4 ai-icon  text-primary">
+                <div class="flex items-center ">
+                   <i style="font-size: 4rem" class="fa-regular fa-id-card mr-4"></i>
+                   <h2 class="mb-2 text-2xl mt-1">Identity Verification</h2>
+                </div>
                 @if( $u_info->id_status == 0)
 
-                <p>Submit and verify your proof of identity<br> to start trading.</p>
-                <a href="/identity_form" class="btn my-2 inline-block rounded font-medium xl:py-4 xl:px-6 py-3 px-5 xl:text-lg text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-lg"><i class="fa-solid fa-arrow-right"></i> Start</a>
+                <p class="text-lg mt-4">Submit and verify your proof of identity<br> to start trading.</p>
+                <a href="/identity_form" class="mt-6 btn my-2 inline-block rounded font-medium xl:py-1 xl:px-3 py-2 px-5 xl:text-sm text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs dz-modal-btn"><i class="fa-solid fa-arrow-right"></i> Start</a>
 
                 @elseif( $u_info->id_status == 1)
                   
-                <p class="text-success">Thank you for submitting your proof of identity. Your request is now being reviewed by our team.</p>
+                <p class="text-success text-lg mt-4">Thank you for submitting your proof of identity. Your request is now being reviewed by our team.</p>
 
                 @elseif( $u_info->id_status == 2)
 
-                <p class="text-success text-xl"><i class="fa-solid fa-circle-check"></i> Verified</p>
+                <p class="text-success text-lg"><i class="fa-solid fa-circle-check"></i> Verified</p>
 
                 @elseif( $u_info->id_status == 3)
                      
-                <p class="text-danger">Identity Verification is Rejected, Try again!</p>
-                <a href="/identity_form" class="btn my-2 inline-block rounded font-medium xl:py-4 xl:px-6 py-3 px-5 xl:text-lg text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-lg"><i class="fa-solid fa-arrow-right"></i> Start</a>
+                <p class="text-danger text-lg mt-4">Identity Verification is Rejected, Try again!</p>
+                <a href="/identity_form" class="mt-6 btn my-2 inline-block rounded font-medium xl:py-1 xl:px-3 py-2 px-5 xl:text-sm text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs dz-modal-btn"><i class="fa-solid fa-arrow-right"></i> Start</a>
 
                 @endif
             </div>
@@ -90,26 +95,28 @@
     
     <div class="xl:w-1/3 col-xxl-4 w-full">
         <div class="card">
-            <div class="sm:p-5 p-4 text-center ai-icon  text-primary">
-                <i style="font-size: 7rem" class="fa-solid fa-map-location-dot"></i>
-                <h2 class="my-2">Address Verification</h2>
+            <div class="sm:p-5 p-4 ai-icon  text-primary">
+                <div class="flex items-center">
+                  <i style="font-size: 4rem" class="fa-solid fa-map-location-dot mr-4"></i>
+                  <h2 class="mb-2 text-2xl mt-1">Address Verification</h2>
+                </div>
                 @if( $u_info->add_status == 0)
 
-                <p>POA needs to be verified before you<br> can make a withdrawal.</p>
-                <a href="/address_form" class="btn my-2 inline-block rounded font-medium xl:py-4 xl:px-6 py-3 px-5 xl:text-lg text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-lg"><i class="fa-solid fa-arrow-right"></i> Start</a>
+                <p class="text-lg mt-4">POA needs to be verified before you<br> can make a withdrawal.</p>
+                <a href="/address_form" class="mt-6 btn my-2 inline-block rounded font-medium xl:py-1 xl:px-3 py-2 px-5 xl:text-sm text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs dz-modal-btn"><i class="fa-solid fa-arrow-right"></i> Start</a>
 
                 @elseif( $u_info->add_status == 1)
 
-                <p class="text-success">Thank you for submitting your proof of address. Your request is now being reviewed by our team.</p>
+                <p class="text-success text-lg mt-4">Thank you for submitting your proof of address. Your request is now being reviewed by our team.</p>
  
                 @elseif( $u_info->add_status == 2)
                 
-                <p class="text-success text-xl"><i class="fa-solid fa-circle-check"></i> Verified</p>
+                <p class="text-success text-lg mt-4"><i class="fa-solid fa-circle-check"></i> Verified</p>
 
                 @elseif( $u_info->add_status == 3)
 
-                <p class="text-danger">Address Proof Verification is Rejected, Try again!</p>
-                <a href="/address_form" class="btn my-2 inline-block rounded font-medium xl:py-4 xl:px-6 py-3 px-5 xl:text-lg text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-lg"><i class="fa-solid fa-arrow-right"></i> Start</a>
+                <p class="text-danger text-lg mt-4">Address Proof Verification is Rejected, Try again!</p>
+                <a href="/address_form" class="mt-6 btn my-2 inline-block rounded font-medium xl:py-1 xl:px-3 py-2 px-5 xl:text-sm text-base border border-primary text-white bg-primary hover:bg-hover-primary hover:border-hover-primary duration-300 btn-xs dz-modal-btn"><i class="fa-solid fa-arrow-right"></i> Start</a>
 
 
                 @endif

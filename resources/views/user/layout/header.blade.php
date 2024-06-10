@@ -359,7 +359,7 @@
 
 					@endif
 					<li>
-						<a href="/contact_us" class="" aria-expanded="false">
+						<a href="https://support.lithiumotc.com/index.php" target="_blank" class="" aria-expanded="false">
 							<i class="fas fa-envelope"></i>
 							<!-- Added margin-right: 5px to create space between icon and text -->
 							<span class="nav-text">Help / Support</span>

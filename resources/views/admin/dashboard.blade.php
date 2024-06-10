@@ -270,7 +270,7 @@
                             </div>
                         </div>
                         <!--/ Sales by Campaigns & Year -->
-
+                    </div>
                         <!-- Recent Orders -->
                         <div class="row">
 
@@ -348,7 +348,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
