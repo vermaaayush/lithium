@@ -53,11 +53,11 @@ background-repeat: no-repeat;">
         <div class=" bg-white mx-auto px-10 py-7 flex justify-between items-center">
             <!-- Left side: menu items -->
 			<div>
-				<a href="#"><img src="{{ $company->logo }}" alt="" class="w-[200px] inline-block"></a>
+				<a href="https://lithiumotc.com/"><img src="{{ $company->logo }}" alt="" class="w-[200px] inline-block"></a>
             </div>
 
             <div class="flex space-x-4">
-                <a href="https://littiumotc.com/contact.html" class="text-gray-700 hover:text-gray-900"><i class="fa-solid fa-phone"></i> Help Support</a>
+                <a href="https://support.lithiumotc.com/" class="text-gray-700 hover:text-gray-900"><i class="fa-solid fa-phone"></i> Help Support</a>
                 
             </div>
             <!-- Right side: logo -->

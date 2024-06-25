@@ -2,10 +2,13 @@
     use App\Models\User;
     use App\Models\Accesscontrol;
     use App\Models\Bank;
+   
+
     $p_data = User::where('id', session('s_user')['id'])->first(); 
     $a_c = Accesscontrol::where('id', 1)->first(); 
     $data = User::where('user_id', session('s_user')['user_id'])->first();
     $bank = Bank::find(1);
+  
 @endphp
 @extends('user.layout.main')
 @section('title', 'Deposite Funds')
@@ -329,19 +332,23 @@
                 
                 <div class="card text-center flex flex-col max-sm:mb-[30px]">
                     <div class="card-header flex justify-between px-5 pt-6 relative z-[2] pb-0">
-                        <h3 class="card-title  capitalize">Payment Modes</h3>
+                        <h3 class="card-title  capitalize">Select Mode</h3>
                     </div> 
                     <br>
                     <div class="card-body">
                         
                         <div>
                             <ul class="navbar-nav nav" id="menu-bar">
-                                <li class="relative">
+                                
+                                <li class="relative" style="{{ $a_c->crypto == 0? 'display:none' : '' }}">
                                     <button id="btn1" class="scroll text-[13px] block py-[0.638rem] px-[0.95rem] text-body-color w-full">CRYPTOCURRENCY</button>
                                 </li>
-                                <li class="relative">
+                             
+                                
+                                <li class="relative" style="{{ $a_c->bank_wire == 0? 'display:none' : '' }}">
                                     <button id="btn2" class="scroll text-[13px] block py-[0.638rem] px-[0.95rem] text-body-color w-full">BANK WIRE</button>
                                 </li>
+                               
                             </ul>
                         </div>
                     </div>

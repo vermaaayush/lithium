@@ -466,6 +466,8 @@ class AdminController extends CompanyController
         $extra1 = $request->has('extra1') ? 1 : 0;
         $extra2 = $request->has('extra2') ? 1 : 0;
         $referral = $request->has('referral') ? 1 : 0;
+        $bank_wire = $request->has('bank_wire') ? 1 : 0;
+        $crypto = $request->has('crypto') ? 1 : 0;
     
         // Update the database in a single command
         Accesscontrol::where('id', 1)->update([
@@ -476,6 +478,8 @@ class AdminController extends CompanyController
             'extra1' => $extra1,
             'extra2' => $extra2,
             'referral' => $referral,
+            'bank_wire' => $bank_wire,
+            'crypto' => $crypto,
         ]);
 
     

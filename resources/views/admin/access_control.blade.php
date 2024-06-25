@@ -76,6 +76,21 @@
                                     <input type="checkbox" id="switcheryColor" class="switchery" data-color="primary" name="referral" {{ $data->referral == 1 ? 'checked' : '' }}/>
                                 </div>
                             </div>
+
+
+                            <div class="form-group row">
+                              <label class="col-md-9 label-control" for="projectinput1">Deposit by bank wire:</label>
+                              <div class="col-md-3">
+                                  <input type="checkbox" id="switcheryColor" class="switchery" data-color="primary" name="bank_wire" {{ $data->bank_wire == 1 ? 'checked' : '' }}/>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-md-9 label-control" for="projectinput1">Deposit by crypto:</label>
+                            <div class="col-md-3">
+                                <input type="checkbox" id="switcheryColor" class="switchery" data-color="primary" name="crypto" {{ $data->crypto == 1 ? 'checked' : '' }}/>
+                            </div>
+                        </div>
                     
                     
                     
